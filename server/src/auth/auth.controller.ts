@@ -6,6 +6,7 @@ import { Request } from 'express';
 import { JwtAuthGuard } from './guards/jwt.guard';
 import { ValidatedPayloadDto } from './dto/validated.dto';
 import { RefreshTokenGuard } from './guards/refresh.guard';
+import { RegisterPayloadDto } from './dto/register.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -24,7 +25,7 @@ export class AuthController {
     }
 
     @Post('register')
-    register(@Body() dto: AuthPayloadDto) {
+    register(@Body() dto: RegisterPayloadDto) {
         return this.authService.register(dto)
     }
 

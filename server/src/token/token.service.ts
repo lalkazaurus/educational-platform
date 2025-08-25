@@ -18,7 +18,7 @@ export class TokenService {
     ) {}
 
     async generateTokens(user: ValidatedPayloadDto) {
-        const payload = { id: user.id, username: user.username }; 
+        const payload = { id: user.id, username: user.username, email: user.email }; 
 
         const accessToken = await this.jwtService.signAsync(payload, {
             expiresIn: '15m',
@@ -80,16 +80,19 @@ export class TokenService {
     }
 
     async refresh(refreshToken: string) {
-        const userData = await this.validateToken(refreshToken);
+        const userData = this.validateToken(refreshToken);
         const tokenData = await this.findToken(userData.id);
 
         if (!tokenData) {
             throw new UnauthorizedException("Unauthorized");
         }
 
-        await this.tokenRepository.delete({ id: tokenData.id });
+        const isValid = await bcrypt.compare(refreshToken, tokenData.refreshTokenHash);
+        if (!isValid) {
+            throw new UnauthorizedException("Invalid refresh token");
+        }
 
-        const user = await this.userService.findByUsername(userData.username);
+        const user = await this.userService.findById(userData.id);
         if (!user) {
             throw new UnauthorizedException("User not found");
         }

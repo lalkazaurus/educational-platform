@@ -5,6 +5,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { ValidatedPayloadDto } from './dto/validated.dto';
 import { TokenService } from 'src/token/token.service';
+import { RegisterPayloadDto } from './dto/register.dto';
 
 @Injectable()
 export class AuthService {
@@ -14,10 +15,10 @@ export class AuthService {
         private readonly tokenService: TokenService
     ) {}
 
-    async validateUser({ username, password }: AuthPayloadDto) {
-       const user =  await this.userService.findByUsername(username)
+    async validateUser({ email, password }: AuthPayloadDto) {
+       const user =  await this.userService.findByEmail(email)
 
-       if (!user) return null
+       if (!user) throw new BadRequestException("User doesn't extist")
 
        const isMatch = await bcrypt.compare(password, user.password);
 
@@ -27,13 +28,13 @@ export class AuthService {
        return result;  
     }
 
-    async register({ username, password }: AuthPayloadDto) {
-        const user = await this.userService.findByUsername(username)
+    async register({ username, email, password }: RegisterPayloadDto) {
+        const user = await this.userService.findUniqueUser(email, username)
 
         if (user) throw new BadRequestException("User already exists")
 
         const hashedPassword = (await bcrypt.hash(password, 10))
-        const newUser = await this.userService.createUser(username, hashedPassword)
+        const newUser = await this.userService.createUser(username, email, hashedPassword)
 
         if (!newUser) throw new Error('Failed to create user');
 
@@ -47,6 +48,8 @@ export class AuthService {
 
     async login(user: ValidatedPayloadDto) {
         const tokenData = await this.tokenService.generateTokens(user)
+
+        await this.userService.setLoginEntry(user.id)
         
         return {
             user,

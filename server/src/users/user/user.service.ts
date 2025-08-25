@@ -19,8 +19,37 @@ export class UserService {
     })
   }
 
-  async createUser(username: string, password: string): Promise<User | null> {
-    const newUser =  this.userRepository.create({username, password})
+  async findByEmail(email: string): Promise<User | null> {
+    return this.userRepository.findOne({
+      where: { email }
+    })
+  }
+
+  async findById(id: number): Promise<User | null> {
+    const user = await this.userRepository.findOne({
+      where: { id }
+    })
+    return user
+  }
+
+  async findUniqueUser(email: string, username: string): Promise<User | null> {
+    return this.userRepository.findOne({
+      where: [
+        { email },
+        { username }
+      ]
+    })
+  }
+
+  async createUser(username: string, email: string,  password: string): Promise<User | null> {
+    const newUser =  this.userRepository.create({ username, email, password })
     return await this.userRepository.save(newUser)
+  }
+
+  async setLoginEntry(id: number): Promise<void> {
+    this.userRepository.update(
+      id, {
+        lastLogin: new Date()
+      })
   }
 }
