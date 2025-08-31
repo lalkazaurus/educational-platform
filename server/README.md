@@ -1,98 +1,146 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 🔐 Authentication Server (NestJS)
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+This is the **backend authentication service** for the learning platform. It is built with **NestJS**, **TypeORM**, and **PostgreSQL**, and provides user registration, login, JWT-based authentication, refresh tokens, and role management.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## ✨ Features
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+* **User Authentication** (Register, Login, Logout)
+* **JWT Access Tokens** with refresh token mechanism
+* **Role-based access control** (`USER`, `MODERATOR`, `ADMIN`)
+* **Password hashing** with `bcrypt`
+* **Guards & Strategies** using `passport-local`, `passport-jwt`, and refresh strategy
+* **Database integration** with PostgreSQL via TypeORM
+* **Session tracking** (last login, active tokens)
+* **Scalable module-based architecture** (Auth, User, Token)
 
-## Project setup
+---
 
-```bash
-$ yarn install
-```
+## 🛠️ Tech Stack
 
-## Compile and run the project
+* [NestJS](https://nestjs.com/) (v11)
+* [TypeORM](https://typeorm.io/)
+* [PostgreSQL](https://www.postgresql.org/)
+* [Passport.js](http://www.passportjs.org/)
+* [JWT](https://jwt.io/)
+* [bcrypt](https://github.com/kelektiv/node.bcrypt.js)
 
-```bash
-# development
-$ yarn run start
+---
 
-# watch mode
-$ yarn run start:dev
+## 🚀 Getting Started
 
-# production mode
-$ yarn run start:prod
-```
+### Prerequisites
 
-## Run tests
+* Node.js 22+
+* npm or yarn
+* PostgreSQL running locally or in Docker
+
+### Installation
 
 ```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
+git clone https://github.com/lalkazaurus/educational-platform.git
+cd server
+npm install
 ```
 
-## Deployment
+### Environment Variables
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+Create a `.env` file in the root directory:
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+```env
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=postgres
+DB_PASSWORD=yourpassword
+DB_NAME=learning_platform
+JWT_SECRET=superSecretKey
+```
+
+---
+
+### Running the Server
+
+#### Development
 
 ```bash
-$ yarn install -g @nestjs/mau
-$ mau deploy
+npm run start:dev
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+#### Production
 
-## Resources
+```bash
+npm run build
+npm run start:prod
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+Server runs by default on **[http://localhost:3000](http://localhost:3000)**
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+---
 
-## Support
+## 📡 API Endpoints
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Auth Routes
 
-## Stay in touch
+* `POST /auth/register` → Register new user `{ username, email, password }`
+* `POST /auth/login` → Login with `{ email, password }`
+* `DELETE /auth/logout` → Logout current user
+* `POST /auth/refresh` → Refresh tokens
+* `GET /auth/status` → Get current logged-in user
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### User Entity
 
-## License
+```ts
+User {
+  id: number;
+  username: string;
+  email: string;
+  password: string;
+  roles: Roles[]; // USER, MODERATOR, ADMIN
+  status: Status; // ACTIVE, BANNED
+  lastLogin: Date;
+  tokens: Token[];
+}
+```
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+---
+
+## 🗂️ Project Structure
+
+```bash
+src/
+├── auth/              # Authentication module (controllers, services, guards, strategies)
+│   ├── dto/           # DTOs for validation
+│   ├── guards/        # Auth guards
+│   ├── strategies/    # Passport strategies
+│   └── auth.module.ts
+├── token/             # Token management (refresh/access)
+├── users/             # User module with entity, service, providers
+├── database/          # Database configuration
+├── app.module.ts      # Root module
+├── main.ts            # Entry point
+```
+
+---
+
+## 🧪 Testing
+
+Unit and E2E tests with **Jest**:
+
+```bash
+npm run test
+npm run test:e2e
+```
+
+---
+
+## 📌 Notes
+
+* Uses **JWT access tokens (15 min)** and **refresh tokens (30 days)**
+* Tokens are hashed and stored in DB for validation
+* Logout deletes tokens from DB (revocation)
+* Role-based access can be extended with custom decorators and guards
+
+---
+
+✅ This authentication server is designed to be the **foundation** for the full learning platform backend.
