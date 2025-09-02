@@ -13,7 +13,7 @@ export class RefreshStrategy extends PassportStrategy(Strategy, 'refresh') {
         private configService: ConfigService,
         private userService: UserService,
         private tokenService: TokenService,
-        private jwtService: JwtService, // 👈 додаєш
+        private jwtService: JwtService,
     ) {
         const secret = configService.get<string>('JWT_SECRET')!;
         super({
