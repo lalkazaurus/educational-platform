@@ -1,12 +1,15 @@
-import { Body, Controller, HttpException, Post, UseGuards, Get, Req, Delete } from '@nestjs/common';
+import { Body, Controller, HttpException, Post, UseGuards, Get, Req, Delete, Param, ParseIntPipe } from '@nestjs/common';
 import { AuthPayloadDto } from './dto/auth.dto';
 import { AuthService } from './auth.service';
-import { LocalGuard } from './guards/local.guard';
+import { LocalGuard } from '../common/guards/local.guard';
 import { Request } from 'express';
-import { JwtAuthGuard } from './guards/jwt.guard';
+import { JwtAuthGuard } from '../common/guards/jwt.guard';
 import { ValidatedPayloadDto } from './dto/validated.dto';
-import { RefreshTokenGuard } from './guards/refresh.guard';
+import { RefreshTokenGuard } from '../common/guards/refresh.guard';
 import { RegisterPayloadDto } from './dto/register.dto';
+import { RolesGuard } from 'src/common/guards/role.quard';
+import { Role } from 'src/common/decorsators/role.decorator';
+import { Roles } from 'src/users/user/types/roles';
 
 @Controller('auth')
 export class AuthController {
@@ -44,5 +47,18 @@ export class AuthController {
     async refresh(@Req() req: Request) {
         const user = req.user as ValidatedPayloadDto & { refreshToken: string };
         return this.authService.refresh(user.refreshToken);
+    }
+
+    @Get('add-new-teacher/:id')
+    @UseGuards(JwtAuthGuard, RolesGuard) 
+    @Role(Roles.ADMIN)
+    async addNewTeacher(
+    @Req() req: Request, 
+    @Param('id', ParseIntPipe) id: number, 
+    ) {
+        const user = req.user as ValidatedPayloadDto
+        console.log(user)
+
+        return this.authService.addNewTeacher(id)
     }
 }

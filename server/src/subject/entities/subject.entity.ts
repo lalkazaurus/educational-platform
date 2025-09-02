@@ -1,0 +1,20 @@
+import { TeacherProfile } from "src/teacher-profile/entities/teacher-profile.entity";
+import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+
+@Entity()
+export class Subject {
+    @PrimaryGeneratedColumn()
+    id: number
+
+    @Column({ type: "text" })
+    name: string
+
+    @Column({ type: "text" })
+    description: string
+
+    @Column({ type: "text" })
+    icon: string
+
+    @ManyToMany(() => TeacherProfile, (teacher) => teacher)
+    teachers: TeacherProfile[]
+}

@@ -1,6 +1,7 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, BadRequestException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
+import { Roles } from './types/roles';
 
 @Injectable()
 export class UserService {
@@ -51,5 +52,21 @@ export class UserService {
       id, {
         lastLogin: new Date()
       })
+  }
+
+  async addNewTeacher(id: number): Promise<string> {
+    const user = await this.findById(id)
+
+    if (!user) {
+      return "User doesn't exist"
+    }
+
+    if (!user.roles.includes(Roles.TEACHER)) {
+      user.roles.push(Roles.TEACHER)
+      await this.userRepository.save(user)
+      return "Teacher role added"
+    }
+
+    return "This user is already a teacher"
   }
 }
