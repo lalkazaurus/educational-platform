@@ -24,10 +24,12 @@ export class TeacherProfile {
     @ManyToMany(() => Subject, (subject) => subject.teachers)
     subject: Subject[]
 
-    @Column({ type: 'json', nullable: true })
+    @Column(
+        { type: 'json', nullable: true , default: []},
+    )
     availableTimes: string[];
 
-    @Column()
+    @Column({ unique: true })
     userId: number;
     
 }

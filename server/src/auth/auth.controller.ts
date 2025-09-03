@@ -53,8 +53,8 @@ export class AuthController {
     @UseGuards(JwtAuthGuard, RolesGuard) 
     @Role(Roles.ADMIN)
     async addNewTeacher(
-    @Req() req: Request, 
-    @Param('id', ParseIntPipe) id: number, 
+        @Req() req: Request, 
+        @Param('id', ParseIntPipe) id: number, 
     ) {
         const user = req.user as ValidatedPayloadDto
         console.log(user)
