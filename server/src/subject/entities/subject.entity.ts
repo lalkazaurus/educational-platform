@@ -6,7 +6,7 @@ export class Subject {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column({ type: "text" })
+    @Column({ type: "text", unique: true })
     name: string
 
     @Column({ type: "text" })
