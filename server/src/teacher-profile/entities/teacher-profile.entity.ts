@@ -6,7 +6,7 @@ export class TeacherProfile {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column({ type: 'text' })
+    @Column({ type: 'text', unique: true })
     fullName: string
 
     @Column({ type: 'text' })

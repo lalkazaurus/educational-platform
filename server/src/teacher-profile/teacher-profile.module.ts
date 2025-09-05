@@ -3,11 +3,13 @@ import { TeacherProfileService } from './teacher-profile.service';
 import { TeacherProfileController } from './teacher-profile.controller';
 import { DatabaseModule } from 'src/database/database.module';
 import { teacherProfileProviders } from './teacher-profile.providers';
+import { SubjectService } from 'src/subject/subject.service';
+import { SubjectModule } from 'src/subject/subject.module';
 
 @Module({
   controllers: [TeacherProfileController],
   providers: [TeacherProfileService, ...teacherProfileProviders],
-  imports: [DatabaseModule],
+  imports: [DatabaseModule, SubjectModule],
   exports: [TeacherProfileService, ...teacherProfileProviders]
 })
 export class TeacherProfileModule {}

@@ -1,4 +1,4 @@
-import { Body, Controller, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Patch, Post, UseGuards } from '@nestjs/common';
 import { SubjectService } from './subject.service';
 import { JwtAuthGuard } from 'src/common/guards/jwt.guard';
 import { RolesGuard } from 'src/common/guards/role.quard';
@@ -24,7 +24,7 @@ export class SubjectController {
     return this.subjectService.update(subject)
   }
 
-  @Patch("/delete")
+  @Delete("/delete")
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Role(Roles.ADMIN)
   async delete(@Body() name: string) {

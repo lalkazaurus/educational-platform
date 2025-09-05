@@ -35,8 +35,24 @@ export class SubjectService {
     }
 
     async delete(name: string): Promise<string | null> {
+        const existingSubject = await this.subjectRepository.find( {
+            where: {name}
+        })
+
+        if (existingSubject.length > 0) throw new BadRequestException("This subject doesn't exist")
+
         await this.subjectRepository.delete({ name })
 
         return "Subject was succesfully deleted"
+    }
+
+    async findSubjectById(id: number) {
+        const subject = await this.subjectRepository.find({
+            where: { id }
+        })
+
+        if (subject.length === 0) throw new BadRequestException("This subject doesn't exist")
+
+        return subject
     }
 }
