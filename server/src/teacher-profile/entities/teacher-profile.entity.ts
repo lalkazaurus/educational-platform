@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToMany, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Subject } from "src/subject/entities/subject.entity"
 
 @Entity()
@@ -22,7 +22,8 @@ export class TeacherProfile {
     pricePerHour: number;
 
     @ManyToMany(() => Subject, (subject) => subject.teachers)
-    subject: Subject[]
+    @JoinTable()
+    subjects: Subject[]
 
     @Column(
         { type: 'json', nullable: true , default: []},

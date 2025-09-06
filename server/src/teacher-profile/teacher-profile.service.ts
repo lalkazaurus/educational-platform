@@ -57,21 +57,41 @@ export class TeacherProfileService {
         return "Your profile was succesfully deleted"
     }
 
-    async addSubject(teacherId: number, subjectId: number) {
-        const subject = await this.subjectService.findSubjectById(subjectId);
-
+    async addSubject(userId: number, subjectId: number) {
         const teacher = await this.teacherProfileRepository.findOne({
-            where: { id: teacherId },
-            relations: ["subject"], 
+            where: { userId },
+            relations: ["subjects"],
         });
 
         if (!teacher) throw new BadRequestException("This profile doesn't exist");
 
-        if (teacher.subject.some(s => s.id === subject[0].id)) {
+        const subject = await this.subjectService.findSubjectById(subjectId);
+
+        if (teacher.subjects.some(s => s.id === subject.id)) {
             throw new BadRequestException("This subject is already on your profile");
         }
 
-        teacher.subject.push(subject[0]);
+        teacher.subjects.push(subject);
+
+        await this.teacherProfileRepository.save(teacher);
+
+        return teacher;
+    }
+
+    async addAvailableTime(userId: number, hours: string[]) {
+        const teacher = await this.teacherProfileRepository.findOne({
+            where: { userId },
+        });
+
+        if (!teacher) throw new BadRequestException("This profile doesn't exist");
+
+        const newHours = hours.filter(h => !teacher.availableTimes.includes(h));
+
+        if (newHours.length === 0) {
+            throw new BadRequestException("All these times are already added");
+        }
+
+        teacher.availableTimes.push(...newHours);
 
         await this.teacherProfileRepository.save(teacher);
 

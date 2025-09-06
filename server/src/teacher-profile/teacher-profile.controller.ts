@@ -7,6 +7,8 @@ import { Roles } from 'src/users/user/types/roles';
 import { TeacherProfileDto } from './dto/teacher-profile.dto';
 import { Request } from 'express';
 import { ValidatedPayloadDto } from 'src/auth/dto/validated.dto';
+import { AddSubjectDto } from './dto/add-subject.dto';
+import { AddAvailableTimestDto } from './dto/add-available-times.dto';
 
 @Controller('teacher-profile')
 export class TeacherProfileController {
@@ -38,7 +40,23 @@ export class TeacherProfileController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Role(Roles.TEACHER)
   async delete(@Req() req: Request) {
-    const userId = req.user as ValidatedPayloadDto; 
-    return await this.teacherProfileService.delete(userId.id)
+    const user = req.user as ValidatedPayloadDto; 
+    return await this.teacherProfileService.delete(user.id)
+  }
+
+  @Post("add-subject") 
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Role(Roles.TEACHER) 
+  async addSubject(@Body() data: AddSubjectDto, @Req() req: Request){
+    const user = req.user as ValidatedPayloadDto; 
+    return await this.teacherProfileService.addSubject(user.id, data.subjectId)
+  }
+
+  @Post("add-available-time")
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Role(Roles.TEACHER)
+  async addAvailableTime(@Body() data: AddAvailableTimestDto, @Req() req: Request) {
+    const user = req.user as ValidatedPayloadDto; 
+    return await this.teacherProfileService.addAvailableTime(user.id, data.time)
   }
 }

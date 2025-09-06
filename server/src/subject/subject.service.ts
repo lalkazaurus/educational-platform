@@ -46,13 +46,11 @@ export class SubjectService {
         return "Subject was succesfully deleted"
     }
 
-    async findSubjectById(id: number) {
-        const subject = await this.subjectRepository.find({
-            where: { id }
-        })
+    async findSubjectById(id: number): Promise<Subject> {
+        const subject = await this.subjectRepository.findOne({ where: { id } });
 
-        if (subject.length === 0) throw new BadRequestException("This subject doesn't exist")
+        if (!subject) throw new BadRequestException("This subject doesn't exist");
 
-        return subject
+        return subject;
     }
 }

@@ -15,6 +15,6 @@ export class Subject {
     @Column({ type: "text" })
     icon: string
 
-    @ManyToMany(() => TeacherProfile, (teacher) => teacher)
-    teachers: TeacherProfile[]
+    @ManyToMany(() => TeacherProfile, (teacher) => teacher.subjects)
+    teachers: TeacherProfile[];
 }
