@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Token } from "../../../token/entities/tokens.entity";
-import { IsEmail } from "class-validator";
+import { IsEmail, IsNotEmpty, IsPhoneNumber } from "class-validator";
 import { Roles } from "../types/roles";
 import { Status } from "../types/status";
 
@@ -12,6 +12,7 @@ export class User {
     @Column({
         unique: true
     })
+    @IsNotEmpty({ message: "Name is required" })
     username: string
 
     @Column({ type: 'text' })
@@ -42,6 +43,10 @@ export class User {
         default: () => 'CURRENT_TIMESTAMP'
     })
     lastLogin: Date
+
+    @Column({ type: "text" })
+    @IsPhoneNumber()
+    phoneNumber: string
 
     @OneToMany(() => Token, (token) => token.user)
     tokens: Token[];

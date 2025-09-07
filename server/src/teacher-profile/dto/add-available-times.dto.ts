@@ -1,3 +1,3 @@
-export class AddAvailableTimestDto {
+export class AddAvailableTimesDto {
     time: string[]
 }

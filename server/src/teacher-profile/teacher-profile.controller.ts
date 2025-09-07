@@ -8,7 +8,7 @@ import { TeacherProfileDto } from './dto/teacher-profile.dto';
 import { Request } from 'express';
 import { ValidatedPayloadDto } from 'src/auth/dto/validated.dto';
 import { AddSubjectDto } from './dto/add-subject.dto';
-import { AddAvailableTimestDto } from './dto/add-available-times.dto';
+import { AddAvailableTimesDto } from './dto/add-available-times.dto';
 
 @Controller('teacher-profile')
 export class TeacherProfileController {
@@ -55,8 +55,13 @@ export class TeacherProfileController {
   @Post("add-available-time")
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Role(Roles.TEACHER)
-  async addAvailableTime(@Body() data: AddAvailableTimestDto, @Req() req: Request) {
+  async addAvailableTime(@Body() data: AddAvailableTimesDto, @Req() req: Request) {
     const user = req.user as ValidatedPayloadDto; 
     return await this.teacherProfileService.addAvailableTime(user.id, data.time)
+  }
+
+  @Get("")
+  async findAll() {
+    return await this.teacherProfileService.findAll()
   }
 }

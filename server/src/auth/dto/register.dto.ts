@@ -1,7 +1,10 @@
 import { AuthPayloadDto } from "./auth.dto";
-import { IsString } from 'class-validator';
+import { IsPhoneNumber, IsString } from 'class-validator';
 
 export class RegisterPayloadDto extends AuthPayloadDto {
   @IsString()
-  username: string
+  username: string;
+  
+  @IsPhoneNumber()
+  phoneNumber: string;
 }

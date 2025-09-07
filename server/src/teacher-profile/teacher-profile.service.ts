@@ -12,6 +12,10 @@ export class TeacherProfileService {
         private subjectService: SubjectService
     ) {}
 
+    async findAll() {
+        return await this.teacherProfileRepository.find()
+    }
+
     async create(teacherInfo: TeacherProfileDto, userId: number) {
         const existingTeacher = await this.teacherProfileRepository.find({
             where: {userId}
@@ -49,7 +53,7 @@ export class TeacherProfileService {
             where: {userId}
         })
 
-        if (teacher.length > 0) throw new BadRequestException("This profile doesn't exist")
+        if (teacher.length === 0) throw new BadRequestException("This profile doesn't exist")
 
         await this.teacherProfileRepository.delete({
             userId

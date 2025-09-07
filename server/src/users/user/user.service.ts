@@ -33,17 +33,18 @@ export class UserService {
     return user
   }
 
-  async findUniqueUser(email: string, username: string): Promise<User | null> {
+  async findUniqueUser(email: string, username: string, phoneNumber: string): Promise<User | null> {
     return this.userRepository.findOne({
       where: [
         { email },
-        { username }
+        { username },
+        { phoneNumber }
       ]
     })
   }
 
-  async createUser(username: string, email: string,  password: string): Promise<User | null> {
-    const newUser =  this.userRepository.create({ username, email, password })
+  async createUser(username: string, email: string,  password: string, phoneNumber: string): Promise<User | null> {
+    const newUser =  this.userRepository.create({ username, email, password, phoneNumber })
     return await this.userRepository.save(newUser)
   }
 

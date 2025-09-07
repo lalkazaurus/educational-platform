@@ -18,7 +18,7 @@ export class TokenService {
     ) {}
 
     async generateTokens(user: ValidatedPayloadDto) {
-        const payload = { id: user.id, username: user.username, email: user.email }; 
+        const payload = { id: user.id, username: user.username, email: user.email, phoneNumber: user.phoneNumber, status: user.status }; 
 
         const accessToken = await this.jwtService.signAsync(payload, {
             expiresIn: '15m',
@@ -80,7 +80,7 @@ export class TokenService {
     }
 
     async refresh(refreshToken: string) {
-        const userData = this.validateToken(refreshToken);
+        const userData = await this.validateToken(refreshToken);
         const tokenData = await this.findToken(userData.id);
 
         if (!tokenData) {

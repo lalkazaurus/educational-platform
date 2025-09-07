@@ -28,13 +28,13 @@ export class AuthService {
        return result;  
     }
 
-    async register({ username, email, password }: RegisterPayloadDto) {
-        const user = await this.userService.findUniqueUser(email, username)
+    async register({ username, email, password, phoneNumber }: RegisterPayloadDto) {
+        const user = await this.userService.findUniqueUser(email, username, phoneNumber)
 
         if (user) throw new BadRequestException("User already exists")
 
         const hashedPassword = (await bcrypt.hash(password, 10))
-        const newUser = await this.userService.createUser(username, email, hashedPassword)
+        const newUser = await this.userService.createUser(username, email, hashedPassword, phoneNumber)
 
         if (!newUser) throw new Error('Failed to create user');
 

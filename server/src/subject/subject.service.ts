@@ -10,6 +10,10 @@ export class SubjectService {
         private readonly subjectRepository: Repository<Subject>
     ) {}
 
+    async findAll() {
+        return await this.subjectRepository.find()
+    }
+
     async create(subjectData: InitialSubjectDto): Promise<Subject | null> {
         const existingSubject = await this.subjectRepository.find({
             where: {name: subjectData.name}
@@ -39,7 +43,7 @@ export class SubjectService {
             where: {name}
         })
 
-        if (existingSubject.length > 0) throw new BadRequestException("This subject doesn't exist")
+        if (existingSubject.length === 0) throw new BadRequestException("This subject doesn't exist")
 
         await this.subjectRepository.delete({ name })
 
