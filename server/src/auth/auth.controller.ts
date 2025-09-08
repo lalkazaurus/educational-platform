@@ -56,9 +56,6 @@ export class AuthController {
         @Req() req: Request, 
         @Param('id', ParseIntPipe) id: number, 
     ) {
-        const user = req.user as ValidatedPayloadDto
-        console.log(user)
-
         return this.authService.addNewTeacher(id)
     }
 }

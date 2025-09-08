@@ -6,10 +6,10 @@ import { Role } from "src/common/decorsators/role.decorator";
 import { Roles } from "./types/roles";
 
 @Controller("users")
-export class UserController {
+export class UsersController {
     constructor (private readonly userService: UserService) {}
 
-    @Get("")
+    @Get("/")
     @UseGuards(JwtAuthGuard, RolesGuard)
     @Role(Roles.ADMIN) 
     async findAll() {

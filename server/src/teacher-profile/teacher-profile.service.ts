@@ -128,7 +128,7 @@ export class TeacherProfileService {
             { id: teacher.id }, 
             { availableTimes: newTimes }
         )
-        return teacher
+        return `Hours ${hoursToRemove.join(', ')} succesfully removed from your account`
     }
 
     async addLanguages(userId: number, languages: string[]) {
@@ -163,7 +163,7 @@ export class TeacherProfileService {
             { id: teacher.id }, 
             { languages: newLanguages }
         )
-        return teacher
+        return `Languages ${languagesToRemove.join(', ')} succesfully removed from your account`
     }
 
     async addLevels(userId: number, levels: string[]) {
@@ -172,12 +172,12 @@ export class TeacherProfileService {
         })
 
         if (!teacher) throw new BadRequestException("This profile doesn't exist")
-        const newLessons = levels.filter(l => !teacher.languages.includes(l))
-        if (newLessons.length === 0) {
-            throw new BadRequestException("All these lessons are already added")
+        const newLevels = levels.filter(l => !teacher.levels.includes(l))
+        if (newLevels.length === 0) {
+            throw new BadRequestException("All these levels are already added")
         }
 
-        teacher.levels.push(...newLessons)
+        teacher.levels.push(...newLevels)
         await this.teacherProfileRepository.save(teacher)
         return teacher
     }
@@ -190,7 +190,7 @@ export class TeacherProfileService {
         if (!teacher) throw new BadRequestException("This profile doesn't exist")
         const lessonsToRemove = levels.filter(l => teacher.levels.includes(l))
         if (lessonsToRemove.length === 0) {
-            throw new BadRequestException("These lessons doesn't exist on your account")
+            throw new BadRequestException("These levels doesn't exist on your account")
         }
 
         const newLessons = teacher.levels.filter(l => !teacher.levels.includes(l))
@@ -198,6 +198,6 @@ export class TeacherProfileService {
             { id: teacher.id },
             { levels: newLessons }
         )
-        return teacher
+        return `Lessons ${lessonsToRemove.join(', ')} succesfully removed from your account`
     }
 }

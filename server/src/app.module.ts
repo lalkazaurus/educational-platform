@@ -5,11 +5,12 @@ import { ConfigModule } from '@nestjs/config';
 import { TokenModule } from './token/token.module';
 import { TeacherProfileModule } from './teacher-profile/teacher-profile.module';
 import { SubjectModule } from './subject/subject.module';
+import { UserModule } from './users/user/user.module';
 
 @Module({
   imports: [AuthModule, DatabaseModule, ConfigModule.forRoot({
     isGlobal: true
-  }), TokenModule, TeacherProfileModule, SubjectModule],
+  }), TokenModule, TeacherProfileModule, SubjectModule, UserModule],
   controllers: [],
   providers: [],
 })
