@@ -101,4 +101,44 @@ export class TeacherProfileService {
 
         return teacher;
     }
+
+    async addLanguages(userId: number, languages: string[]) {
+        const teacher = await this.teacherProfileRepository.findOne({
+            where: { userId }
+        })
+
+        if (!teacher) throw new BadRequestException("This profile doesn't exist")
+
+        const newLanguages = languages.filter(l => !teacher.languages.includes(l))
+
+        if (newLanguages.length === 0) {
+            throw new BadRequestException("All these languages are already added")
+        }
+
+        teacher.languages.push(...newLanguages)
+
+        await this.teacherProfileRepository.save(teacher)
+
+        return teacher
+    }
+
+    async addLevels(userId: number, levels: string[]) {
+        const teacher = await this.teacherProfileRepository.findOne({
+            where: { userId }
+        })
+
+        if (!teacher) throw new BadRequestException("This profile doesn't exist")
+
+        const newLessons = levels.filter(l => !teacher.languages.includes(l))
+
+        if (newLessons.length === 0) {
+            throw new BadRequestException("All these lessons are already added")
+        }
+
+        teacher.levels.push(...newLessons)
+
+        await this.teacherProfileRepository.save(teacher)
+
+        return teacher
+    }
 }

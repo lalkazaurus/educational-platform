@@ -18,7 +18,7 @@ export class TeacherProfile {
     @Column({ type: "text" })
     experience: string
 
-    @Column({ type: 'decimal' })
+    @Column({ type: 'float' })
     pricePerHour: number;
 
     @ManyToMany(() => Subject, (subject) => subject.teachers)
@@ -32,5 +32,13 @@ export class TeacherProfile {
 
     @Column({ unique: true })
     userId: number;
-    
+
+    @Column({ type: "float", default: 0 })
+    rating: number
+
+    @Column({ type: 'json', nullable: true, default: ['Ukrainian']})
+    languages: string[]
+
+    @Column({ type: 'json', nullable: true, default: []})
+    levels: string[]
 }

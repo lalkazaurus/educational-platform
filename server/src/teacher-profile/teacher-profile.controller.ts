@@ -9,10 +9,17 @@ import { Request } from 'express';
 import { ValidatedPayloadDto } from 'src/auth/dto/validated.dto';
 import { AddSubjectDto } from './dto/add-subject.dto';
 import { AddAvailableTimesDto } from './dto/add-available-times.dto';
+import { AddLanguagesDto } from './dto/add-languages.dto';
+import { AddLevelsDto } from './dto/add-levels.dto';
 
 @Controller('teacher-profile')
 export class TeacherProfileController {
   constructor(private readonly teacherProfileService: TeacherProfileService) {}
+
+  @Get("")
+  async findAll() {
+    return await this.teacherProfileService.findAll()
+  }
 
   @Post("create")
   @UseGuards(JwtAuthGuard, RolesGuard)
@@ -60,8 +67,19 @@ export class TeacherProfileController {
     return await this.teacherProfileService.addAvailableTime(user.id, data.time)
   }
 
-  @Get("")
-  async findAll() {
-    return await this.teacherProfileService.findAll()
+  @Post("add-languages")
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Role(Roles.TEACHER)
+  async addLanguages(@Body() data: AddLanguagesDto, @Req() req: Request) {
+    const user = req.user as ValidatedPayloadDto;
+    return await this.teacherProfileService.addLanguages(user.id, data.languages)
+  }
+
+  @Post("add-levels")
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Role(Roles.TEACHER)
+  async addLevels(@Body() data: AddLevelsDto, @Req() req: Request) {
+    const user = req.user as ValidatedPayloadDto;
+    return await this.teacherProfileService.addLevels(user.id, data.levels)
   }
 }
