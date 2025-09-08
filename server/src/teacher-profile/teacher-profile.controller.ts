@@ -59,12 +59,28 @@ export class TeacherProfileController {
     return await this.teacherProfileService.addSubject(user.id, data.subjectId)
   }
 
+  @Patch("remove-subject")
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Role(Roles.TEACHER)
+  async removeSubject(@Body() data: AddSubjectDto, @Req() req: Request) {
+    const user = req.user as ValidatedPayloadDto
+    return await this.teacherProfileService.removeSubject(user.id, data.subjectId)
+  }
+
   @Post("add-available-time")
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Role(Roles.TEACHER)
   async addAvailableTime(@Body() data: AddAvailableTimesDto, @Req() req: Request) {
     const user = req.user as ValidatedPayloadDto; 
     return await this.teacherProfileService.addAvailableTime(user.id, data.time)
+  }
+
+  @Patch("remove-available-time")
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Role(Roles.TEACHER)
+  async removeAvailableTime (@Body() data: AddAvailableTimesDto, @Req() req: Request) {
+    const user = req.user as ValidatedPayloadDto
+    return await this.teacherProfileService.removeAvailableTime(user.id, data.time)
   }
 
   @Post("add-languages")
@@ -75,11 +91,27 @@ export class TeacherProfileController {
     return await this.teacherProfileService.addLanguages(user.id, data.languages)
   }
 
+  @Patch("remove-languages")
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Role(Roles.TEACHER)
+  async removeLanguages(@Body() data: AddLanguagesDto, @Req() req: Request) {
+    const user = req.user as ValidatedPayloadDto
+    return await this.teacherProfileService.removeLanguages(user.id, data.languages)
+  }
+
   @Post("add-levels")
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Role(Roles.TEACHER)
   async addLevels(@Body() data: AddLevelsDto, @Req() req: Request) {
     const user = req.user as ValidatedPayloadDto;
     return await this.teacherProfileService.addLevels(user.id, data.levels)
+  }
+
+  @Patch("remove-levels")
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Role(Roles.TEACHER)
+  async removeLevels(@Body() data: AddLevelsDto, @Req() req: Request) {
+    const user = req.user as ValidatedPayloadDto
+    return await this.teacherProfileService.removeLevels(user.id, data.levels)
   }
 }
