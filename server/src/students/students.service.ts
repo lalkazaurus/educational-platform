@@ -1,15 +1,58 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Student } from './entities/student.entity';
+import { InitialStudentDto } from './dto/initial-subject.dto';
+import { UserService } from 'src/users/user/user.service';
 
 @Injectable()
 export class StudentsService {
     constructor (
-        @Inject("TEACHER_PROFILE_REPOSITORY")
+        @Inject("STUDENTS_REPOSITORY")
         private studentsRepository: Repository<Student>,
+        private readonly userService: UserService
     ) {}
 
     async findAll() {
         return await this.studentsRepository.find()
+    }
+
+    async createStudentProfile(studentInfo: InitialStudentDto, userId: number) {
+        const existingStudent = await this.studentsRepository.findOne({
+            where: {userId}
+        })
+
+        if (existingStudent) throw new BadRequestException("This student profile is already exists")
+
+        const student = await this.studentsRepository.create({...studentInfo})
+        this.studentsRepository.save(student)
+        return student
+    }
+
+    async updateStusentProfile(studentInfo: InitialStudentDto, userId: number) {
+        const existingStusent = await this.studentsRepository.findOne({
+            where: { userId }
+        })
+
+        if (!existingStusent) throw new BadRequestException("This profile doesn't exist")
+
+        await this.studentsRepository.update(
+            {userId}, 
+            {...studentInfo}
+        )
+
+        return "Your profile was succesfully updated"
+    } 
+
+    async deleteStusentProfile(userId: number) {
+        const existingStudent = await this.studentsRepository.find({
+            where: {userId}
+        })
+
+        if (!existingStudent) throw new BadRequestException("This profile doesn't exist")
+
+        await this.studentsRepository.delete({userId})
+        await this.userService.becomeStudent(userId)
+
+        return "Your profile was succesfully updated"
     }
 }

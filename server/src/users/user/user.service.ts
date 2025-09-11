@@ -70,4 +70,16 @@ export class UserService {
 
     return "This user is already a teacher"
   }
+
+  async becomeStudent(userId: number) {
+    const existingUser = await this.userRepository.findOne({
+      where: { id: userId }
+    })
+
+    if (!existingUser) throw new BadRequestException("This user doesn't exist")
+    if (existingUser.roles.includes(Roles.STUDENT)) throw new BadRequestException("You already are the student of our school")
+
+    existingUser.roles.push(Roles.STUDENT)
+    await this.userRepository.save(existingUser)
+  }
 }
