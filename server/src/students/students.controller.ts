@@ -7,6 +7,7 @@ import { Roles } from 'src/users/user/types/roles';
 import { InitialStudentDto } from './dto/initial-subject.dto';
 import { Request } from 'express';
 import { ValidatedPayloadDto } from 'src/auth/dto/validated.dto';
+import { StudentsGuard } from './guards/student.guard';
 
 @Controller('students')
 export class StudentsController {
@@ -27,15 +28,17 @@ export class StudentsController {
   }
 
   @Patch("update")
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard, StudentsGuard)
   @Role(Roles.STUDENT)
-  async update(@Body() data: InitialStudentDto, @Req() req: Request) {
+  async update(@Body() data: InitialStudentDto, @Req() req: any) {
     const user = req.user as ValidatedPayloadDto
-    return await this.studentsService.updateStusentProfile(data, user.id)
+    const student = req.student as InitialStudentDto
+
+    return await this.studentsService.updateStusentProfile(student, user.id)
   }
 
   @Delete("delete")
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard, StudentsGuard)
   @Role(Roles.STUDENT)
   async delete(@Req() req: Request) {
     const user = req.user as ValidatedPayloadDto

@@ -16,6 +16,14 @@ export class StudentsService {
         return await this.studentsRepository.find()
     }
 
+    async findStudentsProfileByUserId(userId: number) {
+        const student = await this.studentsRepository.findOne({
+            where: {userId}
+        })
+
+        return student
+    }
+
     async createStudentProfile(studentInfo: InitialStudentDto, userId: number) {
         const existingStudent = await this.studentsRepository.findOne({
             where: {userId}
@@ -26,17 +34,11 @@ export class StudentsService {
         const student = await this.studentsRepository.create({...studentInfo, userId})
         this.studentsRepository.save(student)
         await this.userService.becomeStudent(userId)
-        
+
         return student
     }
 
     async updateStusentProfile(studentInfo: InitialStudentDto, userId: number) {
-        const existingStusent = await this.studentsRepository.findOne({
-            where: { userId }
-        })
-
-        if (!existingStusent) throw new BadRequestException("This profile doesn't exist")
-
         await this.studentsRepository.update(
             {userId}, 
             {...studentInfo}
@@ -46,12 +48,6 @@ export class StudentsService {
     } 
 
     async deleteStusentProfile(userId: number) {
-        const existingStudent = await this.studentsRepository.find({
-            where: {userId}
-        })
-
-        if (!existingStudent) throw new BadRequestException("This profile doesn't exist")
-
         await this.studentsRepository.delete({userId})
 
         return "Your profile was succesfully updated"
