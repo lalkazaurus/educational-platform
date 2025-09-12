@@ -13,7 +13,7 @@ export class Student {
     dateOfBirth: string
 
     @Column({ type: "text" })
-    learning_goal: string
+    learningGoal: string
 
     @Column({
         type: "float",

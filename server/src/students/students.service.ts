@@ -23,8 +23,10 @@ export class StudentsService {
 
         if (existingStudent) throw new BadRequestException("This student profile is already exists")
 
-        const student = await this.studentsRepository.create({...studentInfo})
+        const student = await this.studentsRepository.create({...studentInfo, userId})
         this.studentsRepository.save(student)
+        await this.userService.becomeStudent(userId)
+        
         return student
     }
 
@@ -51,7 +53,6 @@ export class StudentsService {
         if (!existingStudent) throw new BadRequestException("This profile doesn't exist")
 
         await this.studentsRepository.delete({userId})
-        await this.userService.becomeStudent(userId)
 
         return "Your profile was succesfully updated"
     }

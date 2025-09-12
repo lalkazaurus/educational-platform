@@ -8,8 +8,5 @@ export class InitialStudentDto {
     dateOfBirth: string
     
     @IsString()
-    learning_goal: string
-
-    @IsInt()
-    userId: number
+    learningGoal: string
 }
