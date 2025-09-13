@@ -17,6 +17,13 @@ export class TeacherProfileService {
         return await this.teacherProfileRepository.find()
     }
 
+    async findTeacherByUserId(userId: number) {
+        return await this.teacherProfileRepository.findOne({
+            where: {userId},
+            relations: ["subjects"],
+        })
+    }
+
     async create(teacherInfo: TeacherProfileDto, userId: number) {
         const existingTeacher = await this.teacherProfileRepository.find({
             where: {userId}
