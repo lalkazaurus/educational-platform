@@ -1,7 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { AuthPayloadDto } from './dto/auth.dto';
 import { UserService } from 'src/users/user/user.service';
-import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { ValidatedPayloadDto } from './dto/validated.dto';
 import { TokenService } from 'src/token/token.service';
@@ -11,7 +10,6 @@ import { RegisterPayloadDto } from './dto/register.dto';
 export class AuthService {
     constructor (
         private readonly userService: UserService,
-        private readonly jwtService: JwtService,
         private readonly tokenService: TokenService
     ) {}
 

@@ -119,4 +119,8 @@ export class TokenService {
 
         return token
     }
+
+    async compareAccessToken(rawToken: string, hashedToken: string): Promise<boolean> {
+        return bcrypt.compare(rawToken, hashedToken);
+    }
 }
