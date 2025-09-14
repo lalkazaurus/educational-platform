@@ -38,11 +38,11 @@ export class TeacherProfileController {
   @UseGuards(JwtAuthGuard, RolesGuard, TeacherProfileGuard)
   @Role(Roles.TEACHER)
   async update(
-    @Req() req: any
+    @Body() dto: TeacherProfileDto,
+    @Req() req: Request
   ) {
     const user = req.user as ValidatedPayloadDto;
-    const teacher = req.teacher as TeacherProfileDto
-    return await this.teacherProfileService.update(teacher, user.id);
+    return await this.teacherProfileService.update(dto, user.id);
   }
 
   @Delete("delete")

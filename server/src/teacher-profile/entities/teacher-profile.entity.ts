@@ -1,5 +1,6 @@
 import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Subject } from "src/subject/entities/subject.entity"
+import { Student } from "src/students/entities/student.entity";
 
 @Entity()
 export class TeacherProfile {
@@ -21,9 +22,13 @@ export class TeacherProfile {
     @Column({ type: 'float' })
     pricePerHour: number;
 
-    @ManyToMany(() => Subject, (subject) => subject.teachers)
+    @ManyToMany(() => Subject, subject => subject.teachers, { eager: false })
     @JoinTable()
-    subjects: Subject[]
+    subjects: Subject[];
+
+    @ManyToMany(() => Student, (student) => student.teachers)
+    @JoinTable()
+    students: Student[]
 
     @Column(
         { type: 'json', nullable: true , default: []},

@@ -1,6 +1,7 @@
-import { BadRequestException, CanActivate, ExecutionContext } from "@nestjs/common";
+import { BadRequestException, CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
 import { TeacherProfileService } from "../teacher-profile.service";
 
+@Injectable()
 export class TeacherProfileGuard implements CanActivate {
     constructor(private readonly teacherProfileService: TeacherProfileService) {}
 
