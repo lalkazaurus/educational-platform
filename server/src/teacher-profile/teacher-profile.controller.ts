@@ -11,6 +11,8 @@ import { AddSubjectDto } from './dto/add-subject.dto';
 import { AddAvailableTimesDto } from './dto/add-available-times.dto';
 import { AddLanguagesDto } from './dto/add-languages.dto';
 import { AddLevelsDto } from './dto/add-levels.dto';
+import { TeacherProfileGuard } from './guards/teacher-profile.guard';
+import { FullTeacherProfileDto } from './dto/full-teacher-profile.dto';
 
 @Controller('teacher-profile')
 export class TeacherProfileController {
@@ -33,18 +35,18 @@ export class TeacherProfileController {
   }
 
   @Patch("update")
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard, TeacherProfileGuard)
   @Role(Roles.TEACHER)
   async update(
-    @Body() teacher: TeacherProfileDto,
-    @Req() req: Request
+    @Req() req: any
   ) {
     const user = req.user as ValidatedPayloadDto;
+    const teacher = req.teacher as TeacherProfileDto
     return await this.teacherProfileService.update(teacher, user.id);
   }
 
   @Delete("delete")
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard, TeacherProfileGuard)
   @Role(Roles.TEACHER)
   async delete(@Req() req: Request) {
     const user = req.user as ValidatedPayloadDto; 
@@ -52,66 +54,66 @@ export class TeacherProfileController {
   }
 
   @Post("add-subject") 
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard, TeacherProfileGuard)
   @Role(Roles.TEACHER) 
-  async addSubject(@Body() data: AddSubjectDto, @Req() req: Request){
-    const user = req.user as ValidatedPayloadDto; 
-    return await this.teacherProfileService.addSubject(user.id, data.subjectId)
+  async addSubject(@Body() data: AddSubjectDto, @Req() req: any){
+    const teacher = req.teacher as FullTeacherProfileDto
+    return await this.teacherProfileService.addSubject(data.subjectId, teacher)
   }
 
   @Patch("remove-subject")
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard, TeacherProfileGuard)
   @Role(Roles.TEACHER)
-  async removeSubject(@Body() data: AddSubjectDto, @Req() req: Request) {
-    const user = req.user as ValidatedPayloadDto
-    return await this.teacherProfileService.removeSubject(user.id, data.subjectId)
+  async removeSubject(@Body() data: AddSubjectDto, @Req() req: any) {
+    const teacher = req.teacher as FullTeacherProfileDto
+    return await this.teacherProfileService.removeSubject(data.subjectId, teacher)
   }
 
   @Post("add-available-time")
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard, TeacherProfileGuard)
   @Role(Roles.TEACHER)
-  async addAvailableTime(@Body() data: AddAvailableTimesDto, @Req() req: Request) {
-    const user = req.user as ValidatedPayloadDto; 
-    return await this.teacherProfileService.addAvailableTime(user.id, data.time)
+  async addAvailableTime(@Body() data: AddAvailableTimesDto, @Req() req: any) {
+    const teacher = req.teacher as FullTeacherProfileDto;
+    return await this.teacherProfileService.addAvailableTime(data.time, teacher)
   }
 
   @Patch("remove-available-time")
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard, TeacherProfileGuard)
   @Role(Roles.TEACHER)
-  async removeAvailableTime (@Body() data: AddAvailableTimesDto, @Req() req: Request) {
-    const user = req.user as ValidatedPayloadDto
-    return await this.teacherProfileService.removeAvailableTime(user.id, data.time)
+  async removeAvailableTime (@Body() data: AddAvailableTimesDto, @Req() req: any) {
+    const teacher = req.teacher as FullTeacherProfileDto;
+    return await this.teacherProfileService.removeAvailableTime(data.time, teacher)
   }
 
   @Post("add-languages")
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard, TeacherProfileGuard)
   @Role(Roles.TEACHER)
-  async addLanguages(@Body() data: AddLanguagesDto, @Req() req: Request) {
-    const user = req.user as ValidatedPayloadDto;
-    return await this.teacherProfileService.addLanguages(user.id, data.languages)
+  async addLanguages(@Body() data: AddLanguagesDto, @Req() req: any) {
+    const teacher = req.teacher as FullTeacherProfileDto
+    return await this.teacherProfileService.addLanguages(data.languages, teacher)
   }
 
   @Patch("remove-languages")
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard, TeacherProfileGuard)
   @Role(Roles.TEACHER)
-  async removeLanguages(@Body() data: AddLanguagesDto, @Req() req: Request) {
-    const user = req.user as ValidatedPayloadDto
-    return await this.teacherProfileService.removeLanguages(user.id, data.languages)
+  async removeLanguages(@Body() data: AddLanguagesDto, @Req() req: any) {
+    const teacher = req.teacher as FullTeacherProfileDto
+    return await this.teacherProfileService.removeLanguages(data.languages, teacher)
   }
 
   @Post("add-levels")
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard, TeacherProfileGuard)
   @Role(Roles.TEACHER)
-  async addLevels(@Body() data: AddLevelsDto, @Req() req: Request) {
-    const user = req.user as ValidatedPayloadDto;
-    return await this.teacherProfileService.addLevels(user.id, data.levels)
+  async addLevels(@Body() data: AddLevelsDto, @Req() req: any) {
+    const teacher = req.teacher as FullTeacherProfileDto
+    return await this.teacherProfileService.addLevels(data.levels, teacher)
   }
 
   @Patch("remove-levels")
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard, TeacherProfileGuard)
   @Role(Roles.TEACHER)
-  async removeLevels(@Body() data: AddLevelsDto, @Req() req: Request) {
-    const user = req.user as ValidatedPayloadDto
-    return await this.teacherProfileService.removeLevels(user.id, data.levels)
+  async removeLevels(@Body() data: AddLevelsDto, @Req() req: any) {
+    const teacher = req.teacher as FullTeacherProfileDto
+    return await this.teacherProfileService.removeLevels(data.levels, teacher)
   }
 }

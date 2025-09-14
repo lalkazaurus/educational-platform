@@ -12,6 +12,7 @@ export class TeacherProfileGuard implements CanActivate {
 
         if (!teacher) throw new BadRequestException("This profile doesn't exist")
         
+        req.teacher = teacher
         return true
     }
 }

@@ -4,6 +4,7 @@ import { TeacherProfile } from './entities/teacher-profile.entity';
 import { TeacherProfileDto } from './dto/teacher-profile.dto';
 import { SubjectService } from 'src/subject/subject.service';
 import { notEqual } from 'assert';
+import { FullTeacherProfileDto } from './dto/full-teacher-profile.dto';
 
 @Injectable()
 export class TeacherProfileService {
@@ -40,42 +41,27 @@ export class TeacherProfileService {
     }
 
     async update(teacherInfo: TeacherProfileDto, userId: number) {
-        const teacher = await this.teacherProfileRepository.findOne({
-            where: { userId }
-        });
-
-        if (!teacher) {
-            throw new BadRequestException("You don't have a teacher profile on this account");
-        }
-
         await this.teacherProfileRepository.update(
             { userId },   
             { ...teacherInfo }
         );
 
-        return "Your profile was successfully updated";
+        return {
+            message: "Your profile was successfully updated"
+        }
     }
 
     async delete(userId: number) {
-        const teacher = await this.teacherProfileRepository.find({
-            where: {userId}
-        })
-
-        if (teacher.length === 0) throw new BadRequestException("This profile doesn't exist")
-
         await this.teacherProfileRepository.delete({
             userId
         })
-        return "Your profile was succesfully deleted"
+
+        return { 
+            message: "Your profile was succesfully deleted" 
+        }
     }
 
-    async addSubject(userId: number, subjectId: number) {
-        const teacher = await this.teacherProfileRepository.findOne({
-            where: { userId },
-            relations: ["subjects"],
-        });
-
-        if (!teacher) throw new BadRequestException("This profile doesn't exist");
+    async addSubject(subjectId: number, teacher: FullTeacherProfileDto) {
         const subject = await this.subjectService.findSubjectById(subjectId);
         if (teacher.subjects.some(s => s.id === subject.id)) {
             throw new BadRequestException("This subject is already on your profile");
@@ -86,13 +72,7 @@ export class TeacherProfileService {
         return teacher;
     }
 
-    async removeSubject(userId: number, subjectId: number) {
-        const teacher = await this.teacherProfileRepository.findOne({
-            where: { userId },
-            relations: ["subjects"]
-        })
-
-        if (!teacher) throw new BadRequestException("This profile doesn't exist")
+    async removeSubject(subjectId: number, teacher: FullTeacherProfileDto) {
         const subjectIndex = teacher.subjects.findIndex(s => s.id === subjectId);
         if (subjectIndex === -1) {
             throw new BadRequestException("You don't have this subject on your profile");
@@ -103,12 +83,7 @@ export class TeacherProfileService {
         return teacher;
     }
 
-    async addAvailableTime(userId: number, hours: string[]) {
-        const teacher = await this.teacherProfileRepository.findOne({
-            where: { userId },
-        });
-
-        if (!teacher) throw new BadRequestException("This profile doesn't exist");
+    async addAvailableTime(hours: string[], teacher: FullTeacherProfileDto) {
         const newHours = hours.filter(h => !teacher.availableTimes.includes(h));
         if (newHours.length === 0) {
             throw new BadRequestException("All these times are already added");
@@ -119,12 +94,7 @@ export class TeacherProfileService {
         return teacher;
     }
 
-    async removeAvailableTime(userId: number, hours: string[]) {
-        const teacher = await this.teacherProfileRepository.findOne({
-            where: { userId }
-        })
-
-        if (!teacher) throw new BadRequestException("This profile doesn't exist")
+    async removeAvailableTime(hours: string[], teacher: FullTeacherProfileDto) {
         const hoursToRemove = hours.filter(h => teacher.availableTimes.includes(h))
         if (hoursToRemove.length === 0) {
             throw new BadRequestException("These times doesn't exist on your account")
@@ -138,12 +108,7 @@ export class TeacherProfileService {
         return `Hours ${hoursToRemove.join(', ')} succesfully removed from your account`
     }
 
-    async addLanguages(userId: number, languages: string[]) {
-        const teacher = await this.teacherProfileRepository.findOne({
-            where: { userId }
-        })
-
-        if (!teacher) throw new BadRequestException("This profile doesn't exist")
+    async addLanguages(languages: string[], teacher: FullTeacherProfileDto) {
         const newLanguages = languages.filter(l => !teacher.languages.includes(l))
         if (newLanguages.length === 0) {
             throw new BadRequestException("All these languages are already added")
@@ -154,12 +119,7 @@ export class TeacherProfileService {
         return teacher
     }
 
-    async removeLanguages(userId: number, languages: string[]) {
-        const teacher = await this.teacherProfileRepository.findOne({
-            where: { userId }
-        })
-
-        if (!teacher) throw new BadRequestException("This profile doesn't exist")
+    async removeLanguages(languages: string[], teacher: FullTeacherProfileDto) {
         const languagesToRemove = languages.filter(l => teacher.languages.includes(l))
         if (languagesToRemove.length === 0) {
             throw new BadRequestException("These languages doesn't exist on your account")
@@ -173,12 +133,7 @@ export class TeacherProfileService {
         return `Languages ${languagesToRemove.join(', ')} succesfully removed from your account`
     }
 
-    async addLevels(userId: number, levels: string[]) {
-        const teacher = await this.teacherProfileRepository.findOne({
-            where: { userId }
-        })
-
-        if (!teacher) throw new BadRequestException("This profile doesn't exist")
+    async addLevels(levels: string[], teacher: FullTeacherProfileDto) {
         const newLevels = levels.filter(l => !teacher.levels.includes(l))
         if (newLevels.length === 0) {
             throw new BadRequestException("All these levels are already added")
@@ -189,12 +144,7 @@ export class TeacherProfileService {
         return teacher
     }
 
-    async removeLevels(userId: number, levels: string[]) {
-        const teacher = await this.teacherProfileRepository.findOne({
-            where: {userId}
-        })
-
-        if (!teacher) throw new BadRequestException("This profile doesn't exist")
+    async removeLevels(levels: string[], teacher: FullTeacherProfileDto) {
         const lessonsToRemove = levels.filter(l => teacher.levels.includes(l))
         if (lessonsToRemove.length === 0) {
             throw new BadRequestException("These levels doesn't exist on your account")
