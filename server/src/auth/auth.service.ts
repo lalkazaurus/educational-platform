@@ -66,7 +66,7 @@ export class AuthService {
         return tokens
     }
 
-    async addNewTeacher(id: number): Promise<string> {
+    async addNewTeacher(id: number) {
         return this.userService.addNewTeacher(id)
     }
 }

@@ -26,7 +26,7 @@ export class SubjectService {
         return subject
     }
 
-    async update(subjectData: InitialSubjectDto): Promise<string | null> {
+    async update(subjectData: InitialSubjectDto) {
         const existingSubject = await this.subjectRepository.find({
             where: {name: subjectData.name}
         })
@@ -35,10 +35,12 @@ export class SubjectService {
 
         await this.subjectRepository.update({ name: subjectData.name }, { ...subjectData })
     
-        return "Subject was succesfully updated"
+        return {
+            message: "Subject was succesfully updated"
+        }
     }
 
-    async delete(name: string): Promise<string | null> {
+    async delete(name: string) {
         const existingSubject = await this.subjectRepository.find( {
             where: {name}
         })
@@ -47,7 +49,9 @@ export class SubjectService {
 
         await this.subjectRepository.delete({ name })
 
-        return "Subject was succesfully deleted"
+        return {
+            message: "Subject was succesfully deleted"
+        }
     }
 
     async findSubjectById(id: number): Promise<Subject> {

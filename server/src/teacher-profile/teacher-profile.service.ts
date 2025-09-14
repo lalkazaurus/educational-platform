@@ -105,7 +105,9 @@ export class TeacherProfileService {
             { id: teacher.id }, 
             { availableTimes: newTimes }
         )
-        return `Hours ${hoursToRemove.join(', ')} succesfully removed from your account`
+        return {
+            message: `Hours ${hoursToRemove.join(', ')} succesfully removed from your account`
+        }
     }
 
     async addLanguages(languages: string[], teacher: FullTeacherProfileDto) {
@@ -130,7 +132,9 @@ export class TeacherProfileService {
             { id: teacher.id }, 
             { languages: newLanguages }
         )
-        return `Languages ${languagesToRemove.join(', ')} succesfully removed from your account`
+        return {
+            message: `Languages ${languagesToRemove.join(', ')} succesfully removed from your account`
+        }
     }
 
     async addLevels(levels: string[], teacher: FullTeacherProfileDto) {
@@ -155,6 +159,8 @@ export class TeacherProfileService {
             { id: teacher.id },
             { levels: newLessons }
         )
-        return `Lessons ${lessonsToRemove.join(', ')} succesfully removed from your account`
+        return {
+            message: `Lessons ${lessonsToRemove.join(', ')} succesfully removed from your account`
+        }
     }
 }

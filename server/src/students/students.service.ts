@@ -44,12 +44,16 @@ export class StudentsService {
             {...studentInfo}
         )
 
-        return "Your profile was succesfully updated"
+        return {
+            message: "Your profile was succesfully updated"
+        }
     } 
 
     async deleteStusentProfile(userId: number) {
         await this.studentsRepository.delete({userId})
 
-        return "Your profile was succesfully updated"
+        return {
+            message: "Your profile was succesfully updated"
+        }
     }
 }

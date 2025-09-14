@@ -55,20 +55,22 @@ export class UserService {
       })
   }
 
-  async addNewTeacher(id: number): Promise<string> {
+  async addNewTeacher(id: number) {
     const user = await this.findById(id)
 
     if (!user) {
-      return "User doesn't exist"
+      return { message: "User doesn't exist" }
     }
 
     if (!user.roles.includes(Roles.TEACHER)) {
       user.roles.push(Roles.TEACHER)
       await this.userRepository.save(user)
-      return "Teacher role added"
+      return { message: "Teacher role added" }
     }
 
-    return "This user is already a teacher"
+    return {
+      message: "This user is already a teacher"
+    }
   }
 
   async becomeStudent(userId: number) {
