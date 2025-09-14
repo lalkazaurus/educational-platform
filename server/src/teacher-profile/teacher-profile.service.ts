@@ -138,31 +138,4 @@ export class TeacherProfileService {
             message: `Languages ${languagesToRemove.join(', ')} succesfully removed from your account`
         }
     }
-
-    async addLevels(levels: string[], teacher: FullTeacherProfileDto) {
-        const newLevels = levels.filter(l => !teacher.levels.includes(l))
-        if (newLevels.length === 0) {
-            throw new BadRequestException("All these levels are already added")
-        }
-
-        teacher.levels.push(...newLevels)
-        await this.teacherProfileRepository.save(teacher)
-        return teacher
-    }
-
-    async removeLevels(levels: string[], teacher: FullTeacherProfileDto) {
-        const lessonsToRemove = levels.filter(l => teacher.levels.includes(l))
-        if (lessonsToRemove.length === 0) {
-            throw new BadRequestException("These levels doesn't exist on your account")
-        }
-
-        const newLessons = teacher.levels.filter(l => !teacher.levels.includes(l))
-        await this.teacherProfileRepository.update(
-            { id: teacher.id },
-            { levels: newLessons }
-        )
-        return {
-            message: `Lessons ${lessonsToRemove.join(', ')} succesfully removed from your account`
-        }
-    }
 }

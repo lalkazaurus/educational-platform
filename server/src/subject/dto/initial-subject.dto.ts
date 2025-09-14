@@ -1,4 +1,6 @@
-import { IsString } from "class-validator"
+import { IsEnum, IsString } from "class-validator"
+import { Categories } from "../types/categories";
+import { Levels } from "../types/levels";
 
 export class InitialSubjectDto {
     @IsString()
@@ -9,4 +11,10 @@ export class InitialSubjectDto {
 
     @IsString()
     icon: string
+
+    @IsEnum(Categories, { message: "Category must be a valid enum value" })
+    category: Categories;
+
+    @IsEnum(Levels, { message: "Level must be a valid enum value" })
+    level: Levels;
 }

@@ -100,20 +100,4 @@ export class TeacherProfileController {
     const teacher = req.teacher as FullTeacherProfileDto
     return await this.teacherProfileService.removeLanguages(data.languages, teacher)
   }
-
-  @Post("add-levels")
-  @UseGuards(JwtAuthGuard, RolesGuard, TeacherProfileGuard)
-  @Role(Roles.TEACHER)
-  async addLevels(@Body() data: AddLevelsDto, @Req() req: any) {
-    const teacher = req.teacher as FullTeacherProfileDto
-    return await this.teacherProfileService.addLevels(data.levels, teacher)
-  }
-
-  @Patch("remove-levels")
-  @UseGuards(JwtAuthGuard, RolesGuard, TeacherProfileGuard)
-  @Role(Roles.TEACHER)
-  async removeLevels(@Body() data: AddLevelsDto, @Req() req: any) {
-    const teacher = req.teacher as FullTeacherProfileDto
-    return await this.teacherProfileService.removeLevels(data.levels, teacher)
-  }
 }

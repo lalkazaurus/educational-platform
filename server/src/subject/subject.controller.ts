@@ -5,6 +5,7 @@ import { RolesGuard } from 'src/common/guards/role.quard';
 import { Role } from 'src/common/decorsators/role.decorator';
 import { Roles } from 'src/users/user/types/roles';
 import { InitialSubjectDto } from './dto/initial-subject.dto';
+import { DeleteSubjectDto } from './dto/delete-subject.dto';
 
 @Controller('subject')
 export class SubjectController {
@@ -27,8 +28,8 @@ export class SubjectController {
   @Delete("/delete")
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Role(Roles.ADMIN)
-  async delete(@Body() name: string) {
-    return this.subjectService.delete(name)
+  async delete(@Body() data: DeleteSubjectDto) {
+    return this.subjectService.delete(data.name)
   }
 
   @Get("")
