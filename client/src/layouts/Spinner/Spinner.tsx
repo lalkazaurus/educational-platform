@@ -1,5 +1,8 @@
 import { GridLoader } from "react-spinners";
+import styles from "./Spinner.module.css"
 
 export default function Spinner() {
-    return <GridLoader size={30} margin={2} color="#87d483"/>
+    return <div className={styles.spinnerContainer}>
+        <GridLoader size={30} margin={2} color="#87d483"/>
+    </div> 
 }
