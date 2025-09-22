@@ -18,8 +18,10 @@
     "@types/axios": "^0.14.4",
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.12.2",
+    "i18next": "^25.5.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-i18next": "^15.7.3",
     "react-router-dom": "^7.9.1",
     "react-spinners": "^0.17.0"
   },
