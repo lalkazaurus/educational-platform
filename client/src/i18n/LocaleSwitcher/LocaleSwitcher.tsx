@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
-import { supportedLngs } from "./config";
-import LangIcon from "./LangIcon";
 import styles from "./LocaleSwitcher.module.css";
+import { supportedLngs } from "../config";
+import LangIcon from "../LangIcon/LangIcon";
 
 export default function LocaleSwitcher() {
   const { i18n } = useTranslation();

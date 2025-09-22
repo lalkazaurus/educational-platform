@@ -1,5 +1,8 @@
 import i18n from "i18next"
 import { initReactI18next } from "react-i18next"
+import LanguageDetector from "i18next-browser-languagedetector";
+import ua from "../locales/ua/translation.json"
+import en from "../locales/en/translation.json"
 
 export const supportedLngs = {
     en: "English",
@@ -8,6 +11,7 @@ export const supportedLngs = {
 
 export default i18n
     .use(initReactI18next)
+    .use(LanguageDetector)
     .init({
         lng: "ua",
         fallbackLng: "en",
@@ -17,15 +21,7 @@ export default i18n
             escapeValue: false
         },
         resources: {
-            en: {
-                translation: {
-                    hello_world: "Hello world!"
-                }
-            },
-            ua: {
-                translation: {
-                    hello_world: "Привіт світ!"
-                }
-            }
+            en: { translation: en },
+            ua: { translation: ua }
         }
     })

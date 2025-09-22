@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./header.module.css";
-import LocaleSwitcher from "../../i18n/LocaleSwitcher";
+import LocaleSwitcher from "../../i18n/LocaleSwitcher/LocaleSwitcher";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
