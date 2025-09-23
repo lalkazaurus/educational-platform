@@ -1,6 +1,6 @@
-import axios from "axios"
+import api from "."
 
 export const getUsers = async () => {
-  const { data } = await axios.get("/users")
+  const { data } = await api.get("/users")
   return data
 }
