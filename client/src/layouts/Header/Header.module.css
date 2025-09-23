@@ -4,9 +4,12 @@
   z-index: 50;
   width: 100%;
   backdrop-filter: blur(12px);
-  background: rgba(17, 17, 17, 0.8);
+  background: #1f2937;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   transition: background 0.3s ease;
+  font-family: "Josefin Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 
 .container {
@@ -199,6 +202,24 @@
 .dropdownItem:hover {
   background: linear-gradient(90deg, #60a5fa20, #a78bfa20);
   color: white;
+}
+
+.logo {
+  font-family: "Bitcount Prop Double Ink", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 60;
+  font-style: normal;
+  font-variation-settings:
+    "slnt" 0,
+    "CRSV" 0.5,
+    "ELSH" 0,
+    "ELXP" 0,
+    "SZP1" 0,
+    "SZP2" 0,
+    "XPN1" 0,
+    "XPN2" 0,
+    "YPN1" 0,
+    "YPN2" 0;
 }
 
 @keyframes fadeIn {

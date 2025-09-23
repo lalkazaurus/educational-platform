@@ -1,3 +1,5 @@
 export default function ErrorPage() {
-    return <p>Error</p>
+    return <div className="container">
+        <p>Error</p>
+    </div>
 }

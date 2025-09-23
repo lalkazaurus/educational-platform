@@ -2,7 +2,9 @@
   padding-top: 2.5rem;
   background: #1f2937; 
   color: #d1d5db;
-  font-family: sans-serif;
+  font-family: "Josefin Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 
 .container {
