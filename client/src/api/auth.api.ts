@@ -25,3 +25,8 @@ export const refresh = async () => {
     const { data } = await api.post("auth/refresh")
     return data
 }
+
+export const addNewTeacher = async (id: number) => {
+    const { data } = await api.get(`add-new-teacher/:${id}`)
+    return data
+}
