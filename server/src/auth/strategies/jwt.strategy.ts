@@ -30,20 +30,17 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
             throw new UnauthorizedException("No token provided");
         }
 
-        // шукаємо токен у БД
         const tokenData = await this.tokenService.findToken(payload.id);
 
         if (!tokenData) {
             throw new UnauthorizedException("Token not found");
         }
 
-        // перевіряємо, чи цей токен ще дійсний
         const isValid = await this.tokenService.compareAccessToken(token, tokenData.accessTokenHash);
         if (!isValid) {
             throw new UnauthorizedException("Invalid or expired token");
         }
-
-        // шукаємо користувача
+        
         const user = await this.userService.findByEmail(payload.email);
         if (!user) {
             throw new BadRequestException("User doesn't exist");

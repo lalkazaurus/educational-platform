@@ -10,3 +10,18 @@ export const register = async (user: RegisterDto) => {
     const { data } = await api.post("auth/register", user)
     return data
 }
+
+export const status = async () => {
+    const { data } = await api.get("auth/status")
+    return data
+}
+
+export const logout = async () => {
+    const { data } = await api.delete("auth/logout")
+    return data
+}
+
+export const refresh = async () => {
+    const { data } = await api.post("auth/refresh")
+    return data
+}
