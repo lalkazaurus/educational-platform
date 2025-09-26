@@ -15,3 +15,8 @@ export const updateStudent = async (student: InitialStudentsDto) => {
     const { data } = await api.patch("/students/update", student)
     return data
 }
+
+export const deleteStudent = async () => {
+    const { data } = await api.delete("/students/delete")
+    return data
+}
