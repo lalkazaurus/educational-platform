@@ -15,9 +15,9 @@ export default function LoginPage() {
         await login(data)
     }
     
-    return <>
-        <form onSubmit={handleSubmit(onSubmit)}>
-
+    return <div className="container">
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+            <h1>Login</h1>
             <label>{t("email")}</label>
             <input {...register("email", {
                 required:  'Email is required',
@@ -44,5 +44,5 @@ export default function LoginPage() {
             </button>
             <input type="submit" value="Submit"/>
         </form>
-    </>
+    </div>
 }

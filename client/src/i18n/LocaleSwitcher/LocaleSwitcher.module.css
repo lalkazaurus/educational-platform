@@ -2,46 +2,56 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background-color: #1f2937;
+  background-color: #ffdd00; 
   padding: 6px 12px;
-  border-radius: 12px;
-  border: 1px solid #374151;
-  transition: all 0.2s ease;
+  border: 3px solid #000;
+  box-shadow: 4px 4px 0 #000;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
   position: relative;
+  border-radius: 0;
 }
 
 .localeSwitcher:hover {
-  background-color: #111827;
-  border-color: #4b5563;
+  background-color: #eac300; 
 }
 
 .localeSwitcher::after {
   content: "▾";
   position: absolute;
   right: 10px;
-  color: #f9fafb;
+  color: #000;
   pointer-events: none;
+  font-weight: 700;
 }
 
 .select {
   appearance: none;
-  background-color: #1f2937;
+  background-color: transparent; 
   border: none;
-  color: #f9fafb;
+  color: #000;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 700;
   cursor: pointer;
   outline: none;
   padding: 4px 24px 4px 6px;
-  border-radius: 6px;
 }
 
+
 .select option {
-  background-color: #1f2937;
-  color: #f9fafb;
+  background-color: #ffdd00;
+  color: #000;
+  font-weight: 700;
 }
 
 .select option:checked {
-  background-color: #1f2937;
-  color: #ffffff;
+  background-color: #ffdd00;
+  color: #000;
+}
+
+.localeSwitcher svg, 
+.localeSwitcher img {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  filter: drop-shadow(2px 2px 0 #000); 
 }

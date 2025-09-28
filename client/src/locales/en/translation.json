@@ -1,3 +1,5 @@
 {
-  "hello_world": "Hello world!"
+  "hello_world": "Hello world!",
+  "email": "Enter your E-mail",
+  "password": "Enter your password"
 }
