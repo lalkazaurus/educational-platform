@@ -1,5 +1,7 @@
 {
   "hello_world": "Hello world!",
   "email": "Enter your E-mail",
-  "password": "Enter your password"
+  "password": "Enter your password",
+  "phone_number": "Enter your phone number",
+  "username": "Enter your phone username"
 }

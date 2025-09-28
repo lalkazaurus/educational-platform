@@ -4,6 +4,7 @@ import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import Header from "./layouts/Header/Header";
 import Footer from "./layouts/Footer/Footer";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import RegisterPage from "./pages/RegisterPage/RegisterPage";
 
 const router = createBrowserRouter([
     {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
     }, {
         path: "/login",
         element: <LoginPage/>,
+        errorElement: <ErrorPage/>
+    }, {
+        path: "/register",
+        element: <RegisterPage/>,
         errorElement: <ErrorPage/>
     }
 ])

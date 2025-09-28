@@ -6,7 +6,7 @@ export const login = async (user: LoginDto) => {
     return data
 }
 
-export const register = async (user: RegisterDto) => {
+export const registerUser = async (user: RegisterDto) => {
     const { data } = await api.post("auth/register", user)
     return data
 }
