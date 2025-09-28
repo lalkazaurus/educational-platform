@@ -39,10 +39,10 @@ export default function LoginPage() {
             })}/>
             {errors.password?.message && <p className={styles.error}>{errors.password?.message}</p>}
 
-            <button type="button" onClick={() => reset()}>
+            <button className={styles.reset} type="button" onClick={() => reset()}>
                 Reset
             </button>
-            <input type="submit" value="Submit"/>
+            <input className={styles.submit} type="submit" value="Submit"/>
         </form>
     </div>
 }
