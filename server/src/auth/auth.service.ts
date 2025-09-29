@@ -28,7 +28,7 @@ export class AuthService {
 
     async register({ username, email, password, phoneNumber }: RegisterPayloadDto) {
         const user = await this.userService.findUniqueUser(email, username, phoneNumber)
-
+        console.log(username)
         if (user) throw new BadRequestException("User already exists")
 
         const hashedPassword = (await bcrypt.hash(password, 10))

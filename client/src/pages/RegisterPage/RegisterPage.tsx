@@ -3,6 +3,7 @@ import styles from "./RegisterPage.module.css"
 import type { RegisterDto } from "../../types/login.dto"
 import { useTranslation } from "react-i18next"
 import { registerUser } from "../../api/auth.api"
+import { useNavigate } from "react-router-dom"
 
 export default function RegisterPage() {
     const { register, reset, formState: {errors}, handleSubmit } = useForm<RegisterDto>({
@@ -11,8 +12,12 @@ export default function RegisterPage() {
 
     const { t } = useTranslation()
 
+    const navigate = useNavigate()
+
     async function onSubmit(data: RegisterDto) {
         await registerUser(data)
+        reset()
+        navigate("/")
     }
     
     return <div className="container">

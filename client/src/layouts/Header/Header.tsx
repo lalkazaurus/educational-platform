@@ -49,8 +49,8 @@ export default function Header() {
 
               {open && (
                 <div className={styles.dropdownContent}>
-                  <div className={styles.dropdownItem}>Sign up</div>
-                  <div className={styles.dropdownItem}>Log in</div>
+                  <a href={"/register"}><div className={styles.dropdownItem}>Sign up</div></a>
+                  <a href={"/login"}><div className={styles.dropdownItem}>Log in</div></a>
                   <div className={styles.dropdownItem}>Settings</div>
                   <div className={styles.dropdownItem}>Help Center</div>
                   <div className={styles.dropdownItem}>Contact</div>

@@ -3,16 +3,21 @@ import type { LoginDto } from "../../types/login.dto"
 import { login } from "../../api/auth.api"
 import { useTranslation } from "react-i18next"
 import styles from "./LoginPage.module.css"
+import { useNavigate } from "react-router-dom"
 
 export default function LoginPage() {
     const { register, reset, formState: {errors}, handleSubmit } = useForm<LoginDto>({
         mode: "onChange"
     })
 
+    const navigate = useNavigate()
+
     const { t } = useTranslation()
 
     async function onSubmit(data: LoginDto) {
         await login(data)
+        reset()
+        navigate("/")
     }
     
     return <div className="container">

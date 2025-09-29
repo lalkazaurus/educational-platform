@@ -172,6 +172,11 @@
   transform: translate(-2px, -2px);
 }
 
+.dropdown a {
+  text-decoration: none;
+  color: black;
+}
+
 @keyframes popUp {
   0% { opacity: 0; transform: translateY(-10px) scale(0.95); }
   100% { opacity: 1; transform: translateY(0) scale(1); }
