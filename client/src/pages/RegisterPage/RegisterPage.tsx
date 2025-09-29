@@ -17,7 +17,7 @@ export default function RegisterPage() {
     
     return <div className="container">
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-            <h1>Login</h1>
+            <h1>Register</h1>
             <label>{t("email")}</label>
             <input {...register("email", {
                 required:  'Email is required',
