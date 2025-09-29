@@ -21,7 +21,7 @@ export class SubjectService {
 
         if (existingSubject.length > 0) throw new BadRequestException("Subject with this name already exists")
 
-        const subject = await this.subjectRepository.create({...subjectData})
+        const subject = this.subjectRepository.create({...subjectData})
         await this.subjectRepository.save(subject)
         return subject
     }

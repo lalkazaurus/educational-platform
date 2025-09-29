@@ -17,11 +17,19 @@ export class Subject {
     @Column({ type: "text" })
     icon: string
 
-    @Column({ type: "text" })
-    category: Categories
+    @Column({
+        type: "enum",
+        enum: Categories,
+        array: true, 
+    })
+    category: Categories[]
 
-    @Column({ type: "text" })
-    level: Levels
+    @Column({
+        type: "enum",
+        enum: Levels,
+        array: true, 
+    })
+    level: Levels[]
 
     @ManyToMany(() => TeacherProfile, (teacher) => teacher.subjects)
     teachers: TeacherProfile[];
