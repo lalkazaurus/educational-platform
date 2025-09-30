@@ -5,6 +5,7 @@ import Router from './router'
 import "./i18n/config"
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Toaster } from 'react-hot-toast'
+import 'leaflet/dist/leaflet.css';
 
 const quetyClient = new QueryClient()
 
