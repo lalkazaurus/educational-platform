@@ -35,7 +35,9 @@ export default function RegisterPage() {
             {errors.email?.message && <p className={styles.error}>{errors.email?.message}</p>}
 
             <label>{t("password")}</label>
-            <input {...register("password", {
+            <input
+                type="password" 
+                {...register("password", {
                 required: 'Password is required',
                 pattern: {
                     value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
@@ -48,7 +50,7 @@ export default function RegisterPage() {
             <input {...register("phoneNumber", {
                 required: "Phone number is required",
                 pattern: {
-                    value: /^(\+\d{1,2}\s?)?(\(?\d{3}\)?[\s.-]?)?\d{3}[\s.-]?\d{4}$/,
+                    value: /^\+?[1-9]\d{1,14}$/,
                     message: "This is not a valid phone number"
                 }
             })}/>

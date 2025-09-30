@@ -35,12 +35,10 @@ export default function LoginPage() {
             {errors.email?.message && <p className={styles.error}>{errors.email?.message}</p>}
 
             <label>{t("password")}</label>
-            <input {...register("password", {
+            <input 
+                type="password"
+                {...register("password", {
                 required: 'Password is required',
-                pattern: {
-                    value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-                    message: 'Your password not strong enough'
-                }
             })}/>
             {errors.password?.message && <p className={styles.error}>{errors.password?.message}</p>}
 
