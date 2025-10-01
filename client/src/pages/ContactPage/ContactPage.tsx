@@ -1,5 +1,6 @@
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import styles from "./ContactPage.module.css";
 import L from "leaflet";
 
 delete (L.Icon.Default.prototype as any)._getIconUrl;
@@ -11,22 +12,51 @@ L.Icon.Default.mergeOptions({
 });
 
 export default function ContactPage() {
+  const centerCoords: [number, number] = [50.244722, 28.637305];
+
   return (
-    <div className="container" style={{ height: "500px" }}>
-      <MapContainer
-        center={[51.505, -0.09]}
-        zoom={13}
-        scrollWheelZoom={false}
-        style={{ height: "100%", width: "60%" }}
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <Marker position={[51.505, -0.09]}>
-          <Popup>Маркер</Popup>
-        </Marker>
-      </MapContainer>
+    <div className={styles.container}>
+      <div className={styles.mapWrapper}>
+        <MapContainer
+          center={centerCoords}
+          zoom={13}
+          scrollWheelZoom={false}
+          style={{ height: "100%", width: "100%" }}
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          <Marker position={centerCoords}>
+            <Popup>We are here!</Popup>
+          </Marker>
+        </MapContainer>
+      </div>
+
+      <div className={styles.tableContainer}>
+        <table>
+          <tr>
+            <td>Email</td>
+            <td>ipz_zyeyu@student.ztu.edu.ua</td>
+          </tr>
+          <tr>
+            <td>Adress</td>
+            <td>Chudnivska 103</td>
+          </tr>
+          <tr>
+            <td>Phone</td>
+            <td>+380688473823</td>
+          </tr>
+          <tr>
+            <td>Hours</td>
+            <td>9 a.m. – 5 p.m.</td>
+          </tr>
+          <tr>
+            <td>Telegram</td>
+            <td>@Lalkazaurus</td>
+          </tr>
+        </table>
+      </div>
     </div>
   );
 }
