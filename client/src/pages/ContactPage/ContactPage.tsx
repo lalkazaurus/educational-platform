@@ -2,6 +2,7 @@ import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import styles from "./ContactPage.module.css";
 import L from "leaflet";
+import { useTranslation } from "react-i18next";
 
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 
@@ -13,6 +14,7 @@ L.Icon.Default.mergeOptions({
 
 export default function ContactPage() {
   const centerCoords: [number, number] = [50.244722, 28.637305];
+  const { t } = useTranslation()
 
   return (
     <div className={styles.container}>
@@ -28,7 +30,7 @@ export default function ContactPage() {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <Marker position={centerCoords}>
-            <Popup>We are here!</Popup>
+            <Popup>{t("here")}</Popup>
           </Marker>
         </MapContainer>
       </div>
@@ -36,24 +38,24 @@ export default function ContactPage() {
       <div className={styles.tableContainer}>
         <table>
           <tr>
-            <td>Email</td>
-            <td>ipz_zyeyu@student.ztu.edu.ua</td>
+            <td>{t("email_contact")}</td>
+            <td>{import.meta.env.VITE_EMAIL}</td>
           </tr>
           <tr>
-            <td>Adress</td>
-            <td>Chudnivska 103</td>
+            <td>{t("address")}</td>
+            <td>{import.meta.env.VITE_ADDRESS}</td>
           </tr>
           <tr>
-            <td>Phone</td>
-            <td>+380688473823</td>
+            <td>{t("phone")}</td>
+            <td>{import.meta.env.VITE_PHONE_NUMBER}</td>
           </tr>
           <tr>
-            <td>Hours</td>
+            <td>{t("hours")}</td>
             <td>9 a.m. – 5 p.m.</td>
           </tr>
           <tr>
-            <td>Telegram</td>
-            <td>@Lalkazaurus</td>
+            <td>{t("telegram")}</td>
+            <td>{import.meta.env.VITE_TELEGRAM}</td>
           </tr>
         </table>
       </div>

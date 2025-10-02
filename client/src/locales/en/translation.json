@@ -3,5 +3,10 @@
   "email": "Enter your E-mail",
   "password": "Enter your password",
   "phone_number": "Enter your phone number",
-  "username": "Enter your phone username"
+  "username": "Enter your phone username",
+  "phone": "Phone number",
+  "here": "We are here!",
+  "email_contact": "Email",
+  "address": "Address",
+  "telegram": "Telegram"
 }

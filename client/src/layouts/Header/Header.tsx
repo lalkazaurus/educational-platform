@@ -53,7 +53,7 @@ export default function Header() {
                   <a href={"/login"}><div className={styles.dropdownItem}>Log in</div></a>
                   <div className={styles.dropdownItem}>Settings</div>
                   <div className={styles.dropdownItem}>Help Center</div>
-                  <div className={styles.dropdownItem}>Contact</div>
+                  <a href={"/contact"}><div className={styles.dropdownItem}>Contact</div></a>
                 </div>
               )}
             </div>
