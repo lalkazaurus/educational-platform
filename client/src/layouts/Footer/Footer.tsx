@@ -1,4 +1,6 @@
 import styles from "./Footer.module.css";
+import { FaGithub, FaLinkedin, FaTelegram } from "react-icons/fa";
+import { RiInstagramLine } from "react-icons/ri";
 
 export default function Footer() {
   const footerNavs = [
@@ -79,17 +81,14 @@ export default function Footer() {
         <div className={styles.bottom}>
           <p>© 2025 Float UI Inc. All rights reserved.</p>
           <div className={styles.socials}>
-            <a href="#">
-              <i className="fab fa-facebook-f"></i>
+            <a href="https://github.com/lalkazaurus">
+              <FaGithub/>
             </a>
-            <a href="#">
-              <i className="fab fa-twitter"></i>
+            <a href="https://www.instagram.com/lalkazauruss/">
+              <RiInstagramLine/>
             </a>
-            <a href="#">
-              <i className="fab fa-github"></i>
-            </a>
-            <a href="#">
-              <i className="fab fa-instagram"></i>
+            <a href="https://www.linkedin.com/in/yehor-zarembytskyi-85419b2bb/">
+              <FaLinkedin/>
             </a>
           </div>
         </div>
