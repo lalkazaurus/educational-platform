@@ -1,4 +1,126 @@
-.container {
+.mainWrapper {
     max-width: 100%;
     min-height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 6rem; 
+    padding-bottom: 50px;
+}
+
+.main {
+    max-width: 1200px;
+    width: 90%;
+    margin: 50px auto;
+    background-color: rgb(255, 179, 146);
+    display: flex;
+    gap: 40px;
+    padding: 60px;
+    box-shadow: 8px 8px 0px black; 
+    border: 3px solid black;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInSlideUp 0.6s ease-out forwards 0.2s; 
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1; 
+}
+
+.info > h1 {
+    font-size: 3.5rem; 
+    line-height: 1.1;
+    margin-bottom: 30px;
+    font-weight: 800;
+}
+
+.linkBlock {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2rem;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.linkBlock > span {
+    line-height: 1.5;
+}
+
+.linkBlock > a {
+    display: block;
+    text-decoration: none;
+    border: 3px solid black;
+    box-shadow: 5px 5px black;
+    min-width: 250px;
+    text-align: center;
+    padding: 12px 25px;
+    background-color: #ffdd00; 
+    color: black;
+    font-weight: 700;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.linkBlock > a:hover {
+    transform: translate(-5px, -5px);
+    box-shadow: 10px 10px black;
+}
+
+.main img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    flex: 1; 
+    transition: transform 0.3s ease-out;
+}
+
+.main img:hover {
+    transform: rotate(1deg) scale(1.01);
+}
+
+@media (max-width: 1024px) {
+    .main {
+        flex-direction: column;
+        width: 95%;
+        padding: 40px;
+    }
+    
+    .info > h1 {
+        font-size: 2.5rem;
+    }
+
+    .linkBlock > a {
+        width: 100%; 
+    }
+}
+
+@media (max-width: 600px) {
+    .main {
+        padding: 25px;
+        margin: 30px auto;
+    }
+
+    .info > h1 {
+        font-size: 2rem;
+    }
+
+    .linkBlock {
+        font-size: 1rem;
+    }
+}
+
+@keyframes fadeInSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
