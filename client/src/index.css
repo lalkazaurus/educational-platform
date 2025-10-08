@@ -10,7 +10,7 @@ body {
   max-width: 100%;
   min-height: 60vh;
   padding: 30px;
-  padding-bottom: 60px; /* ✅ внутрішній відступ знизу */
+  padding-bottom: 60px;
   display: flex;
   justify-content: center;
   align-items: center;

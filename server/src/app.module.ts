@@ -7,12 +7,14 @@ import { TeacherProfileModule } from './teacher-profile/teacher-profile.module';
 import { SubjectModule } from './subject/subject.module';
 import { UserModule } from './users/user/user.module';
 import { StudentsModule } from './students/students.module';
+import { AppService } from './app.service';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [AuthModule, DatabaseModule, ConfigModule.forRoot({
     isGlobal: true
   }), TokenModule, TeacherProfileModule, SubjectModule, UserModule, StudentsModule],
-  controllers: [],
-  providers: [],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
