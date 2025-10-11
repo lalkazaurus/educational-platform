@@ -3,6 +3,8 @@ import { initReactI18next } from "react-i18next"
 import LanguageDetector from "i18next-browser-languagedetector";
 import ua from "../locales/ua/translation.json"
 import en from "../locales/en/translation.json"
+import uaMain from "../locales/ua/main.json"
+import enMain from "../locales/en/main.json"
 
 export const supportedLngs = {
     en: "English",
@@ -16,12 +18,20 @@ export default i18n
         lng: "ua",
         fallbackLng: "en",
         supportedLngs: Object.keys(supportedLngs),
+        ns: ["translation", "main"],
+        defaultNS: "translation",
         debug: true,
         interpolation: {
             escapeValue: false
         },
         resources: {
-            en: { translation: en },
-            ua: { translation: ua }
+            en: { 
+                translation: en,
+                main: enMain
+            },
+            ua: { 
+                translation: ua,
+                main: uaMain
+            }
         }
     })
