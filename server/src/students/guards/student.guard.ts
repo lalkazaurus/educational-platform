@@ -9,7 +9,7 @@ export class StudentsGuard implements CanActivate {
         const req = context.switchToHttp().getRequest()
         const user = req.user
 
-        const studentsProfile = await this.studentsService.findStudentsProfileByUserId(user.id)
+        const studentsProfile = await this.studentsService.findStudentProfileByUserId(user.id)
 
         if (!studentsProfile) throw new BadRequestException("This profile doesn't exist")
         

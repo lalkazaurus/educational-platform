@@ -34,7 +34,7 @@ export class StudentsController {
     const user = req.user as ValidatedPayloadDto
     const student = req.student as InitialStudentDto
 
-    return await this.studentsService.updateStusentProfile(student, user.id)
+    return await this.studentsService.updateStudentProfile(student, user.id)
   }
 
   @Delete("delete")
@@ -42,6 +42,6 @@ export class StudentsController {
   @Role(Roles.STUDENT)
   async delete(@Req() req: Request) {
     const user = req.user as ValidatedPayloadDto
-    return await this.studentsService.deleteStusentProfile(user.id)
+    return await this.studentsService.deleteStudentProfile(user.id)
   }
 }

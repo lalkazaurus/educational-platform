@@ -43,7 +43,7 @@ export class TokenService {
             })
             return userData
         } catch (e: unknown) {
-            throw new BadRequestException('Unable to verify accessToken')
+            throw new BadRequestException('Unable to verify access token')
         }
     }
 
@@ -84,12 +84,12 @@ export class TokenService {
         const tokenData = await this.findToken(userData.id);
 
         if (!tokenData) {
-            throw new UnauthorizedException("Unauthorized");
+            throw new UnauthorizedException("You are not authorized");
         }
 
         const isValid = await bcrypt.compare(refreshToken, tokenData.refreshTokenHash);
         if (!isValid) {
-            throw new UnauthorizedException("Invalid refresh token");
+            throw new UnauthorizedException("The provided refresh token is invalid");
         }
 
         const user = await this.userService.findById(userData.id);
@@ -115,7 +115,7 @@ export class TokenService {
                 }}
         })
         
-        if (!token) throw new UnauthorizedException('Your session has already expired')
+        if (!token) throw new UnauthorizedException('Your session has expired')
 
         return token
     }

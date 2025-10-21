@@ -19,7 +19,7 @@ export class SubjectService {
             where: {name: subjectData.name}
         })
 
-        if (existingSubject.length > 0) throw new BadRequestException("Subject with this name already exists")
+        if (existingSubject.length > 0) throw new BadRequestException("A subject with this name already exists")
 
         const subject = this.subjectRepository.create({...subjectData})
         await this.subjectRepository.save(subject)
@@ -31,12 +31,12 @@ export class SubjectService {
             where: {name: subjectData.name}
         })
 
-        if (existingSubject.length === 0) throw new BadRequestException("Subject with this name doesn't exist")
+        if (existingSubject.length === 0) throw new BadRequestException("A subject with this name already exists")
 
         await this.subjectRepository.update({ name: subjectData.name }, { ...subjectData })
     
         return {
-            message: "Subject was succesfully updated"
+            message: "Subject was successfully updated"
         }
     }
 
@@ -45,18 +45,18 @@ export class SubjectService {
             where: {name}
         })
 
-        if (!existingSubject) throw new BadRequestException("This subject doesn't exist")
+        if (!existingSubject) throw new BadRequestException("No subject with this name exists")
 
         await this.subjectRepository.delete({ name })
         return {
-            message: "Subject was succesfully deleted"
+            message: "Subject was successfully deleted"
         }
     }
 
     async findSubjectById(id: number): Promise<Subject> {
         const subject = await this.subjectRepository.findOne({ where: { id } });
 
-        if (!subject) throw new BadRequestException("This subject doesn't exist");
+        if (!subject) throw new BadRequestException("No subject with this name exists");
 
         return subject;
     }

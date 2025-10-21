@@ -64,6 +64,6 @@ export class AuthService {
     }
 
     async addNewTeacher(id: number) {
-        return this.userService.addNewTeacher(id)
+        return this.userService.addTeacherRole(id)
     }
 }

@@ -55,7 +55,7 @@ export class UserService {
       })
   }
 
-  async addNewTeacher(id: number) {
+  async addTeacherRole(id: number) {
     const user = await this.findById(id)
 
     if (!user) {
@@ -73,7 +73,7 @@ export class UserService {
     }
   }
 
-  async becomeStudent(userId: number) {
+  async addStudentRole(userId: number) {
     const existingUser = await this.userRepository.findOne({
       where: { id: userId }
     })

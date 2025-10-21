@@ -16,7 +16,7 @@ export class StudentsService {
         return await this.studentsRepository.find()
     }
 
-    async findStudentsProfileByUserId(userId: number) {
+    async findStudentProfileByUserId(userId: number) {
         const student = await this.studentsRepository.findOne({
             where: {userId}
         })
@@ -29,16 +29,16 @@ export class StudentsService {
             where: {userId}
         })
 
-        if (existingStudent) throw new BadRequestException("This student profile is already exists")
+        if (existingStudent) throw new BadRequestException("This student profile already exists.")
 
         const student = await this.studentsRepository.create({...studentInfo, userId})
-        this.studentsRepository.save(student)
-        await this.userService.becomeStudent(userId)
+        await this.studentsRepository.save(student)
+        await this.userService.addStudentRole(userId)
 
         return student
     }
 
-    async updateStusentProfile(studentInfo: InitialStudentDto, userId: number) {
+    async updateStudentProfile(studentInfo: InitialStudentDto, userId: number) {
         await this.studentsRepository.update(
             {userId}, 
             {...studentInfo}
@@ -49,11 +49,11 @@ export class StudentsService {
         }
     } 
 
-    async deleteStusentProfile(userId: number) {
+    async deleteStudentProfile(userId: number) {
         await this.studentsRepository.delete({userId})
 
         return {
-            message: "Your profile was succesfully updated"
+            message: "Your profile was succesfully deleted"
         }
     }
 }
