@@ -12,8 +12,6 @@ export default function Main() {
         queryFn: getCategories,
     })
 
-    console.log(data)
-
     if (isLoading) return <Spinner/>
 
     return <div className="container">

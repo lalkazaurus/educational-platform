@@ -5,6 +5,8 @@ import ua from "../locales/ua/translation.json"
 import en from "../locales/en/translation.json"
 import uaMain from "../locales/ua/main.json"
 import enMain from "../locales/en/main.json"
+import uaCategory from "../locales/ua/category.json"
+import enCategory from "../locales/en/category.json"
 
 export const supportedLngs = {
     en: "English",
@@ -27,11 +29,13 @@ export default i18n
         resources: {
             en: { 
                 translation: en,
-                main: enMain
+                main: enMain,
+                category: enCategory
             },
             ua: { 
                 translation: ua,
-                main: uaMain
+                main: uaMain,
+                category: uaCategory
             }
         }
     })
