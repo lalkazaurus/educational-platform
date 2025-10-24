@@ -13,7 +13,7 @@ export class InitialSubjectDto {
     icon: string
 
     @IsEnum(Categories, { message: "Category must be a valid enum value" })
-    category: Categories[];
+    category: Categories;
 
     @IsEnum(Levels, { message: "Level must be a valid enum value" })
     level: Levels[];

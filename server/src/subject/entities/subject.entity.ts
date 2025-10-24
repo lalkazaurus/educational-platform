@@ -22,7 +22,7 @@ export class Subject {
         enum: Categories,
         array: true, 
     })
-    category: Categories[]
+    category: Categories
 
     @Column({
         type: "enum",

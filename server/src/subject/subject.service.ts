@@ -1,7 +1,8 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { Subject } from './entities/subject.entity';
 import { InitialSubjectDto } from './dto/initial-subject.dto';
+import { Categories } from './types/categories';
 
 @Injectable()
 export class SubjectService {
@@ -59,5 +60,17 @@ export class SubjectService {
         if (!subject) throw new BadRequestException("No subject with this name exists");
 
         return subject;
+    }
+
+    async findSubjectByCategory(category: Categories) {
+        const subjects = await this.subjectRepository.find({
+            where: {
+                category: category
+            }
+        });
+
+        if (subjects.length === 0) throw new BadRequestException("Subjects in these categories don't exist.");
+
+        return subjects;
     }
 }

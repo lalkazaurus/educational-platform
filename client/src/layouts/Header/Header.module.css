@@ -72,7 +72,7 @@
   }
 
   .centerNav a:hover {
-    background: #ffdd00;
+    background: #FFDB58;
     color: #000;
     transform: translate(-2px, -2px);
   }
@@ -96,7 +96,7 @@
     padding: 0.5rem 1rem;
     border: 3px solid #000;
     border-radius: 0;
-    background: #ffdd00;
+    background: #FFDB58;
     color: #000;
     cursor: pointer;
     box-shadow: 4px 4px 0 #000;
@@ -131,7 +131,7 @@
   width: 1.8rem;
   height: 1.8rem;
   border-radius: 0; 
-  background: #ffdd00;
+  background: #FFDB58;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -168,7 +168,7 @@
 }
 
 .dropdownItem:hover {
-  background: #ffdd00;
+  background: #FFDB58;
   transform: translate(-2px, -2px);
 }
 
@@ -180,4 +180,9 @@
 @keyframes popUp {
   0% { opacity: 0; transform: translateY(-10px) scale(0.95); }
   100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.logoLink {
+  text-decoration: none;
+  color: black;
 }

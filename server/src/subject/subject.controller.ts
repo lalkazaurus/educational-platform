@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { SubjectService } from './subject.service';
 import { JwtAuthGuard } from 'src/common/guards/jwt.guard';
 import { RolesGuard } from 'src/common/guards/role.quard';
@@ -6,6 +6,7 @@ import { Role } from 'src/common/decorsators/role.decorator';
 import { Roles } from 'src/users/user/types/roles';
 import { InitialSubjectDto } from './dto/initial-subject.dto';
 import { DeleteSubjectDto } from './dto/delete-subject.dto';
+import { Categories } from './types/categories';
 
 @Controller('subject')
 export class SubjectController {
@@ -35,5 +36,10 @@ export class SubjectController {
   @Get("")
   async findAll() {
     return await this.subjectService.findAll()
+  }
+
+  @Get("/:category")
+  async getSubjectsByCategory(@Param() category: Categories) {
+    return await this.subjectService.findSubjectByCategory(category)
   }
 }

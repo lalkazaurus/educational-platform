@@ -61,7 +61,7 @@
 }
 
 .form button {
-  background: #ffdd00;
+  background: #FFDB58;
   color: #000;
   font-weight: 700;
   font-size: 1rem;
@@ -118,7 +118,7 @@
 }
 
 .navList a:hover {
-  background: #ffdd00;
+  background: #FFDB58;
   padding: 0 4px;
 }
 
@@ -161,5 +161,5 @@
 
 .socials a:hover {
   transform: translate(-2px, -2px);
-  background: #ffdd00;
+  background: #FFDB58;
 }

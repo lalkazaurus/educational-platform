@@ -6,6 +6,7 @@ import Footer from "./layouts/Footer/Footer";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import ContactPage from "./pages/ContactPage/ContactPage";
+import CategoryPage from "./pages/CategoryPage/CategoryPage";
 
 const router = createBrowserRouter([
     {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
     }, {
         path: "/contact",
         element: <ContactPage/>,
+        errorElement: <ErrorPage/>
+    }, {
+        path: "/category/:category",
+        element: <CategoryPage/>,
         errorElement: <ErrorPage/>
     }
 ])

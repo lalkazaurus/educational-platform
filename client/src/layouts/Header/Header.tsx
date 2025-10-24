@@ -10,7 +10,7 @@ export default function Header() {
       <div className={styles.container}>
         <div className={styles.inner}>
           <div className={styles.logo}>
-            <span>APOLLO SCHOOL</span>
+            <span><a className={styles.logoLink} href="/">APOLLO SCHOOL</a></span>
           </div>
 
           <div className={styles.centerNav}>
