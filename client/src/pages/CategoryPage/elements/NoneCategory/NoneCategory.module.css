@@ -1,0 +1,63 @@
+.errorBlock {
+    background-color: #FFDB58; 
+    padding: 40px;
+    border: 5px solid black;
+    box-shadow: 8px 8px 0px #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+    font-family: "Comic Sans MS", "Chalkboard SE", cursive;
+    max-width: 600px;
+    margin: 60px auto;
+    transform: rotate(-1deg);
+    transition: transform 0.2s ease;
+    background-image: radial-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+    background-size: 8px 8px; 
+}
+
+.errorBlock:hover {
+    transform: rotate(1deg) scale(1.02);
+}
+
+.errorBlock h1 {
+    font-size: 3rem;
+    color: #6a0dad; 
+    text-shadow: 3px 3px 0px #000;
+    margin: 0;
+    letter-spacing: 2px;
+}
+
+.errorBlock h2 {
+    font-size: 1.5rem;
+    color: #212121;
+    background-color: #fff;
+    border: 3px solid black;
+    padding: 12px 24px;
+    box-shadow: 4px 4px 0px #000;
+    transform: rotate(1deg);
+    border-radius: 10px;
+}
+
+.errorBlock a {
+    color: #000;
+    text-decoration: none;
+    background-color: #b39ddb; 
+    padding: 12px 24px;
+    border: 3px solid black;
+    box-shadow: 4px 4px 0px #000;
+    border-radius: 8px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s ease;
+    transform: rotate(-1deg);
+}
+
+.errorBlock a:hover {
+    background-color: #6a0dad; 
+    color: #fff;
+    transform: rotate(1deg) scale(1.05);
+    box-shadow: 6px 6px 0px #000;
+}
