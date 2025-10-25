@@ -7,6 +7,7 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import ContactPage from "./pages/ContactPage/ContactPage";
 import CategoryPage from "./pages/CategoryPage/CategoryPage";
+import AddSubject from "./pages/AddSubject/AddSubject";
 
 const router = createBrowserRouter([
     {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
     }, {
         path: "/category/:category",
         element: <CategoryPage/>,
+        errorElement: <ErrorPage/>
+    }, {
+        path: "/add-subject",
+        element: <AddSubject/>,
         errorElement: <ErrorPage/>
     }
 ])

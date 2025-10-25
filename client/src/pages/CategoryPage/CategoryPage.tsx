@@ -9,10 +9,9 @@ export default function CategoryPage() {
     const categoryName = category[0].toUpperCase() + category.slice(1).split("_").join(" ")
 
     return (
-        /*<div className="container">
+        <div className="container">
             <p>{categoryName}</p>
+            <NoneCategory/>
         </div>
-        */
-        <NoneCategory/>
     )
 }

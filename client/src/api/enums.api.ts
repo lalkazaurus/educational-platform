@@ -5,7 +5,7 @@ export const getCategories = async (): Promise<string[]> => {
     return response.data
 } 
 
-export const getLevels = async () => {
-    const data = await api.get("levels")
-    return data
+export const getLevels = async (): Promise<string[]> => {
+    const response = await api.get<string[]>("/levels")
+    return response.data
 }
