@@ -5,6 +5,7 @@ import { getCategories, getLevels } from "../../api/enums.api"
 import Spinner from "../../layouts/Spinner/Spinner"
 import { useState } from "react"
 import { createSubject } from "../../api/subject.api"
+import styles from "./AddSubject.module.css"
 
 export default function AddSubject() {
   const { data: categories, isLoading: categoriesIsLoading } = useQuery<string[]>({
@@ -60,7 +61,9 @@ export default function AddSubject() {
 
   return (
     <div className="container">
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+        <h1>Add Subject</h1>
+        <label>Subject name</label>
         <input
           {...register("name", {
             required: "Name is required",
@@ -72,7 +75,8 @@ export default function AddSubject() {
           placeholder="Subject name"
         />
         {errors.name?.message && <p>{errors.name.message}</p>}
-
+        
+        <label>Description</label>
         <textarea
           {...register("description", {
             required: "Description is required",
@@ -84,7 +88,8 @@ export default function AddSubject() {
           placeholder="Description"
         />
         {errors.description?.message && <p>{errors.description.message}</p>}
-
+        
+        <label>Category</label>
         <select {...register("category", { required: "Category is required" })}>
           <option value="">Select category...</option>
           {categories?.map((category) => (
@@ -94,7 +99,8 @@ export default function AddSubject() {
           ))}
         </select>
         {errors.category?.message && <p>{errors.category.message}</p>}
-
+        
+        <label>Levels</label>
         <select
           {...register("level", { required: "Levels are required" })}
           multiple
@@ -106,12 +112,31 @@ export default function AddSubject() {
           ))}
         </select>
         {errors.level?.message && <p>{errors.level.message}</p>}
-
-        <input type="file" accept="image/*" onChange={handleFileChange} />
-        {preview && <img src={preview} alt="Preview"/>}
-
+        
+        <label>Icon</label>
+        <div className={styles.fileUpload}>
+          <input
+            id="iconUpload"
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            hidden
+          />
+          <button
+            type="button"
+            onClick={() => document.getElementById("iconUpload")?.click()}
+            className={styles.fileButton}
+          >
+            Choose file
+          </button>
+          {preview && <img src={preview} alt="Preview" />}
+        </div>
+        
         <button type="submit">
           Submit
+        </button>
+        <button className={styles.reset} onClick={() => reset()}>
+          Reset
         </button>
       </form>
     </div>

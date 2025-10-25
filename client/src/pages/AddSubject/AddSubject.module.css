@@ -1,0 +1,207 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  width: min(90%, 32rem);
+  gap: 1.4rem;
+  border: 5px solid #000;
+  box-shadow: 8px 8px 0px #000;
+  padding: 2rem;
+  background-color: #ffdb58; 
+  background-image: radial-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+  background-size: 8px 8px;
+  border-radius: 16px;
+  font-family: "Comic Sans MS", "Chalkboard SE", cursive;
+  transform: rotate(-1deg);
+  transition: transform 0.2s ease;
+  margin: 2rem auto;
+}
+
+.form:hover {
+  transform: rotate(1deg) scale(1.02);
+}
+
+.form h1 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+  color: #6a0dad;
+  text-shadow: 3px 3px 0px #000;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.form label {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #000;
+  transform: rotate(-1deg);
+}
+
+.form input,
+.form textarea,
+.form select {
+  border: 3px solid #000;
+  border-radius: 10px;
+  padding: 0.6rem 0.8rem;
+  font-family: inherit;
+  font-size: 1rem;
+  background-color: #fff;
+  transition: 0.2s;
+  box-shadow: 4px 4px 0px #000;
+}
+
+.form input:focus,
+.form textarea:focus,
+.form select:focus {
+  border-color: #6a0dad;
+  box-shadow: 6px 6px 0px #000;
+  transform: rotate(1deg);
+}
+
+.form select {
+  appearance: none;
+  cursor: pointer;
+  background-image: linear-gradient(to bottom, #ffffff, #f5f5f5);
+}
+
+.form textarea {
+    resize: vertical;
+}
+
+.form select[multiple] {
+  height: 10rem;
+  overflow-y: auto;
+  background-color: #fff;
+}
+
+.form select[multiple] option {
+  padding: 0.4rem 0.6rem;
+  margin: 2px;
+  border-radius: 6px;
+}
+
+.form select[multiple] option:hover {
+  background-color: #e8dcff;
+}
+
+.form select[multiple] option:checked {
+  background-color: #b39ddb;
+  font-weight: bold;
+}
+
+.fileUpload {
+  display: flex;
+  align-items: start;
+  gap: 0.8rem;
+}
+
+.fileButton {
+  border: 3px solid #000;
+  border-radius: 10px;
+  padding: 0.6rem 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 4px 4px 0px #000;
+  background-color: #b39ddb;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transform: rotate(-1deg);
+  transition: all 0.2s ease;
+}
+
+.fileButton:hover {
+  background-color: #6a0dad;
+  color: #fff;
+  transform: rotate(1deg) scale(1.05);
+  box-shadow: 6px 6px 0px #000;
+}
+
+.fileUpload img {
+  width: 5rem;
+  height: 5rem;
+  border: 3px solid #000;
+  border-radius: 10px;
+  box-shadow: 4px 4px 0px #000;
+  object-fit: cover;
+  transform: rotate(1deg);
+}
+
+.form button {
+  border: 3px solid #000;
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 4px 4px 0px #000;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.2s ease;
+  transform: rotate(-1deg);
+}
+
+.form button[type="submit"] {
+  background-color: #a5e5a8;
+}
+
+.form button[type="submit"]:hover {
+  background-color: #c8f5cb;
+  transform: rotate(1deg) scale(1.05);
+  box-shadow: 6px 6px 0px #000;
+}
+
+.form button[type="button"] {
+  background-color: #b39ddb;
+}
+
+.form button[type="button"]:hover {
+  background-color: #6a0dad;
+  color: #fff;
+}
+
+.form p {
+  color: #d63333;
+  font-weight: bold;
+  margin-top: -0.3rem;
+  text-shadow: 1px 1px 0 #fff;
+}
+
+.reset {
+  background-color: #ffdb58;
+  color: #000;
+  border: 3px solid #000;
+  border-radius: 10px;
+  padding: 0.8rem 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 4px 4px 0px #000;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transform: rotate(-2deg);
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.reset::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: skewX(-30deg);
+  transition: left 0.4s ease;
+}
+
+.reset:hover::after {
+  left: 200%;
+}
+
+.reset:hover {
+  background-color: #fff176;
+  transform: rotate(1deg) scale(1.07);
+  box-shadow: 6px 6px 0px #000;
+  color: #000;
+}
