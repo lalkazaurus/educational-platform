@@ -20,3 +20,8 @@ export const deleteSubject = async (name: DeleteSubjectDto) => {
     const { data } = await api.patch("/subject/delete", name)
     return data
 }
+
+export const findSubjectsByCategory = async (category: string) => {
+    const response = await api.get<InitialSubjectDto[]>(`/subject/${category}`)
+    return response.data
+}

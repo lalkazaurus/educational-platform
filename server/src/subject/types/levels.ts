@@ -1,8 +1,8 @@
 export enum Levels {
-    BEGINNER = "Beginner",
-    BASIC = "Basic",
-    INTERMEDIATE = "Intermediate",
-    UPPER_INTERMEDIATE = "Upper-intermediate",
-    ADVANCED = "Advanced",
-    EXPERT = "Expert"
+    BEGINNER = "BEGINNER",
+    BASIC = "BASIC",
+    INTERMEDIATE = "INTERMEDIATE",
+    UPPER_INTERMEDIATE = "UPPER_INTERMEDIATE",
+    ADVANCED = "ADVANCED",
+    EXPERT = "EXPERT"
 }

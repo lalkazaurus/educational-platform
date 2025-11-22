@@ -1,7 +1,7 @@
 export enum Categories {
     STEM = "STEM",
-    HUMANITIES = "Humanities",
-    SOCIAL_SCIENCES = "Social Sciences",
-    CREATIVITY = "Creativity",
-    LANGUAGES = "Languages"
+    HUMANITIES = "HUMANITIES",
+    SOCIAL_SCIENCES = "SOCIAL_SCIENCES",
+    CREATIVITY = "CREATIVITY",
+    LANGUAGES = "LANGUAGES"
 }

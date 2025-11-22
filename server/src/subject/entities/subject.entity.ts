@@ -20,7 +20,7 @@ export class Subject {
     @Column({
         type: "enum",
         enum: Categories,
-        array: true, 
+        array: false, 
     })
     category: Categories
 

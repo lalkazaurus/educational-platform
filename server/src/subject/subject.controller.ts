@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { SubjectService } from './subject.service';
 import { JwtAuthGuard } from 'src/common/guards/jwt.guard';
 import { RolesGuard } from 'src/common/guards/role.quard';
@@ -13,9 +13,10 @@ export class SubjectController {
   constructor(private readonly subjectService: SubjectService) {}
 
   @Post("/create")
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Role(Roles.ADMIN)
+  /*@UseGuards(JwtAuthGuard, RolesGuard)
+  @Role(Roles.ADMIN)*/
   async create(@Body() subject: InitialSubjectDto) {
+    console.log(subject)
     return this.subjectService.create(subject)
   }
 
@@ -39,7 +40,7 @@ export class SubjectController {
   }
 
   @Get("/:category")
-  async getSubjectsByCategory(@Param() category: Categories) {
-    return await this.subjectService.findSubjectByCategory(category)
+  async getSubjectsByCategory(@Param("category") category: Categories) {
+    return this.subjectService.findSubjectByCategory(category);
   }
 }

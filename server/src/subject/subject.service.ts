@@ -64,12 +64,11 @@ export class SubjectService {
 
     async findSubjectByCategory(category: Categories) {
         const subjects = await this.subjectRepository.find({
-            where: {
-                category: category
-            }
+            where: { category },
         });
 
-        if (subjects.length === 0) throw new BadRequestException("Subjects in these categories don't exist.");
+        if (subjects.length === 0)
+            throw new BadRequestException("Subjects in these categories don't exist.");
 
         return subjects;
     }

@@ -20,19 +20,24 @@ export default function AddSubject() {
 
   const [preview, setPreview] = useState<string | null>(null)
 
-  const { register, handleSubmit, setValue, reset, formState: { errors } } = useForm<InitialSubjectDto>({
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    reset,
+    formState: { errors }
+  } = useForm<InitialSubjectDto>({
     mode: "onChange"
   })
 
   async function onSubmit(data: InitialSubjectDto) {
     const preparedData = {
       ...data,
-      category: Array.isArray(data.category) ? data.category : [data.category],
+      category: data.category,
       level: Array.isArray(data.level) ? data.level : [data.level],
     }
-
+    console.log(data)
     console.log("Sending to backend:", preparedData)
-
     try {
       await createSubject(preparedData)
       reset()
@@ -48,10 +53,14 @@ export default function AddSubject() {
 
     const reader = new FileReader()
     reader.onloadend = () => {
-      const base64String = reader.result as string
-      setValue("icon", base64String) 
-      setPreview(base64String)
+      const result = reader.result as string
+
+      const cleanBase64 = result.split(",")[1]
+
+      setValue("icon", cleanBase64) 
+      setPreview(result) 
     }
+
     reader.readAsDataURL(file)
   }
 
@@ -63,6 +72,7 @@ export default function AddSubject() {
     <div className="container">
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <h1>Add Subject</h1>
+
         <label>Subject name</label>
         <input
           {...register("name", {
@@ -75,7 +85,7 @@ export default function AddSubject() {
           placeholder="Subject name"
         />
         {errors.name?.message && <p>{errors.name.message}</p>}
-        
+
         <label>Description</label>
         <textarea
           {...register("description", {
@@ -88,7 +98,7 @@ export default function AddSubject() {
           placeholder="Description"
         />
         {errors.description?.message && <p>{errors.description.message}</p>}
-        
+
         <label>Category</label>
         <select {...register("category", { required: "Category is required" })}>
           <option value="">Select category...</option>
@@ -99,7 +109,8 @@ export default function AddSubject() {
           ))}
         </select>
         {errors.category?.message && <p>{errors.category.message}</p>}
-        
+
+        {/* LEVELS */}
         <label>Levels</label>
         <select
           {...register("level", { required: "Levels are required" })}
@@ -112,7 +123,8 @@ export default function AddSubject() {
           ))}
         </select>
         {errors.level?.message && <p>{errors.level.message}</p>}
-        
+
+        {/* ICON UPLOAD */}
         <label>Icon</label>
         <div className={styles.fileUpload}>
           <input
@@ -131,11 +143,20 @@ export default function AddSubject() {
           </button>
           {preview && <img src={preview} alt="Preview" />}
         </div>
-        
+
+        {/* BUTTONS */}
         <button type="submit">
           Submit
         </button>
-        <button className={styles.reset} onClick={() => reset()}>
+
+        <button
+          className={styles.reset}
+          type="button"
+          onClick={() => {
+            reset()
+            setPreview(null)
+          }}
+        >
           Reset
         </button>
       </form>

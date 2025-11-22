@@ -15,6 +15,6 @@ export class InitialSubjectDto {
     @IsEnum(Categories, { message: "Category must be a valid enum value" })
     category: Categories;
 
-    @IsEnum(Levels, { message: "Level must be a valid enum value" })
+    @IsEnum(Levels, { message: "Level must be a valid enum value", each: true })
     level: Levels[];
 }
