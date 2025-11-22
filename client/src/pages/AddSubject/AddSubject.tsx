@@ -110,7 +110,6 @@ export default function AddSubject() {
         </select>
         {errors.category?.message && <p>{errors.category.message}</p>}
 
-        {/* LEVELS */}
         <label>Levels</label>
         <select
           {...register("level", { required: "Levels are required" })}
@@ -124,7 +123,6 @@ export default function AddSubject() {
         </select>
         {errors.level?.message && <p>{errors.level.message}</p>}
 
-        {/* ICON UPLOAD */}
         <label>Icon</label>
         <div className={styles.fileUpload}>
           <input
@@ -144,7 +142,6 @@ export default function AddSubject() {
           {preview && <img src={preview} alt="Preview" />}
         </div>
 
-        {/* BUTTONS */}
         <button type="submit">
           Submit
         </button>
