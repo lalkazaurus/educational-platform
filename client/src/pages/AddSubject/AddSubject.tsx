@@ -78,8 +78,8 @@ export default function AddSubject() {
           {...register("name", {
             required: "Name is required",
             pattern: {
-              value: /^[A-Z][a-z]*(?: [A-Z][a-z]*)*$/,
-              message: "It has to start from the capital letter",
+              value: /^[A-Z][a-zA-Z]*(?: [a-zA-Z]+)*$/,
+              message: "Must start with a capital letter and contain only words",
             },
           })}
           placeholder="Subject name"

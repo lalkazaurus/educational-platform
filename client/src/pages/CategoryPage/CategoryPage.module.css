@@ -1,0 +1,41 @@
+.subjectCard {
+    display: flex;
+    gap: 10px;
+    padding: 20px;
+    width: 45%;
+    align-items: center;
+    border: 5px solid black;
+    box-shadow: 5px 5px black;
+    cursor: pointer;
+    transition: 0.3s ease all;
+}
+
+.subjectCard:hover {
+    box-shadow: 10px 10px black;
+}
+
+.subjectCard img {
+    max-width: 20%;
+}
+
+.container {
+    display: flex;
+    gap: 20px;
+    width: 60%;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.textBlock {
+    display: flex;
+    flex-direction: column;
+}
+
+.levelsText {
+    transition: 1s all ease;
+}
+
+.levelsText:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
