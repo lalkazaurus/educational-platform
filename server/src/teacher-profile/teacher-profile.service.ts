@@ -138,4 +138,21 @@ export class TeacherProfileService {
             message: `Languages ${languagesToRemove.join(', ')} succesfully removed from your account`
         }
     }
+
+    async getTeachersProfilesBySubject(subjectName: string) {
+        const subject = await this.subjectService.findSubjectByName(subjectName)
+
+        const teachers = await this.teacherProfileRepository.find({
+            where: {
+                subjects: {
+                    id: subject.id
+                }
+            },
+            relations: ["subjects"]
+        });
+
+        if (teachers.length === 0) throw new BadRequestException("There is no teachers? who teach this subject")
+        
+        return teachers
+    }
 }

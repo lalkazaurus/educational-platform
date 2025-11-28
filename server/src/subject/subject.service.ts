@@ -72,4 +72,14 @@ export class SubjectService {
 
         return subjects;
     }
+
+    async findSubjectByName(name: string) {
+        const subject = await this.subjectRepository.findOne({
+            where: {name}
+        })
+
+        if (!subject) throw new BadRequestException("There is no subjects with this name")
+
+        return subject;
+    }
 }

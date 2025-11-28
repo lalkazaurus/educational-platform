@@ -50,3 +50,8 @@ export const removeLanguagesFromTeacherProfile = async (languages: AvailableTime
     const { data } = await api.patch("teacher-profile/remove-languages", languages)
     return data
 }
+
+export const getTeachersProfilesBySubject = async (subjectName: string) => {
+    const response = await api.get<TeacherProfileDto>(`teacher-profile/${subjectName}`)
+    return response.data
+}

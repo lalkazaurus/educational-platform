@@ -8,6 +8,7 @@ import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import ContactPage from "./pages/ContactPage/ContactPage";
 import CategoryPage from "./pages/CategoryPage/CategoryPage";
 import AddSubject from "./pages/AddSubject/AddSubject";
+import AddTeacherProfile from "./pages/AddTeacherProfile/AddTeacherProfile";
 
 const router = createBrowserRouter([
     {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
     }, {
         path: "/add-subject",
         element: <AddSubject/>,
+        errorElement: <ErrorPage/>
+    }, {
+        path: "/add-teacher",
+        element: <AddTeacherProfile/>,
         errorElement: <ErrorPage/>
     }
 ])

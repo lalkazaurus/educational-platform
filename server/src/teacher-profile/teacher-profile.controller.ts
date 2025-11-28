@@ -100,4 +100,9 @@ export class TeacherProfileController {
     const teacher = req.teacher as FullTeacherProfileDto
     return await this.teacherProfileService.removeLanguages(data.languages, teacher)
   }
+
+  @Get("/:subject")
+  async getTeachersProfilesBySubject(@Param("subject") subject: string) {
+    return await this.teacherProfileService.getTeachersProfilesBySubject(subject)
+  }
 }
