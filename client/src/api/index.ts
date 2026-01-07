@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getErrorMessage } from "./getErrorMessage";
-import { toast } from "react-hot-toast"
+import { toast } from "react-hot-toast";
 
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
@@ -8,6 +8,20 @@ const api = axios.create({
         "Content-Type": "application/json",
     },
 });
+
+let isRefreshing = false;
+let failedQueue: any[] = [];
+
+const processQueue = (error: any, token: string | null = null) => {
+    failedQueue.forEach((prom) => {
+        if (error) {
+            prom.reject(error);
+        } else {
+            prom.resolve(token);
+        }
+    });
+    failedQueue = [];
+};
 
 api.interceptors.request.use(config => {
     const token = localStorage.getItem("accessToken");
@@ -17,61 +31,78 @@ api.interceptors.request.use(config => {
     return config;
 });
 
-
 api.interceptors.response.use(
-  response => response,
-  async error => {
-    const originalRequest = error.config;
+    (response) => response,
+    async (error) => {
+        const originalRequest = error.config;
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-      try {
-        const refreshToken = localStorage.getItem("refreshToken");
+        if (error.response?.status === 401 && !originalRequest._retry) {
+            if (isRefreshing) {
+                return new Promise((resolve, reject) => {
+                    failedQueue.push({ resolve, reject });
+                })
+                .then((token) => {
+                    originalRequest.headers["Authorization"] = `Bearer ${token}`;
+                    return api(originalRequest);
+                })
+                .catch((err) => Promise.reject(err));
+            }
 
-        const response = await axios.post(
-          `${import.meta.env.VITE_API_URL}/auth/refresh`,
-          { refreshToken }
-        );
+            originalRequest._retry = true;
+            isRefreshing = true;
 
-        const { accessToken, refreshToken: newRefreshToken } = response.data;
+            return new Promise(async (resolve, reject) => {
+                try {
+                    const refreshToken = localStorage.getItem("refreshToken");
+                    
+                    const response = await axios.post(
+                        `${import.meta.env.VITE_API_URL}/auth/refresh`,
+                        { refreshToken }
+                    );
 
-        localStorage.setItem("accessToken", accessToken);
-        localStorage.setItem("refreshToken", newRefreshToken);
+                    const { accessToken, refreshToken: newRefreshToken } = response.data;
 
-        api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-        originalRequest.headers["Authorization"] = `Bearer ${accessToken}`;
+                    localStorage.setItem("accessToken", accessToken);
+                    localStorage.setItem("refreshToken", newRefreshToken);
 
-        return api(originalRequest);
-      } catch (refreshError) {
-        console.error("Token refresh failed:", refreshError);
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
-        window.location.href = "/login";
-        return Promise.reject(refreshError);
-      }
+                    api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+                    originalRequest.headers["Authorization"] = `Bearer ${accessToken}`;
+
+                    processQueue(null, accessToken);
+                    resolve(api(originalRequest));
+                } catch (refreshError) {
+                    processQueue(refreshError, null);
+                    localStorage.removeItem("accessToken");
+                    localStorage.removeItem("refreshToken");
+                    window.location.href = "/login";
+                    reject(refreshError);
+                } finally {
+                    isRefreshing = false;
+                }
+            });
+        }
+
+        const message = getErrorMessage(error);
+        toast.error(message, {
+            style: {
+                border: '3px solid black',
+                background: '#ffeb3b',
+                color: '#000',
+                padding: '12px 16px',
+                fontWeight: 'bold',
+                textTransform: 'uppercase',
+                boxShadow: '4px 4px 0px #000',
+                borderRadius: '0.5rem',
+                transform: 'rotate(-1deg)',
+            },
+            iconTheme: {
+                primary: '#d32f2f',
+                secondary: '#fff',
+            },
+        });
+
+        return Promise.reject(error);
     }
-
-    const message = getErrorMessage(error);
-    toast.error(message, {
-      style: {
-        border: '3px solid black',
-        background: '#ffeb3b',
-        color: '#000',
-        padding: '12px 16px',
-        fontWeight: 'bold',
-        textTransform: 'uppercase',
-        boxShadow: '4px 4px 0px #000',
-        borderRadius: '0.5rem',
-        transform: 'rotate(-1deg)',
-      },
-      iconTheme: {
-        primary: '#d32f2f',
-        secondary: '#fff',
-      },
-    });
-
-    return Promise.reject(error);
-  }
 );
 
 export default api;

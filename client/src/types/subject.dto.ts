@@ -9,3 +9,7 @@ export interface InitialSubjectDto {
 export interface DeleteSubjectDto {
     name: string
 }
+
+export interface SubjectNameDto {
+    name: string
+}

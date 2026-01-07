@@ -1,5 +1,5 @@
 import api from "."
-import type { DeleteSubjectDto, InitialSubjectDto } from "../types/subject.dto"
+import type { DeleteSubjectDto, InitialSubjectDto, SubjectNameDto } from "../types/subject.dto"
 
 export const getAllSubjects = async () => {
     const { data } = await api.get("/")
@@ -22,6 +22,11 @@ export const deleteSubject = async (name: DeleteSubjectDto) => {
 }
 
 export const findSubjectsByCategory = async (category: string) => {
-    const response = await api.get<InitialSubjectDto[]>(`/subject/${category}`)
+    const response = await api.get<InitialSubjectDto[]>(`/subject/category/${category}`)
+    return response.data
+}
+
+export const findSubjectsNames = async () => {
+    const response = await api.get<SubjectNameDto[]>("/subject/names")
     return response.data
 }

@@ -4,6 +4,8 @@ import { login } from "../../api/auth.api"
 import { useTranslation } from "react-i18next"
 import styles from "./LoginPage.module.css"
 import { useNavigate } from "react-router-dom"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useAuthStore } from "../../store/useAuthStore"
 
 export default function LoginPage() {
     const { register, reset, formState: {errors}, handleSubmit } = useForm<LoginDto>({
@@ -11,13 +13,25 @@ export default function LoginPage() {
     })
 
     const navigate = useNavigate()
+    const queryClient = useQueryClient();
+    const setLogin = useAuthStore(state => state.setLogin);
+
+    const loginMutation = useMutation({
+        mutationFn: login,
+        onSuccess: (data) => {
+            setLogin(data.user, data.tokenData);
+            
+            queryClient.clear();
+            
+            navigate("/");
+            reset();
+        }
+    });
 
     const { t } = useTranslation()
 
     async function onSubmit(data: LoginDto) {
-        await login(data)
-        reset()
-        navigate("/")
+        loginMutation.mutate(data);
     }
     
     return <div className="container">

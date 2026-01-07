@@ -4,20 +4,34 @@ import type { RegisterDto } from "../../types/login.dto"
 import { useTranslation } from "react-i18next"
 import { registerUser } from "../../api/auth.api"
 import { useNavigate } from "react-router-dom"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useAuthStore } from "../../store/useAuthStore"
 
 export default function RegisterPage() {
-    const { register, reset, formState: {errors}, handleSubmit } = useForm<RegisterDto>({
+    const navigate = useNavigate();
+    const queryClient = useQueryClient();
+    const setLogin = useAuthStore((state) => state.setLogin);
+
+    const { register, reset, formState: { errors }, handleSubmit } = useForm<RegisterDto>({
         mode: "onChange"
-    })
+    });
+
+    const { mutate: handleRegister, isPending } = useMutation({
+        mutationFn: registerUser,
+        onSuccess: (data) => {
+            setLogin(data.saveUser, data.tokenData);
+
+            queryClient.clear();
+
+            navigate("/");
+            reset();
+        }
+    });
 
     const { t } = useTranslation()
 
-    const navigate = useNavigate()
-
     async function onSubmit(data: RegisterDto) {
-        await registerUser(data)
-        reset()
-        navigate("/")
+        handleRegister(data);
     }
     
     return <div className="container">
@@ -62,10 +76,22 @@ export default function RegisterPage() {
             })}/>
             {errors.username?.message && <p className={styles.error}>{errors.username?.message}</p>}
 
-            <button className={styles.reset} type="button" onClick={() => reset()}>
+            <button 
+                className={styles.reset} 
+                type="button" 
+                onClick={() => reset()}
+                disabled={isPending}
+            >
                 Reset
             </button>
-            <input className={styles.submit} type="submit" value="Submit"/>
+                
+            <button 
+                className={styles.submit} 
+                type="submit" 
+                disabled={isPending}
+            >
+                {isPending ? "Loading..." : "Submit"}
+            </button>
         </form>
     </div>
 }

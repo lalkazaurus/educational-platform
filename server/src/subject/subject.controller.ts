@@ -17,30 +17,35 @@ export class SubjectController {
   @Role(Roles.ADMIN)*/
   async create(@Body() subject: InitialSubjectDto) {
     console.log(subject)
-    return this.subjectService.create(subject)
+    return this.subjectService.create(subject);
   }
 
   @Patch("/update")
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Role(Roles.ADMIN)
   async update(@Body() subject: InitialSubjectDto) {
-    return this.subjectService.update(subject)
+    return this.subjectService.update(subject);
   }
 
   @Delete("/delete")
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Role(Roles.ADMIN)
   async delete(@Body() data: DeleteSubjectDto) {
-    return this.subjectService.delete(data.name)
+    return this.subjectService.delete(data.name);
   }
 
   @Get("")
   async findAll() {
-    return await this.subjectService.findAll()
+    return await this.subjectService.findAll();
   }
 
-  @Get("/:category")
+  @Get("/category/:category")
   async getSubjectsByCategory(@Param("category") category: Categories) {
     return this.subjectService.findSubjectByCategory(category);
+  }
+
+  @Get("/names")
+  async getSubjectsNames() {
+    return this.subjectService.findSubjectsNames();
   }
 }

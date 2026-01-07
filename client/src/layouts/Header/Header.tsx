@@ -1,9 +1,12 @@
 import { useState } from "react";
 import styles from "./header.module.css";
 import LocaleSwitcher from "../../i18n/LocaleSwitcher/LocaleSwitcher";
+import { useAuthStore } from "../../store/useAuthStore";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const isAuthenticated = useAuthStore( (state) => state.isAuthenticated )
+  const logout = useAuthStore( (state) => state.logout )
 
   return (
     <nav className={styles.navbar}>
@@ -49,8 +52,18 @@ export default function Header() {
 
               {open && (
                 <div className={styles.dropdownContent}>
-                  <a href={"/register"}><div className={styles.dropdownItem}>Sign up</div></a>
-                  <a href={"/login"}><div className={styles.dropdownItem}>Log in</div></a>
+                  {!isAuthenticated &&
+                    <>
+                      <a href={"/register"}><div className={styles.dropdownItem}>Sign up</div></a>
+                      <a href={"/login"}><div className={styles.dropdownItem}>Log in</div></a>
+                    </>
+                  }
+                  {isAuthenticated &&
+                    <>
+                      <a onClick={logout}><div className={styles.dropdownItem}>Logout</div></a>
+                      <a href={"/profile"}><div className={styles.dropdownItem}>Profile</div></a>
+                    </>
+                  }
                   <div className={styles.dropdownItem}>Settings</div>
                   <div className={styles.dropdownItem}>Help Center</div>
                   <a href={"/contact"}><div className={styles.dropdownItem}>Contact</div></a>

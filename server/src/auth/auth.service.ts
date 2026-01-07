@@ -36,9 +36,11 @@ export class AuthService {
         if (!newUser) throw new Error('Failed to create user');
 
         const tokenData = await this.tokenService.generateTokens(newUser)
+
+        const { password: _, ...saveUser } = newUser
         
         return {
-            newUser,
+            saveUser,
             tokenData
         }
     }

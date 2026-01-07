@@ -82,4 +82,14 @@ export class SubjectService {
 
         return subject;
     }
+
+    async findSubjectsNames() {
+        const names = await this.subjectRepository.find({
+            select: ["name"]
+        })
+
+        if (names.length === 0) throw new BadRequestException("There is no subjects in our school")
+
+        return names
+    }
 }
