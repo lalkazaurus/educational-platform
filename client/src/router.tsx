@@ -9,6 +9,7 @@ import ContactPage from "./pages/ContactPage/ContactPage";
 import CategoryPage from "./pages/CategoryPage/CategoryPage";
 import AddSubject from "./pages/AddSubject/AddSubject";
 import AddTeacherProfile from "./pages/AddTeacherProfile/AddTeacherProfile";
+import Profile from "./pages/Profile/Profile";
 
 const router = createBrowserRouter([
     {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
     }, {
         path: "/add-teacher",
         element: <AddTeacherProfile/>,
+        errorElement: <ErrorPage/>
+    }, {
+        path: "/profile",
+        element: <Profile/>,
         errorElement: <ErrorPage/>
     }
 ])

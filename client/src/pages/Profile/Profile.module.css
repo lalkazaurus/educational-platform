@@ -1,0 +1,46 @@
+.info {
+    background-color: #234F3C;
+    padding: 20px;
+    width: 100%;
+    max-width: 500px;
+    color: white;
+    outline: 7px solid #A97142;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.info th, .info td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info th {
+    font-weight: bold;
+    color: #ffeb3b; 
+    width: 40%;
+}
+
+.roleTag {
+    background: #A97142;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    margin-right: 5px;
+    text-transform: uppercase;
+}
+
+.passwordChange {
+    text-decoration: none;
+    color: black;
+    transition: 0.2s ease all;
+}
+
+.passwordChange:hover {
+    transform: translateY(-2px);
+}
+
+.field {
+    font-weight: bold;
+    color: #ffeb3b;
+}
