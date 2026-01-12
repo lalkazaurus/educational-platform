@@ -7,13 +7,16 @@ export default function Profile() {
     const user = useAuthStore( (state) => state.user )
     const navigate = useNavigate()
     if (!user) {
-        navigate("/login");
-        return null
+        navigate("/login")
+        return null;
     }
+    
 
     return <div className={"container"}>
-        <h1>Your profile</h1>
         <table className={styles.info}>
+            <tr>
+                <td className={styles.title} colSpan={2}>Your profile</td>
+            </tr>
             <tr>
                 <td className={styles.field}>Username:</td>
                 <td>{user.username}</td>

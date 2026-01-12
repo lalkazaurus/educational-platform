@@ -3,7 +3,7 @@ import { AuthService } from './auth.service';
 import { LocalGuard } from '../common/guards/local.guard';
 import { Request } from 'express';
 import { JwtAuthGuard } from '../common/guards/jwt.guard';
-import { ValidatedPayloadDto } from './dto/validated.dto';
+import { FullUserPayload, ValidatedPayloadDto } from './dto/validated.dto';
 import { RefreshTokenGuard } from '../common/guards/refresh.guard';
 import { RegisterPayloadDto } from './dto/register.dto';
 import { RolesGuard } from 'src/common/guards/role.quard';
@@ -17,7 +17,7 @@ export class AuthController {
     @Post('login')
     @UseGuards(LocalGuard)
     login(@Req() req: Request) {
-        return this.authService.login(req.user as ValidatedPayloadDto);
+        return this.authService.login(req.user as FullUserPayload);
     }
 
     @Get('status')

@@ -2,7 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { AuthPayloadDto } from './dto/auth.dto';
 import { UserService } from 'src/users/user/user.service';
 import * as bcrypt from 'bcrypt';
-import { ValidatedPayloadDto } from './dto/validated.dto';
+import { FullUserPayload, ValidatedPayloadDto } from './dto/validated.dto';
 import { TokenService } from 'src/token/token.service';
 import { RegisterPayloadDto } from './dto/register.dto';
 
@@ -45,10 +45,12 @@ export class AuthService {
         }
     }
 
-    async login(user: ValidatedPayloadDto) {
+    async login(user: FullUserPayload) {
         const tokenData = await this.tokenService.generateTokens(user)
 
-        await this.userService.setLoginEntry(user.id)
+        const lastLogin = await this.userService.setLoginEntry(user.id)
+
+        user.lastLogin = lastLogin;
         
         return {
             user,

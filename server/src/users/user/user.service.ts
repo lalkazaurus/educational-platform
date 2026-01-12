@@ -48,11 +48,15 @@ export class UserService {
     return await this.userRepository.save(newUser)
   }
 
-  async setLoginEntry(id: number): Promise<void> {
-    this.userRepository.update(
+  async setLoginEntry(id: number): Promise<Date> {
+    const lastLogin = new Date()
+    
+    await this.userRepository.update(
       id, {
-        lastLogin: new Date()
-      })
+        lastLogin: lastLogin
+    })
+
+    return lastLogin;
   }
 
   async addTeacherRole(id: number) {
