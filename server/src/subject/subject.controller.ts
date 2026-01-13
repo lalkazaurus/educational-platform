@@ -48,4 +48,9 @@ export class SubjectController {
   async getSubjectsNames() {
     return this.subjectService.findSubjectsNames();
   }
+
+  @Get("/:name")
+  async getTeachersBySubjectName(@Param("name") name: string) {
+    return this.subjectService.findTeachersBySubjectName(name);
+  }
 }

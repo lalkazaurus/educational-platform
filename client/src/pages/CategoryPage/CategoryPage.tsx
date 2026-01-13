@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 import NoneCategory from "./elements/NoneCategory/NoneCategory"
 import { useSubjects } from "../../hooks/useSubjects"
 import Spinner from "../../layouts/Spinner/Spinner"
@@ -7,6 +7,8 @@ import styles from "./CategoryPage.module.css"
 export default function CategoryPage() {
     const { category } = useParams()
     const navigate = useNavigate()
+    const location = useLocation()
+    
     const colors = ["#b39ddb", "#fff176", "#FFA8A5"]
     
     if (!category) {
@@ -35,6 +37,7 @@ export default function CategoryPage() {
                     <div
                         className={styles.subjectCard}
                         style={{ backgroundColor: colors[index % 3] }}
+                        onClick={() => navigate(`${location.pathname}/subject/${subject.name.split(" ").join("-")}`)}
                     >
                         <img 
                             src={`data:image/png;base64,${subject.icon}`} 

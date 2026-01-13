@@ -10,7 +10,6 @@ export default function Profile() {
         navigate("/login")
         return null;
     }
-    
 
     return <div className={"container"}>
         <table className={styles.info}>

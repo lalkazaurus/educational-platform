@@ -2,7 +2,7 @@ export interface TeacherProfileDto {
     fullName: string,
     bio: string,
     degree: string,
-    exprerience: string,
+    experience: string,
     pricePerHour: number
 }
 

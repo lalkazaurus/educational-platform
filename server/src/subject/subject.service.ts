@@ -92,4 +92,19 @@ export class SubjectService {
 
         return names
     }
+
+    async findTeachersBySubjectName(name: string) {
+        const resultedName = name.split("-").join(" ");
+
+        const subject = await this.subjectRepository.findOne({
+            where: {name: resultedName},
+            relations: ['teachers']
+        })
+
+        if (!subject) throw new BadRequestException("Subject not found")
+
+        console.log(subject)
+
+        return subject.teachers;
+    }
 }
