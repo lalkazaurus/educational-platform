@@ -5,5 +5,8 @@
     "biography": "Biography",
     "experience": "Exprerience",
     "degree": "Degree",
-    "pricePerHour": "Price per hour"
+    "pricePerHour": "Price per hour",
+    "levels": "Levels",
+    "languages": "Languages",
+    "rating": "Rating"
 }

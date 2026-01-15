@@ -11,6 +11,7 @@ import AddSubject from "./pages/AddSubject/AddSubject";
 import AddTeacherProfile from "./pages/AddTeacherProfile/AddTeacherProfile";
 import Profile from "./pages/Profile/Profile";
 import SubjectsPage from "./pages/SubjectsPage/SubjectsPage";
+import TeacherPage from "./pages/TeacherPage/TeacherPage";
 
 const router = createBrowserRouter([
     {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
     }, {
         path: "/category/:category/subject/:subject",
         element: <SubjectsPage/>,
+        errorElement: <ErrorPage/>
+    }, {
+        path: "/category/:category/subject/:subject/teacher/:id",
+        element: <TeacherPage/>,
         errorElement: <ErrorPage/>
     }
 ])

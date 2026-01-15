@@ -27,6 +27,16 @@ export class TeacherProfileService {
         return teacher
     }
 
+    async findTeacherById(id: number) {
+        const teacher = await this.teacherProfileRepository.findOne({
+            where: { id }
+        })
+
+        if (!teacher) throw new BadRequestException("Teacher doesn't exist")
+
+        return teacher
+    }
+
     async create(teacherInfo: TeacherProfileDto, userId: number) {
         const existingTeacher = await this.teacherProfileRepository.find({
             where: {userId}

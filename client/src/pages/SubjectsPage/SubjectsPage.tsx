@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { useNavigate, useParams } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { useEffect } from "react"
 import type { TeacherProfileDto } from "../../types/teacher-profile.dto"
 import { findTeachersBySubjectName } from "../../api/subject.api"
@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next"
 export default function SubjectsPage() {
     const { subject } = useParams()
     const navigate = useNavigate()
+    const location = useLocation()
     const colors = ["#b39ddb", "#fff176", "#FFA8A5"]
     const { t } = useTranslation("category")
 
@@ -34,9 +35,10 @@ export default function SubjectsPage() {
                     key={index} 
                     style={{ backgroundColor: colors[index % 3] }} 
                     className={(index % 2 === 0) ? styles.worker : styles.reverseWorker}
+                    onClick={() => navigate(`${location.pathname}/teacher/${teacher.id}`)}
                 >
                     <div className={styles.imageContainer}>
-                        <img src="../../../public/teacher.jpg"></img>
+                        <img src="../../../public/teacher.png"></img>
                     </div>
                     <div className={styles.teacherAbout}>
                         <h2>{`${teacher.fullName}`}</h2>

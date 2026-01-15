@@ -5,5 +5,8 @@
     "biography": "Біографія",
     "experience": "Досвід роботи",
     "degree": "Освіта",
-    "pricePerHour": "Ціна за заняття"
+    "pricePerHour": "Ціна за заняття",
+    "levels": "Рівні викладання",
+    "languages": "Мови викладання",
+    "rating": "Рейтинг"
 }
