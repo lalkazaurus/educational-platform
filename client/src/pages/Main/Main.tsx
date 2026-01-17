@@ -32,8 +32,8 @@ export default function Main() {
                 <h1>{t("categories")}</h1>
             </span>
             <div className={styles.titlesBlock}>
-                {data?.map((category) => 
-                    <Link to={`/category/${category.toLowerCase()}`}>
+                {data?.map((category, index) => 
+                    <Link key={index} to={`/category/${category.toLowerCase()}`}>
                         <div className={styles.category}>
                             {category.split("_").join(" ")}
                         </div>

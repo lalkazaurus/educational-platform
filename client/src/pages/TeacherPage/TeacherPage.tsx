@@ -20,37 +20,41 @@ export default function TeacherPage() {
 
     return <div className={"container"}>
         <table className={styles.info}>
-            <tr>
-                <td className={styles.title} colSpan={2}>{data?.fullName}</td>
-            </tr>
-            <tr>
-                <td className={styles.field}>{t("biography")}:</td>
-                <td>{data?.bio}</td>
-            </tr>
-            <tr>
-                <td className={styles.field}>{t("degree")}: </td>
-                <td>{data?.degree}</td>
-            </tr>
-            <tr>
-                <td className={styles.field}>{t("experience")}: </td>
-                <td>{data?.experience}</td>
-            </tr>
-            <tr>
-                <td className={styles.field}>{t("languages")}: </td>
-                <td>{data?.languages.join(", ")}</td>
-            </tr>
-            <tr>
-                <td className={styles.field}>{t("levels")}: </td>
-                <td>{data?.levels.join(", ")}</td>
-            </tr>
-            <tr>
-                <td className={styles.field}>{t("rating")}: </td>
-                <td>{data?.rating}</td>
-            </tr>
-            <tr>
-                <td className={styles.field}>{t("pricePerHour")}: </td>
-                <td>{data?.pricePerHour}</td>
-            </tr>
+            <thead>
+                <tr>
+                    <td className={styles.title} colSpan={2}>{data?.fullName}</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td className={styles.field}>{t("biography")}:</td>
+                    <td>{data?.bio}</td>
+                </tr>
+                <tr>
+                    <td className={styles.field}>{t("degree")}: </td>
+                    <td>{data?.degree}</td>
+                </tr>
+                <tr>
+                    <td className={styles.field}>{t("experience")}: </td>
+                    <td>{data?.experience}</td>
+                </tr>
+                <tr>
+                    <td className={styles.field}>{t("languages")}: </td>
+                    <td>{data?.languages.join(", ")}</td>
+                </tr>
+                <tr>
+                    <td className={styles.field}>{t("levels")}: </td>
+                    <td>{data?.levels.join(", ")}</td>
+                </tr>
+                <tr>
+                    <td className={styles.field}>{t("rating")}: </td>
+                    <td>{data?.rating}</td>
+                </tr>
+                <tr>
+                    <td className={styles.field}>{t("pricePerHour")}: </td>
+                    <td>{data?.pricePerHour}</td>
+                </tr>
+            </tbody>
         </table>
     </div>
 }

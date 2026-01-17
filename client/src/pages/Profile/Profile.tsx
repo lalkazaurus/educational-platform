@@ -13,33 +13,37 @@ export default function Profile() {
 
     return <div className={"container"}>
         <table className={styles.info}>
-            <tr>
-                <td className={styles.title} colSpan={2}>Your profile</td>
-            </tr>
-            <tr>
-                <td className={styles.field}>Username:</td>
-                <td>{user.username}</td>
-            </tr>
-            <tr>
-                <td className={styles.field}>Email:</td>
-                <td>{user.email}</td>
-            </tr>
-            <tr>
-                <td className={styles.field}>Roles: </td>
-                <td>{user.roles.join(" ")}</td>
-            </tr>
-            <tr>
-                <td className={styles.field}>Phone number: </td>
-                <td>{user.phoneNumber}</td>
-            </tr>
-            <tr>
-                <td className={styles.field}>Status</td>
-                <td>{user.status}</td>
-            </tr>
-            <tr>
-                <td className={styles.field}>Last login: </td>
-                <td>{formatDate(user.lastLogin)}</td>
-            </tr>
+            <thead>
+                <tr>
+                    <td className={styles.title} colSpan={2}>Your profile</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td className={styles.field}>Username:</td>
+                    <td>{user.username}</td>
+                </tr>
+                <tr>
+                    <td className={styles.field}>Email:</td>
+                    <td>{user.email}</td>
+                </tr>
+                <tr>
+                    <td className={styles.field}>Roles: </td>
+                    <td>{user.roles.join(" ")}</td>
+                </tr>
+                <tr>
+                    <td className={styles.field}>Phone number: </td>
+                    <td>{user.phoneNumber}</td>
+                </tr>
+                <tr>
+                    <td className={styles.field}>Status</td>
+                    <td>{user.status}</td>
+                </tr>
+                <tr>
+                    <td className={styles.field}>Last login: </td>
+                    <td>{formatDate(user.lastLogin)}</td>
+                </tr>
+            </tbody>
         </table>
         <a className={styles.passwordChange} href="/change-password">Do you want to change password?</a>
     </div>
