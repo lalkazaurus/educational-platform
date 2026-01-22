@@ -32,7 +32,7 @@ export default function SubjectsPage() {
         <div className="container">
             {data?.map((teacher, index) => 
                 <div 
-                    key={index} 
+                    key={teacher.id} 
                     style={{ backgroundColor: colors[index % 3] }} 
                     className={(index % 2 === 0) ? styles.worker : styles.reverseWorker}
                     onClick={() => navigate(`${location.pathname}/teacher/${teacher.id}`)}

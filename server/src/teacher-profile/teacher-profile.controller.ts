@@ -13,6 +13,8 @@ import { AddLanguagesDto } from './dto/add-languages.dto';
 import { AddLevelsDto } from './dto/add-levels.dto';
 import { TeacherProfileGuard } from './guards/teacher-profile.guard';
 import { FullTeacherProfileDto } from './dto/full-teacher-profile.dto';
+import { plainToInstance } from 'class-transformer';
+import { TeacheProfileInfoDto } from './dto/teacher-profile-indo.dto';
 
 @Controller('teacher-profile')
 export class TeacherProfileController {
@@ -108,6 +110,10 @@ export class TeacherProfileController {
 
   @Get("/id/:id")
   async getTeachersProfileByFullName(@Param("id") id: number) {
-    return await this.teacherProfileService.findTeacherById(id)
+    const teacher =  await this.teacherProfileService.findTeacherById(id);
+    
+    return plainToInstance(TeacheProfileInfoDto, teacher, {
+      excludeExtraneousValues: true
+    })
   }
 }

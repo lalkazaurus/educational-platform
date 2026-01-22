@@ -33,7 +33,6 @@ export class TeacherProfileService {
         })
 
         if (!teacher) throw new BadRequestException("Teacher doesn't exist")
-
         return teacher
     }
 
