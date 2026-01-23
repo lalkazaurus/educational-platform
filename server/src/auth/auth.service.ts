@@ -2,7 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { AuthPayloadDto } from './dto/auth.dto';
 import { UserService } from 'src/users/user/user.service';
 import * as bcrypt from 'bcrypt';
-import { FullUserPayload, ValidatedPayloadDto } from './dto/validated.dto';
+import { FullUserPayload } from './dto/validated.dto';
 import { TokenService } from 'src/token/token.service';
 import { RegisterPayloadDto } from './dto/register.dto';
 

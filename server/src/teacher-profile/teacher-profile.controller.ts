@@ -105,7 +105,7 @@ export class TeacherProfileController {
 
   @Get("/:subject")
   async getTeachersProfilesBySubject(@Param("subject") subject: string) {
-    return await this.teacherProfileService.getTeachersProfilesBySubject(subject)
+    return await this.teacherProfileService.findTeachersProfilesBySubject(subject)
   }
 
   @Get("/id/:id")

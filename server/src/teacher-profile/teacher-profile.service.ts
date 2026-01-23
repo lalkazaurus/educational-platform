@@ -148,7 +148,7 @@ export class TeacherProfileService {
         }
     }
 
-    async getTeachersProfilesBySubject(subjectName: string) {
+    async findTeachersProfilesBySubject(subjectName: string) {
         const subject = await this.subjectService.findSubjectByName(subjectName)
 
         const teachers = await this.teacherProfileRepository.find({

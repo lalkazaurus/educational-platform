@@ -1,4 +1,4 @@
-import { Expose } from "class-transformer";
+
 import { IsNumber, IsInt, IsString, MaxLength, MinLength } from "class-validator"
 
 export class TeacherProfileDto {

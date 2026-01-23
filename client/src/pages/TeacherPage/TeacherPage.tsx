@@ -4,17 +4,23 @@ import Spinner from "../../layouts/Spinner/Spinner"
 import { findTeacherById } from "../../api/teacher-profile.api"
 import styles from "./TeacherPage.module.css"
 import { useTranslation } from "react-i18next"
+import type { TeacherProfileDto } from "../../types/teacher-profile.dto"
+import type { AxiosError } from "axios"
+import ErrorMessage from "../../layouts/ErrorMessage/ErrorMessage"
+import type { ApiError } from "../../types/api"
 
 export default function TeacherPage() {
     const { id } = useParams()
 
-    const { isLoading, data} = useQuery({
+    const { isLoading, data, isError, error} = useQuery<TeacherProfileDto, AxiosError<ApiError>>({
         queryKey: ["findTeacherById", id],
         queryFn: () => findTeacherById(+id!),
         enabled: !!id
     })
 
     const { t } = useTranslation("category")
+
+    if (isError) return <div><ErrorMessage error={error}/></div>
 
     if (isLoading) return <Spinner/>
 
