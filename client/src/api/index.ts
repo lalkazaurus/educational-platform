@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getErrorMessage } from "./getErrorMessage"; 
 import { toast } from "react-hot-toast";
-import { useAuthStore } from "../store/useAuthStore";
+import { useAuthStore } from "../store/useAuthStore"; 
 
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
@@ -34,8 +34,12 @@ api.interceptors.request.use(config => {
 
 api.interceptors.response.use(
     (response) => response,
-    async (error) => {
+    (error) => {
         const originalRequest = error.config;
+
+        if (!originalRequest) {
+            return Promise.reject(error);
+        }
 
         if (error.response?.status === 401 && !originalRequest._retry) {
             
@@ -53,24 +57,26 @@ api.interceptors.response.use(
             originalRequest._retry = true;
             isRefreshing = true;
 
-            return new Promise(async (resolve, reject) => {
-                try {
-                    const refreshToken = localStorage.getItem("refreshToken");
-                    
-                    if (!refreshToken) {
-                        throw new Error("No refresh token available");
-                    }
+            return new Promise((resolve, reject) => {
+                const refreshToken = localStorage.getItem("refreshToken");
 
-                    const response = await axios.post(
-                        `${import.meta.env.VITE_API_URL}/auth/refresh`,
-                        { refreshToken },
-                        {
-                            headers: {
-                                Authorization: undefined, 
-                            }
+                if (!refreshToken) {
+                    useAuthStore.getState().logout();
+                    processQueue(new Error("No refresh token"), null);
+                    isRefreshing = false;
+                    return reject(new Error("No refresh token available"));
+                }
+            
+                axios.post(
+                    `${import.meta.env.VITE_API_URL}/auth/refresh`,
+                    {},
+                    {
+                        headers: {
+                            Authorization: `Bearer ${refreshToken}`, 
                         }
-                    );
-
+                    }
+                )
+                .then((response) => {
                     const { accessToken, refreshToken: newRefreshToken, user } = response.data;
 
                     useAuthStore.getState().setLogin(user, { 
@@ -85,14 +91,15 @@ api.interceptors.response.use(
                     processQueue(null, accessToken);
                     
                     resolve(api(originalRequest));
-
-                } catch (refreshError) {
+                })
+                .catch((refreshError) => {
                     processQueue(refreshError, null);
                     useAuthStore.getState().logout();
                     reject(refreshError);
-                } finally {
+                })
+                .finally(() => {
                     isRefreshing = false;
-                }
+                });
             });
         }
 
@@ -105,7 +112,15 @@ api.interceptors.response.use(
                     color: '#000',
                     padding: '12px 16px',
                     fontWeight: 'bold',
-                }
+                    textTransform: 'uppercase',
+                    boxShadow: '4px 4px 0px #000',
+                    borderRadius: '0.5rem',
+                    transform: 'rotate(-1deg)',
+                },
+                iconTheme: {
+                    primary: '#d32f2f',
+                    secondary: '#fff',
+                },
              });
         }
 
