@@ -70,4 +70,8 @@ export class AuthService {
     async addNewTeacher(id: number) {
         return this.userService.addTeacherRole(id)
     }
+
+    async changePassword(id: number, newPassword: string) {
+        await this.userService.changePassword(id, newPassword)
+    }
 }

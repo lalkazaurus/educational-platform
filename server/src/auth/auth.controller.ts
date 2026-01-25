@@ -3,7 +3,7 @@ import { AuthService } from './auth.service';
 import { LocalGuard } from '../common/guards/local.guard';
 import { Request } from 'express';
 import { JwtAuthGuard } from '../common/guards/jwt.guard';
-import { FullUserPayload, ValidatedPayloadDto } from './dto/validated.dto';
+import { ChangePassport, FullUserPayload, ValidatedPayloadDto } from './dto/validated.dto';
 import { RefreshTokenGuard } from '../common/guards/refresh.guard';
 import { RegisterPayloadDto } from './dto/register.dto';
 import { RolesGuard } from 'src/common/guards/role.quard';
@@ -23,6 +23,7 @@ export class AuthController {
     @Get('status')
     @UseGuards(JwtAuthGuard)
     status(@Req() req: Request) {
+        console.log(req.user)
         return req.user
     }
 
@@ -56,5 +57,15 @@ export class AuthController {
         @Param('id', ParseIntPipe) id: number, 
     ) {
         return this.authService.addNewTeacher(id)
+    }
+
+    @Post('change-password')
+    @UseGuards(JwtAuthGuard)
+    async changePassword(
+        @Req() req: Request,
+        @Body() data: ChangePassport
+    ) {
+        const user = req.user as ValidatedPayloadDto;
+        await this.authService.changePassword(user.id, data.newPassword)
     }
 }

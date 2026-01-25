@@ -1,4 +1,4 @@
-import { Controller, Get, Inject, UseGuards } from "@nestjs/common";
+import { ClassSerializerInterceptor, Controller, Get, Inject, UseGuards, UseInterceptors } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { JwtAuthGuard } from "src/common/guards/jwt.guard";
 import { RolesGuard } from "src/common/guards/role.quard";
@@ -6,6 +6,7 @@ import { Role } from "src/common/decorsators/role.decorator";
 import { Roles } from "./types/roles";
 
 @Controller("users")
+@UseInterceptors(ClassSerializerInterceptor)
 export class UsersController {
     constructor (private readonly userService: UserService) {}
 

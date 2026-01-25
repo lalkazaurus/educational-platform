@@ -48,6 +48,14 @@ export class UserService {
     return await this.userRepository.save(newUser)
   }
 
+  async changePassword(id: number, newPassword: string): Promise<void> {
+    await this.userRepository.update(
+      id, {
+        password: newPassword
+      }
+    )
+  }
+
   async setLoginEntry(id: number): Promise<Date> {
     const lastLogin = new Date()
     

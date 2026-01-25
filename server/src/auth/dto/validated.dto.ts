@@ -12,3 +12,7 @@ export type FullUserPayload = ValidatedPayloadDto & {
     roles: string[];
     lastLogin: Date;
 };
+
+export type ChangePassport = {
+    newPassword: string
+}
