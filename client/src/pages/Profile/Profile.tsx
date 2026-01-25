@@ -29,7 +29,7 @@ export default function Profile() {
                 </tr>
                 <tr>
                     <td className={styles.field}>Roles: </td>
-                    <td>{user.roles.join(" ")}</td>
+                    <td>{user.roles.join(", ")}</td>
                 </tr>
                 <tr>
                     <td className={styles.field}>Phone number: </td>

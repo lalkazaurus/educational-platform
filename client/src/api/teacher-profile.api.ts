@@ -1,12 +1,12 @@
 import api from "."
-import type { AddSubjectDto, AvailableTimeDto, TeacherProfileDto } from "../types/teacher-profile.dto"
+import type { AddSubjectDto, AvailableTimeDto, CreateTeacherDto, TeacherProfileDto } from "../types/teacher-profile.dto"
 
 export const getAllTeachers = async () => {
     const { data } = await api.get("/teacher-profile")
     return data
 }
 
-export const createTeacherProfile = async (info: TeacherProfileDto) => {
+export const createTeacherProfile = async (info: CreateTeacherDto) => {
     const data = await api.post("/teacher-profile/create", info)
     return data
 }

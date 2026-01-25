@@ -12,6 +12,7 @@ import AddTeacherProfile from "./pages/AddTeacherProfile/AddTeacherProfile";
 import Profile from "./pages/Profile/Profile";
 import SubjectsPage from "./pages/SubjectsPage/SubjectsPage";
 import TeacherPage from "./pages/TeacherPage/TeacherPage";
+import AddStudentProfile from "./pages/AddStudent/AddStudent";
 
 const router = createBrowserRouter([
     {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
     }, {
         path: "/category/:category/subject/:subject/teacher/:id",
         element: <TeacherPage/>,
+        errorElement: <ErrorPage/>
+    }, {
+        path: "/add-student",
+        element: <AddStudentProfile/>,
         errorElement: <ErrorPage/>
     }
 ])

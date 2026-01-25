@@ -10,6 +10,14 @@ export interface TeacherProfileDto {
     rating: number
 }
 
+export interface CreateTeacherDto {
+    fullName: string,
+    bio: string,
+    degree: string,
+    experience: string,
+    pricePerHour: number,
+}
+
 export interface AvailableTimeDto {
     time: string[]
 }

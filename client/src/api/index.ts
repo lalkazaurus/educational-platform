@@ -1,6 +1,7 @@
 import axios from "axios";
-import { getErrorMessage } from "./getErrorMessage";
+import { getErrorMessage } from "./getErrorMessage"; 
 import { toast } from "react-hot-toast";
+import { useAuthStore } from "../store/useAuthStore";
 
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
@@ -37,6 +38,7 @@ api.interceptors.response.use(
         const originalRequest = error.config;
 
         if (error.response?.status === 401 && !originalRequest._retry) {
+            
             if (isRefreshing) {
                 return new Promise((resolve, reject) => {
                     failedQueue.push({ resolve, reject });
@@ -55,26 +57,38 @@ api.interceptors.response.use(
                 try {
                     const refreshToken = localStorage.getItem("refreshToken");
                     
+                    if (!refreshToken) {
+                        throw new Error("No refresh token available");
+                    }
+
                     const response = await axios.post(
                         `${import.meta.env.VITE_API_URL}/auth/refresh`,
-                        { refreshToken }
+                        { refreshToken },
+                        {
+                            headers: {
+                                Authorization: undefined, 
+                            }
+                        }
                     );
 
-                    const { accessToken, refreshToken: newRefreshToken } = response.data;
+                    const { accessToken, refreshToken: newRefreshToken, user } = response.data;
 
-                    localStorage.setItem("accessToken", accessToken);
-                    localStorage.setItem("refreshToken", newRefreshToken);
+                    useAuthStore.getState().setLogin(user, { 
+                        accessToken: accessToken, 
+                        refreshToken: newRefreshToken 
+                    });
 
                     api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+                    
                     originalRequest.headers["Authorization"] = `Bearer ${accessToken}`;
 
                     processQueue(null, accessToken);
+                    
                     resolve(api(originalRequest));
+
                 } catch (refreshError) {
                     processQueue(refreshError, null);
-                    localStorage.removeItem("accessToken");
-                    localStorage.removeItem("refreshToken");
-                    window.location.href = "/login";
+                    useAuthStore.getState().logout();
                     reject(refreshError);
                 } finally {
                     isRefreshing = false;
@@ -82,24 +96,18 @@ api.interceptors.response.use(
             });
         }
 
-        const message = getErrorMessage(error);
-        toast.error(message, {
-            style: {
-                border: '3px solid black',
-                background: '#ffeb3b',
-                color: '#000',
-                padding: '12px 16px',
-                fontWeight: 'bold',
-                textTransform: 'uppercase',
-                boxShadow: '4px 4px 0px #000',
-                borderRadius: '0.5rem',
-                transform: 'rotate(-1deg)',
-            },
-            iconTheme: {
-                primary: '#d32f2f',
-                secondary: '#fff',
-            },
-        });
+        if (error.response?.status !== 401) {
+             const message = getErrorMessage(error);
+             toast.error(message, {
+                style: {
+                    border: '3px solid black',
+                    background: '#ffeb3b',
+                    color: '#000',
+                    padding: '12px 16px',
+                    fontWeight: 'bold',
+                }
+             });
+        }
 
         return Promise.reject(error);
     }

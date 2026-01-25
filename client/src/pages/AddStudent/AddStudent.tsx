@@ -1,13 +1,12 @@
 import { useForm } from "react-hook-form"
-import styles from "./AddTeacherProfile.module.css"
-import type { CreateTeacherDto } from "../../types/teacher-profile.dto"
+import styles from "./AddStudent.module.css"
 import { useNavigate } from "react-router-dom"
-
 import { QueryClient, useMutation } from "@tanstack/react-query"
-import { createTeacherProfile } from "../../api/teacher-profile.api"
+import { createStudent } from "../../api/students.api"
+import type { InitialStudentsDto } from "../../types/students.dto"
 
-export default function AddTeacherProfile() {
-    const { register, handleSubmit, reset, formState: {errors} } = useForm<CreateTeacherDto>({
+export default function AddStudentProfile() {
+    const { register, handleSubmit, reset, formState: {errors} } = useForm<InitialStudentsDto>({
         mode: "onChange"
     })
     const queryClient = new QueryClient()
@@ -15,7 +14,7 @@ export default function AddTeacherProfile() {
     const navigate = useNavigate()
 
     const addTeacherMutation = useMutation({
-        mutationFn: createTeacherProfile,
+        mutationFn: createStudent,
         onSuccess: () => {
             queryClient.clear();
             navigate("/");
@@ -23,7 +22,7 @@ export default function AddTeacherProfile() {
         }
     });
 
-    async function onSubmit(data: CreateTeacherDto) {
+    async function onSubmit(data: InitialStudentsDto) {
         addTeacherMutation.mutate(data);
     }
 
@@ -39,7 +38,7 @@ export default function AddTeacherProfile() {
             })}/>
             {errors.fullName && <p>{errors.fullName.message}</p>}
             <label>Bio</label>
-            <textarea {...register("bio", 
+            <textarea {...register("learningGoal", 
                 {
                     minLength: {
                         value: 20,
@@ -47,9 +46,9 @@ export default function AddTeacherProfile() {
                     }
                 }
             )}/>
-            {errors.bio && <p>{errors.bio.message}</p>}
-            <label>Degree</label>
-            <textarea {...register("degree", 
+            {errors.learningGoal && <p>{errors.learningGoal.message}</p>}
+            <label>Date of birth</label>
+            <input type="date" {...register("dateOfBirth", 
                 {
                     minLength: {
                         value: 5,
@@ -57,28 +56,8 @@ export default function AddTeacherProfile() {
                     }
                 }
             )}/>
-            {errors.degree && <p>{errors.degree.message}</p>}
-            <label>Experience</label>
-            <textarea {...register("experience", 
-                {
-                    minLength: {
-                        value: 5,
-                        message: "Your exprerience is too short"
-                    }
-                }
-            )}/>
-            {errors.experience && <p>{errors.experience.message}</p>}
-            <label>Price per hour</label>
-            <input
-                type="number" 
-            {...register("pricePerHour", {
-                    pattern: {
-                        value: /^[0-9]+([.,][0-9]{1,2})?$/u,
-                        message: "Please enter a valid number"
-                    }
-                })}
-            />
-            {errors.pricePerHour && <p>{errors.pricePerHour.message}</p>}
+            {errors.dateOfBirth && <p>{errors.dateOfBirth.message}</p>}
+            
             <button 
                 type="button" 
                 className={styles.reset} 

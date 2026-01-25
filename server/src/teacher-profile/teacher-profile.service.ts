@@ -5,13 +5,15 @@ import { TeacherProfileDto } from './dto/teacher-profile.dto';
 import { SubjectService } from 'src/subject/subject.service';
 import { notEqual } from 'assert';
 import { FullTeacherProfileDto } from './dto/full-teacher-profile.dto';
+import { UserService } from 'src/users/user/user.service';
 
 @Injectable()
 export class TeacherProfileService {
     constructor (
         @Inject("TEACHER_PROFILE_REPOSITORY")
         private teacherProfileRepository: Repository<TeacherProfile>,
-        private subjectService: SubjectService
+        private subjectService: SubjectService,
+        private userService: UserService
     ) {}
 
     async findAll() {
@@ -47,6 +49,9 @@ export class TeacherProfileService {
             ...teacherInfo,
             userId,
         })
+
+        await this.userService.addTeacherRole(userId)
+
         await this.teacherProfileRepository.save(teacher)
         return teacher
     }

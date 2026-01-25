@@ -27,9 +27,9 @@ export class TeacherProfileController {
 
   @Post("create")
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Role(Roles.TEACHER)
+  @Role(Roles.USER)
   async create(
-    @Body() teacher: TeacherProfileDto,
+    @Body() teacher: TeacheProfileInfoDto,
     @Req() req: Request
   ) {
     const user = req.user as ValidatedPayloadDto;
