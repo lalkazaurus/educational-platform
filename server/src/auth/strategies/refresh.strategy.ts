@@ -33,7 +33,7 @@ export class RefreshStrategy extends PassportStrategy(Strategy, 'refresh') {
         const decodedUser = this.jwtService.decode(refreshToken) as User
 
         const user = await this.userService.findById(decodedUser.id);
-        console.log(decodedUser.id)
+        
         if (!user) throw new UnauthorizedException();
 
         return {

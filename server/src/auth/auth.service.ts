@@ -72,6 +72,7 @@ export class AuthService {
     }
 
     async changePassword(id: number, newPassword: string) {
-        await this.userService.changePassword(id, newPassword)
+        const hashedPassword = (await bcrypt.hash(newPassword, 10))
+        await this.userService.changePassword(id, hashedPassword)
     }
 }

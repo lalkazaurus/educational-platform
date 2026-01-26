@@ -1,5 +1,5 @@
 import api from "."
-import type { LoginDto, RegisterDto } from "../types/login.dto"
+import type { ChangePasswordData, LoginDto, RegisterDto } from "../types/login.dto"
 
 export const login = async (user: LoginDto) => {
     const { data } = await api.post("auth/login", user)
@@ -28,5 +28,10 @@ export const refresh = async () => {
 
 export const addNewTeacher = async (id: number) => {
     const { data } = await api.get(`add-new-teacher/:${id}`)
+    return data
+}
+
+export const changePassword = async (info: ChangePasswordData) => {
+    const { data } = await api.post("auth/change-password", info)
     return data
 }

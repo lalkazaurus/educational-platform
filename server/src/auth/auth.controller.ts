@@ -60,7 +60,7 @@ export class AuthController {
     }
 
     @Post('change-password')
-    @UseGuards(JwtAuthGuard)
+    @UseGuards(LocalGuard)
     async changePassword(
         @Req() req: Request,
         @Body() data: ChangePassport
