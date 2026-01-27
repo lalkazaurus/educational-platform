@@ -4,6 +4,7 @@ import type { CreateTeacherDto } from "../../types/teacher-profile.dto"
 import { useNavigate } from "react-router-dom"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { createTeacherProfile } from "../../api/teacher-profile.api"
+import { useTranslation } from "react-i18next"
 
 export default function AddTeacherProfile() {
     const { 
@@ -15,6 +16,7 @@ export default function AddTeacherProfile() {
         mode: "onChange"
     })
     
+    const { t } = useTranslation("addTeacherProfile")
     const queryClient = useQueryClient()
     const navigate = useNavigate()
 
@@ -26,7 +28,7 @@ export default function AddTeacherProfile() {
             reset();
         },
         onError: (error) => {
-            console.error("Failed to create teacher profile", error);
+            console.error(t("error"), error);
         }
     });
 
@@ -38,61 +40,65 @@ export default function AddTeacherProfile() {
 
     return <div className={"container"}>
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-            <h1>Fill the CV</h1>
-            <label>Fullname</label>
+            <h1>{t("title")}</h1>
+            <label>{t("fullname")}</label>
             <input
                 disabled={isSubmitting} 
                 {...register("fullName", {
+                required: t("fullname-required"),
                 pattern: {
                     value: /^[\p{L}][\p{L}\p{M} .'\-]*[\p{L}]$/u,
-                    message: "This is not a fullname"
+                    message: t("invalid-name")
                 }
             })}/>
             {errors.fullName && <p>{errors.fullName.message}</p>}
-            <label>Bio</label>
+            <label>{t("bio")}</label>
             <textarea 
                 disabled={isSubmitting}
                 {...register("bio", 
                     {
                         minLength: {
                             value: 20,
-                            message: "Your bio is too short"
-                        }
+                            message: t("bio-short")
+                        },
+                        required: t("bio-required")
                     }
             )}/>
             {errors.bio && <p>{errors.bio.message}</p>}
-            <label>Degree</label>
+            <label>{t("degree")}</label>
             <textarea 
                 disabled={isSubmitting}
                 {...register("degree", 
                 {
                     minLength: {
                         value: 5,
-                        message: "Your degree is too short"
-                    }
+                        message: t("degree-short")
+                    },
+                    required: t("degree-required")
                 }
             )}/>
             {errors.degree && <p>{errors.degree.message}</p>}
-            <label>Experience</label>
+            <label>{t("experience")}</label>
             <textarea 
                 disabled={isSubmitting}
                 {...register("experience", 
                     {
                         minLength: {
                             value: 5,
-                            message: "Your exprerience is too short"
-                        }
+                            message: t("experience-short")
+                        }, 
+                        required: t("experience-required")
                     }
             )}/>
             {errors.experience && <p>{errors.experience.message}</p>}
-            <label>Price per hour</label>
+            <label>{t("price-per-hour")}</label>
             <input
                 type="number"
                 disabled={isSubmitting}
                 {...register("pricePerHour", {
                     pattern: {
                         value: /^[0-9]+([.,][0-9]{1,2})?$/u,
-                        message: "Please enter a valid number"
+                        message: t("price-per-hour-validate")
                     }
                 })}
             />
@@ -103,17 +109,17 @@ export default function AddTeacherProfile() {
                 onClick={() => {reset()}}
                 disabled={isSubmitting}
             >
-                Reset
+                {t("reset")}
             </button>
             <button 
                 type="submit"
                 disabled={isSubmitting}
             >
-                {isSubmitting ? "Saving..." : "Submit"}
+                {isSubmitting ? t("submitting") : t("submit")}
             </button>
 
             {addTeacherMutation.isError && (
-                <p className={styles.error}>Something went wrong. Please try again.</p>
+                <p className={styles.error}>{t("wrong")}</p>
             )}
         </form>
     </div>

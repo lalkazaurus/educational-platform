@@ -6,14 +6,23 @@ import Spinner from "../../layouts/Spinner/Spinner"
 import { useState } from "react"
 import { createSubject } from "../../api/subject.api"
 import styles from "./AddSubject.module.css"
+import { useTranslation } from "react-i18next"
 
 export default function AddSubject() {
-  const { data: categories, isLoading: categoriesIsLoading } = useQuery<string[]>({
+  const { 
+    data: categories, 
+    isLoading: categoriesIsLoading 
+  } = useQuery<string[]>({
     queryKey: ["categories"],
     queryFn: getCategories,
   })
 
-  const { data: levels, isLoading: levelsIsLoading } = useQuery<string[]>({
+  const { t } = useTranslation("addSubject")
+
+  const { 
+    data: levels, 
+    isLoading: levelsIsLoading 
+  } = useQuery<string[]>({
     queryKey: ["levels"],
     queryFn: getLevels,
   })
@@ -41,7 +50,7 @@ export default function AddSubject() {
       reset()
       setPreview(null)
     } catch (err) {
-      console.error("Error sending data:", err)
+      console.error(t("error-data"), err)
     }
   }
 
@@ -69,37 +78,37 @@ export default function AddSubject() {
   return (
     <div className="container">
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <h1>Add Subject</h1>
+        <h1>{t("title")}</h1>
 
-        <label>Subject name</label>
+        <label>{t("subject-name")}</label>
         <input
           {...register("name", {
-            required: "Name is required",
+            required: t("subject-name-required"),
             pattern: {
               value: /^[A-Z][a-zA-Z]*(?: [a-zA-Z]+)*$/,
-              message: "Must start with a capital letter and contain only words",
+              message: t("subject-name-validate"),
             },
           })}
-          placeholder="Subject name"
+          placeholder={t("subject-name")}
         />
         {errors.name?.message && <p>{errors.name.message}</p>}
 
-        <label>Description</label>
+        <label>{t("description")}</label>
         <textarea
           {...register("description", {
-            required: "Description is required",
+            required: t("description-required"),
             pattern: {
               value: /^[A-Z][\s\S]{4,499}$/,
-              message: "It has to start from the capital letter",
+              message: t("description-validate"),
             },
           })}
-          placeholder="Description"
+          placeholder={t("description")}
         />
         {errors.description?.message && <p>{errors.description.message}</p>}
 
         <label>Category</label>
-        <select {...register("category", { required: "Category is required" })}>
-          <option value="">Select category...</option>
+        <select {...register("category", { required: t("levels-required")})}>
+          <option value="">{t("select-category")}</option>
           {categories?.map((category) => (
             <option key={category} value={category}>
               {category.replaceAll("_", " ").toLowerCase()}
@@ -108,9 +117,9 @@ export default function AddSubject() {
         </select>
         {errors.category?.message && <p>{errors.category.message}</p>}
 
-        <label>Levels</label>
+        <label>{t("levels")}</label>
         <select
-          {...register("level", { required: "Levels are required" })}
+          {...register("level", { required: t("levels-required") })}
           multiple
         >
           {levels?.map((level) => (
@@ -121,7 +130,7 @@ export default function AddSubject() {
         </select>
         {errors.level?.message && <p>{errors.level.message}</p>}
 
-        <label>Icon</label>
+        <label>{t("icon")}</label>
         <div className={styles.fileUpload}>
           <input
             id="iconUpload"
@@ -135,13 +144,13 @@ export default function AddSubject() {
             onClick={() => document.getElementById("iconUpload")?.click()}
             className={styles.fileButton}
           >
-            Choose file
+            {t("choose-file")}
           </button>
           {preview && <img src={preview} alt="Preview" />}
         </div>
 
         <button type="submit">
-          Submit
+          {t("submit")}
         </button>
 
         <button
@@ -152,7 +161,7 @@ export default function AddSubject() {
             setPreview(null)
           }}
         >
-          Reset
+          {t("reset")}
         </button>
       </form>
     </div>

@@ -5,6 +5,7 @@ import { useAuthStore } from "../../store/useAuthStore"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { changePassword } from "../../api/auth.api"
 import { useNavigate } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 
 export default function ChangePassword() {
     const { register, watch,  handleSubmit, reset, formState: {errors} } = useForm<ChangePasswordDto>({
@@ -15,6 +16,7 @@ export default function ChangePassword() {
     const newPassword = watch("newPassword")
     const queryClient = useQueryClient()
     const navigate = useNavigate()
+    const { t } = useTranslation("changePassword")
 
     const email = useAuthStore( (state) => state.user?.email )
 
@@ -26,7 +28,7 @@ export default function ChangePassword() {
             reset();
         },
         onError: (error) => {
-            console.error("Failed to create student", error);
+            console.error(t("error"), error);
         }
     })
 
@@ -47,34 +49,35 @@ export default function ChangePassword() {
     
     return <div className="container">
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-            <h1>Changing password</h1>
-            <label>Password</label>
+            <h1>{t("title")}</h1>
+            <label>{t("password")}</label>
             <input 
                 type="password"
                 disabled={isSubmitting}
                 {...register("password", {
-                    "required": "This field is required"
+                    "required": t("password-required")
                 })}
             />
-            <label>Enter new password</label>
+            <label>{t("new-password")}</label>
             <input type="password"
                 disabled={isSubmitting} 
                 {...register("newPassword", {
-                    required: 'Password is required',
+                    required: t("password-required"),
                     pattern: {
                         value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-                        message: 'Your password not strong enough'
+                        message: t("new-password-validate")
                     },
-                    validate: (value) => value !== password || "New password has not to be eqaual to the old one."
+                    validate: (value) => value !== password || t("passwords-not-equal")
                 })}
             />
             {errors.newPassword && <p>{errors.newPassword?.message}</p>}
-            <label>Enter new password second time</label>
+            <label>{t("second-time")}</label>
             <input 
                 type="password"
                 disabled={isSubmitting} 
                 {...register("passwordRepeat", {
-                    validate: (value) => value === newPassword || "Passwords aren't equal."
+                    required: t("password-required"),
+                    validate: (value) => value === newPassword || t("passwords-not-equal-small")
                 })}
             />
             {errors.passwordRepeat && <p>{errors.passwordRepeat?.message}</p>}
@@ -84,17 +87,17 @@ export default function ChangePassword() {
                 onClick={() => {reset()}}
                 disabled={isSubmitting}
             >
-                Reset
+                {t("reset")}
             </button>
             <button 
                 type="submit"
                 disabled={isSubmitting}
             >
-                {isSubmitting ? "Saving..." : "Submit"}
+                {isSubmitting ? t("submitting") : t("submit")}
             </button>
 
             {changePasswordMutation.isError && (
-                <p className={styles.error}>Something went wrong. Please try again.</p>
+                <p className={styles.error}>{t("wrong")}</p>
             )}
         </form>
     </div>

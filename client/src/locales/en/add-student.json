@@ -1,0 +1,18 @@
+{
+    "error": "Failed to create student",
+    "title": "Fill the CV",
+    "fullname": "Fullname",
+    "bio": "Bio",
+    "fullname-required": "Fullname is required",
+    "invalid-name": "Invalid name format",
+    "date-required": "Date of birth is required",
+    "date-future": "Date cannot be in the future",
+    "submit": "Submit",
+    "submitting": "Submitting...",
+    "wrong": "Something went wrong. Please try again.",
+    "dateOfBirth": "Date of birth",
+    "reset": "Reset",
+    "learning-goal": "Learning goal",
+    "learning-goal-required": "Learning goal is required",
+    "learning-goal-size": "Learning goal size has to be longer than 20 symbols"
+}

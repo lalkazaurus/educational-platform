@@ -1,0 +1,19 @@
+{
+    "error-data": "Error sending data:",
+    "subject-name": "Subject name",
+    "subject-name-required": "Subject name is required",
+    "subject-name-validate": "Must start with a capital letter and contain only words",
+    "description": "Description",
+    "description-required": "Description is required",
+    "description-validate": "It has to start from the capital letter",
+    "category": "Category",
+    "category-required": "Category is required",
+    "select-category": "Select category",
+    "levels": "Levels",
+    "levels-required": "Levels is required",
+    "icon": "Icon",
+    "choose-file": "Choose file",
+    "reset": "Reset",
+    "submit": "Submit",
+    "title": "Add Subject"
+}

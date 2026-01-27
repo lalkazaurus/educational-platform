@@ -1,0 +1,19 @@
+{
+    "error-data": "Помилка надсилання інформації:",
+    "subject-name": "Назва предмета",
+    "subject-name-required": "Назва предмета обов'язкова",
+    "subject-name-validate": "Має починатись з великої букви і складатись тільки з літер",
+    "description": "Опис",
+    "description-required": "Опис обов'язковий",
+    "description-validate": "Має починатись з великої літери",
+    "category": "Категорія",
+    "category-required": "Категорія обов'язкова",
+    "select-category": "Оберіть категорію",
+    "levels": "Рівні",
+    "levels-required": "Оберіть рівень",
+    "icon": "Картинка",
+    "choose-file": "Оберіть файл",
+    "reset": "Очистити",
+    "submit": "Відправити",
+    "title": "Додати предмет"
+}

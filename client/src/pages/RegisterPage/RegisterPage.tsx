@@ -30,7 +30,7 @@ export default function RegisterPage() {
             reset();
         }, 
         onError: (error) => {
-            console.error("Failed to create student", error);
+            console.error(t("register-failed"), error);
         }
     });
 
@@ -42,16 +42,16 @@ export default function RegisterPage() {
     
     return <div className="container">
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-            <h1>Register</h1>
+            <h1>{t("register")}</h1>
             <label>{t("email")}</label>
             <input 
                 disabled={isPending}
                 {...register("email", {
-                    required:  'Email is required',
+                    required:  t("email-required"),
                     pattern: {
                         value:
                                     /[a-z0-9._%+!$&*=^|~#%'`?{}/-]+@([a-z0-9-]+\.){1,}([a-z]{2,16})/,
-                        message: 'This is not a valid email',
+                        message: t("email-validate"),
                     }
                 })}
             />
@@ -62,10 +62,10 @@ export default function RegisterPage() {
                 disabled={isPending}
                 type="password" 
                 {...register("password", {
-                    required: 'Password is required',
+                    required: t("password-required"),
                     pattern: {
                         value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-                        message: 'Your password not strong enough'
+                        message: t("password-validate")
                     }
                 })}
             />
@@ -75,10 +75,10 @@ export default function RegisterPage() {
             <input 
                 disabled={isPending}
                 {...register("phoneNumber", {
-                    required: "Phone number is required",
+                    required: t("phone-number-required"),
                     pattern: {
                         value: /^\+?[1-9]\d{1,14}$/,
-                        message: "This is not a valid phone number"
+                        message: t("phone-number-validate")
                     }
                 })}
             />
@@ -88,7 +88,7 @@ export default function RegisterPage() {
             <input 
                 disabled={isPending}
                 {...register("username", {
-                    required: "Username is required"
+                    required: t("username-required")
                 })}
             />
             {errors.username?.message && <p className={styles.error}>{errors.username?.message}</p>}
@@ -99,7 +99,7 @@ export default function RegisterPage() {
                 onClick={() => reset()}
                 disabled={isPending}
             >
-                Reset
+                {t("reset")}
             </button>
                 
             <button 
@@ -107,7 +107,7 @@ export default function RegisterPage() {
                 type="submit" 
                 disabled={isPending}
             >
-                {isPending ? "Loading..." : "Submit"}
+                {isPending ? t("submitting") : t("submit")}
             </button>
         </form>
     </div>

@@ -30,7 +30,7 @@ export default function LoginPage() {
             reset();
         },
         onError: (error) => {
-            console.error("Failed to create student", error);
+            console.error(t("login-failed"), error);
         }
     });
 
@@ -44,16 +44,16 @@ export default function LoginPage() {
     
     return <div className="container">
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-            <h1>Login</h1>
+            <h1>{t("login")}</h1>
             <label>{t("email")}</label>
             <input
                 disabled={isSubmitting}
                 {...register("email", {
-                    required:  'Email is required',
+                    required:  t('email-required'),
                     pattern: {
                         value:
                                     /[a-z0-9._%+!$&*=^|~#%'`?{}/-]+@([a-z0-9-]+\.){1,}([a-z]{2,16})/,
-                        message: 'This text has to be an email',
+                        message: t("email-validate"),
                     }
                 })}
             />
@@ -63,7 +63,7 @@ export default function LoginPage() {
                 type="password"
                 disabled={isSubmitting}
                 {...register("password", {
-                    required: 'Password is required',
+                    required: t("password-required"),
                 })}
             />
             {errors.password?.message && <p className={styles.error}>{errors.password?.message}</p>}
@@ -73,17 +73,17 @@ export default function LoginPage() {
                 type="button" 
                 onClick={() => reset()}
             >
-                Reset
+                {t("reset")}
             </button>
             <input 
                 disabled={isSubmitting}
                 className={styles.submit} 
                 type="submit" 
-                value={isSubmitting ? "Saving..." : "Submit"}
+                value={isSubmitting ? t("submitting") : t("submit")}
             />
 
             {loginMutation.isError && (
-                <p className={styles.error}>Something went wrong. Please try again.</p>
+                <p className={styles.error}>{t("wrong")}</p>
             )}
         </form>
     </div>

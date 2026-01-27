@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { createStudent } from "../../api/students.api"
 import type { InitialStudentsDto } from "../../types/students.dto"
+import { useTranslation } from "react-i18next"
 
 export default function AddStudentProfile() {
     const { 
@@ -17,6 +18,7 @@ export default function AddStudentProfile() {
     
     const queryClient = useQueryClient()
     const navigate = useNavigate()
+    const { t } = useTranslation("addStudent") 
 
     const addStudentMutation = useMutation({
         mutationFn: createStudent,
@@ -26,7 +28,7 @@ export default function AddStudentProfile() {
             reset();
         },
         onError: (error) => {
-            console.error("Failed to create student", error);
+            console.error(t("error"), error);
         }
     });
 
@@ -39,47 +41,47 @@ export default function AddStudentProfile() {
     return (
         <div className={"container"}>
             <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-                <h1>Fill the CV</h1>
+                <h1>{t("title")}</h1>
                 
-                <label htmlFor="fullName">Fullname</label>
+                <label htmlFor="fullName">{t("fullname")}</label>
                 <input 
                     id="fullName"
                     disabled={isSubmitting}
                     {...register("fullName", {
-                        required: "Fullname is required",
+                        required: t("fullname-required"),
                         pattern: {
                             value: /^[\p{L}][\p{L}\p{M} .'\-]*[\p{L}]$/u,
-                            message: "Invalid name format"
+                            message: t("invalid-name")
                         }
                     })}
                 />
                 {errors.fullName && <p className={styles.error}>{errors.fullName.message}</p>}
                 
-                <label htmlFor="learningGoal">Bio</label>
+                <label htmlFor="learningGoal">{t("learning-goal")}</label>
                 <textarea 
                     id="learningGoal"
                     disabled={isSubmitting}
                     {...register("learningGoal", {
-                        required: "Bio is required",
+                        required: t("learning-goal-required"),
                         minLength: {
                             value: 20,
-                            message: "Your bio is too short (min 20 chars)"
+                            message: t("learning-goal-size")
                         }
                     })}
                 />
                 {errors.learningGoal && <p className={styles.error}>{errors.learningGoal.message}</p>}
                 
-                <label htmlFor="dateOfBirth">Date of birth</label>
+                <label htmlFor="dateOfBirth">{t("dateOfBirth")}</label>
                 <input 
                     id="dateOfBirth"
                     type="date" 
                     disabled={isSubmitting}
                     {...register("dateOfBirth", {
-                        required: "Date of birth is required",
+                        required: t("date-required"),
                         validate: (value) => {
                              const selectedDate = new Date(value);
                              const today = new Date();
-                             return selectedDate <= today || "Date cannot be in the future";
+                             return selectedDate <= today || t("date-future");
                         }
                     })}
                 />
@@ -92,16 +94,16 @@ export default function AddStudentProfile() {
                         onClick={() => reset()}
                         disabled={isSubmitting}
                     >
-                        Reset
+                        {t("reset")}
                     </button>
                     
                     <button type="submit" disabled={isSubmitting}>
-                        {isSubmitting ? "Saving..." : "Submit"}
+                        {isSubmitting ? t("submitting") : t("submit")}
                     </button>
                 </div>
                 
                 {addStudentMutation.isError && (
-                    <p className={styles.error}>Something went wrong. Please try again.</p>
+                    <p className={styles.error}>{t("wrong")}</p>
                 )}
             </form>
         </div>

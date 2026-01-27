@@ -2,9 +2,11 @@ import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../../store/useAuthStore";
 import styles from "./Profile.module.css"
 import { formatDate } from "../../format/date.format";
+import { useTranslation } from "react-i18next";
 
 export default function Profile() {
     const user = useAuthStore( (state) => state.user )
+    const { t } = useTranslation("profile")
     const navigate = useNavigate()
     if (!user) {
         navigate("/login")
@@ -15,36 +17,36 @@ export default function Profile() {
         <table className={styles.info}>
             <thead>
                 <tr>
-                    <td className={styles.title} colSpan={2}>Your profile</td>
+                    <td className={styles.title} colSpan={2}>{t("your-profile")}</td>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td className={styles.field}>Username:</td>
+                    <td className={styles.field}>{t("username")}</td>
                     <td>{user.username}</td>
                 </tr>
                 <tr>
-                    <td className={styles.field}>Email:</td>
+                    <td className={styles.field}>{t("email")}</td>
                     <td>{user.email}</td>
                 </tr>
                 <tr>
-                    <td className={styles.field}>Roles: </td>
+                    <td className={styles.field}>{t("roles")}</td>
                     <td>{user.roles.join(", ")}</td>
                 </tr>
                 <tr>
-                    <td className={styles.field}>Phone number: </td>
+                    <td className={styles.field}>{t("phone-number")}</td>
                     <td>{user.phoneNumber}</td>
                 </tr>
                 <tr>
-                    <td className={styles.field}>Status</td>
+                    <td className={styles.field}>{t("status")}</td>
                     <td>{user.status}</td>
                 </tr>
                 <tr>
-                    <td className={styles.field}>Last login: </td>
+                    <td className={styles.field}>{t("last-login")}</td>
                     <td>{formatDate(user.lastLogin)}</td>
                 </tr>
             </tbody>
         </table>
-        <a className={styles.passwordChange} href="/change-password">Do you want to change password?</a>
+        <a className={styles.passwordChange} href="/change-password">{t("change-password")}</a>
     </div>
 }

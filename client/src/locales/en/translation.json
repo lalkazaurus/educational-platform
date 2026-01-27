@@ -9,5 +9,20 @@
   "email_contact": "Email",
   "address": "Address",
   "telegram": "Telegram",
-  "hours": "Working hours"
+  "hours": "Working hours",
+  "login-failed": "Failed to login",
+  "login": "Login",
+  "email-required": "Email is required",
+  "email-validate": "This text has to be an email",
+  "password-required": "Password is required",
+  "submit": "Submit",
+  "submitting": "Submitting...",
+  "wrong": "Something went wrong. Please try again.",
+  "reset": "Reset",
+  "register-failed": "Failed to register",
+  "register": "Register",
+  "phone-number-required": "Phone number is required",
+  "phone-number-validate": "This is not a valid phone number",
+  "username-required": "Username is required",
+  "password-validate": "Your password not strong enough"
 }

@@ -15,7 +15,13 @@ export default function CategoryPage() {
     }    
 
     const categoryName = category!.toUpperCase().split(" ").join("_")
-    const { data, isLoading, error } = useSubjects(categoryName || "")
+
+    const { 
+        data, 
+        isLoading, 
+        error 
+    } = useSubjects(categoryName || "")
+
     if (!category) return <p>Error</p>
 
     if (isLoading) {

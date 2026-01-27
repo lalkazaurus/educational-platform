@@ -12,7 +12,12 @@ import type { ApiError } from "../../types/api"
 export default function TeacherPage() {
     const { id } = useParams()
 
-    const { isLoading, data, isError, error} = useQuery<TeacherProfileDto, AxiosError<ApiError>>({
+    const { 
+        isLoading, 
+        data, 
+        isError, 
+        error
+    } = useQuery<TeacherProfileDto, AxiosError<ApiError>>({
         queryKey: ["findTeacherById", id],
         queryFn: () => findTeacherById(+id!),
         enabled: !!id

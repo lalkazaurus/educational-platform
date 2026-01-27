@@ -95,40 +95,10 @@
   gap: 0.8rem;
 }
 
-.fileButton {
-  border: 3px solid #000;
-  border-radius: 10px;
-  padding: 0.6rem 1.2rem;
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 4px 4px 0px #000;
-  background-color: #b39ddb;
-  color: #000;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transform: rotate(-1deg);
-  transition: all 0.2s ease;
-}
-
-.fileButton:hover {
-  background-color: #6a0dad;
-  color: #fff;
-  transform: rotate(1deg) scale(1.05);
-  box-shadow: 6px 6px 0px #000;
-}
-
-.fileUpload img {
-  width: 5rem;
-  height: 5rem;
-  border: 3px solid #000;
-  border-radius: 10px;
-  box-shadow: 4px 4px 0px #000;
-  object-fit: cover;
-  transform: rotate(1deg);
-}
-
 .form button {
   border: 3px solid #000;
+  width: 100%;
+  margin-top: 20px;
   border-radius: 10px;
   padding: 0.8rem 1rem;
   font-weight: bold;

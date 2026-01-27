@@ -1,0 +1,22 @@
+{
+    "error": "Failed to create teacher",
+    "title": "Fill the CV",
+    "fullname": "Fullname",
+    "bio": "Bio",
+    "bio-short": "Bio is required",
+    "bio-required": "Bio is required",
+    "degree": "Degree",
+    "degree-short": "Degree is required",
+    "degree-required": "Degree is required",
+    "experience": "Experience",
+    "experience_short": "Experience is too short",
+    "experience-required": "Experience is required",
+    "price-per-hour": "Price per hour",
+    "price-per-hour-validate": "Please enter a valid number",
+    "fullname-required": "Fullname is required",
+    "invalid-name": "Invalid name format",
+    "submit": "Submit",
+    "submitting": "Submitting...",
+    "wrong": "Something went wrong. Please try again.",
+    "reset": "Reset"
+}
