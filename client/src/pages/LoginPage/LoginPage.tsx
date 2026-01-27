@@ -8,7 +8,12 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useAuthStore } from "../../store/useAuthStore"
 
 export default function LoginPage() {
-    const { register, reset, formState: {errors}, handleSubmit } = useForm<LoginDto>({
+    const { 
+        register, 
+        reset, 
+        formState: {errors}, 
+        handleSubmit 
+    } = useForm<LoginDto>({
         mode: "onChange"
     })
 
@@ -20,11 +25,12 @@ export default function LoginPage() {
         mutationFn: login,
         onSuccess: (data) => {
             setLogin(data.user, data.tokenData);
-            
             queryClient.clear();
-            
             navigate("/");
             reset();
+        },
+        onError: (error) => {
+            console.error("Failed to create student", error);
         }
     });
 
@@ -33,33 +39,52 @@ export default function LoginPage() {
     async function onSubmit(data: LoginDto) {
         loginMutation.mutate(data);
     }
+
+    const isSubmitting = loginMutation.isPending;
     
     return <div className="container">
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
             <h1>Login</h1>
             <label>{t("email")}</label>
-            <input {...register("email", {
-                required:  'Email is required',
-                pattern: {
-                    value:
-								/[a-z0-9._%+!$&*=^|~#%'`?{}/-]+@([a-z0-9-]+\.){1,}([a-z]{2,16})/,
-                    message: 'This text has to be an email',
-                }
-            })}/>
+            <input
+                disabled={isSubmitting}
+                {...register("email", {
+                    required:  'Email is required',
+                    pattern: {
+                        value:
+                                    /[a-z0-9._%+!$&*=^|~#%'`?{}/-]+@([a-z0-9-]+\.){1,}([a-z]{2,16})/,
+                        message: 'This text has to be an email',
+                    }
+                })}
+            />
             {errors.email?.message && <p className={styles.error}>{errors.email?.message}</p>}
-
             <label>{t("password")}</label>
             <input 
                 type="password"
+                disabled={isSubmitting}
                 {...register("password", {
-                required: 'Password is required',
-            })}/>
+                    required: 'Password is required',
+                })}
+            />
             {errors.password?.message && <p className={styles.error}>{errors.password?.message}</p>}
-
-            <button className={styles.reset} type="button" onClick={() => reset()}>
+            <button 
+                disabled={isSubmitting}
+                className={styles.reset} 
+                type="button" 
+                onClick={() => reset()}
+            >
                 Reset
             </button>
-            <input className={styles.submit} type="submit" value="Submit"/>
+            <input 
+                disabled={isSubmitting}
+                className={styles.submit} 
+                type="submit" 
+                value={isSubmitting ? "Saving..." : "Submit"}
+            />
+
+            {loginMutation.isError && (
+                <p className={styles.error}>Something went wrong. Please try again.</p>
+            )}
         </form>
     </div>
 }

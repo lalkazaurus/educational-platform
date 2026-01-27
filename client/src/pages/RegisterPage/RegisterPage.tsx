@@ -12,7 +12,12 @@ export default function RegisterPage() {
     const queryClient = useQueryClient();
     const setLogin = useAuthStore((state) => state.setLogin);
 
-    const { register, reset, formState: { errors }, handleSubmit } = useForm<RegisterDto>({
+    const { 
+        register, 
+        reset, 
+        formState: { errors }, 
+        handleSubmit 
+    } = useForm<RegisterDto>({
         mode: "onChange"
     });
 
@@ -20,11 +25,12 @@ export default function RegisterPage() {
         mutationFn: registerUser,
         onSuccess: (data) => {
             setLogin(data.saveUser, data.tokenData);
-
             queryClient.clear();
-
             navigate("/");
             reset();
+        }, 
+        onError: (error) => {
+            console.error("Failed to create student", error);
         }
     });
 
@@ -38,42 +44,53 @@ export default function RegisterPage() {
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
             <h1>Register</h1>
             <label>{t("email")}</label>
-            <input {...register("email", {
-                required:  'Email is required',
-                pattern: {
-                    value:
-								/[a-z0-9._%+!$&*=^|~#%'`?{}/-]+@([a-z0-9-]+\.){1,}([a-z]{2,16})/,
-                    message: 'This is not a valid email',
-                }
-            })}/>
+            <input 
+                disabled={isPending}
+                {...register("email", {
+                    required:  'Email is required',
+                    pattern: {
+                        value:
+                                    /[a-z0-9._%+!$&*=^|~#%'`?{}/-]+@([a-z0-9-]+\.){1,}([a-z]{2,16})/,
+                        message: 'This is not a valid email',
+                    }
+                })}
+            />
             {errors.email?.message && <p className={styles.error}>{errors.email?.message}</p>}
 
             <label>{t("password")}</label>
             <input
+                disabled={isPending}
                 type="password" 
                 {...register("password", {
-                required: 'Password is required',
-                pattern: {
-                    value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-                    message: 'Your password not strong enough'
-                }
-            })}/>
+                    required: 'Password is required',
+                    pattern: {
+                        value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+                        message: 'Your password not strong enough'
+                    }
+                })}
+            />
             {errors.password?.message && <p className={styles.error}>{errors.password?.message}</p>}
 
             <label>{t("phone_number")}</label>
-            <input {...register("phoneNumber", {
-                required: "Phone number is required",
-                pattern: {
-                    value: /^\+?[1-9]\d{1,14}$/,
-                    message: "This is not a valid phone number"
-                }
-            })}/>
+            <input 
+                disabled={isPending}
+                {...register("phoneNumber", {
+                    required: "Phone number is required",
+                    pattern: {
+                        value: /^\+?[1-9]\d{1,14}$/,
+                        message: "This is not a valid phone number"
+                    }
+                })}
+            />
             {errors.phoneNumber?.message && <p className={styles.error}>{errors.phoneNumber?.message}</p>}
 
             <label>{t("username")}</label>
-            <input {...register("username", {
-                required: "Username is required"
-            })}/>
+            <input 
+                disabled={isPending}
+                {...register("username", {
+                    required: "Username is required"
+                })}
+            />
             {errors.username?.message && <p className={styles.error}>{errors.username?.message}</p>}
 
             <button 

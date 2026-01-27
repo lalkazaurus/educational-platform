@@ -36,8 +36,6 @@ export default function AddSubject() {
       category: data.category,
       level: Array.isArray(data.level) ? data.level : [data.level],
     }
-    console.log(data)
-    console.log("Sending to backend:", preparedData)
     try {
       await createSubject(preparedData)
       reset()

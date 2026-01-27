@@ -8,7 +8,6 @@ export default function CategoryPage() {
     const { category } = useParams()
     const navigate = useNavigate()
     const location = useLocation()
-    
     const colors = ["#b39ddb", "#fff176", "#FFA8A5"]
     
     if (!category) {
@@ -16,9 +15,7 @@ export default function CategoryPage() {
     }    
 
     const categoryName = category!.toUpperCase().split(" ").join("_")
-
     const { data, isLoading, error } = useSubjects(categoryName || "")
-
     if (!category) return <p>Error</p>
 
     if (isLoading) {

@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form"
 import type { ChangePasswordData, ChangePasswordDto } from "../../types/login.dto"
 import styles from "./ChangePassword.module.css"
 import { useAuthStore } from "../../store/useAuthStore"
-import { QueryClient, useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { changePassword } from "../../api/auth.api"
 import { useNavigate } from "react-router-dom"
 
@@ -13,7 +13,7 @@ export default function ChangePassword() {
 
     const password = watch("password")
     const newPassword = watch("newPassword")
-    const queryClient = new QueryClient()
+    const queryClient = useQueryClient()
     const navigate = useNavigate()
 
     const email = useAuthStore( (state) => state.user?.email )
@@ -24,6 +24,9 @@ export default function ChangePassword() {
             queryClient.clear();
             navigate("/profile");
             reset();
+        },
+        onError: (error) => {
+            console.error("Failed to create student", error);
         }
     })
 
@@ -39,39 +42,60 @@ export default function ChangePassword() {
             changePasswordMutation.mutate(resultedData)
         }
     }
+
+    const isSubmitting = changePasswordMutation.isPending;
     
     return <div className="container">
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
             <h1>Changing password</h1>
             <label>Password</label>
-            <input type="password" {...register("password", {
-                "required": "This field is required"
-            })}/>
+            <input 
+                type="password"
+                disabled={isSubmitting}
+                {...register("password", {
+                    "required": "This field is required"
+                })}
+            />
             <label>Enter new password</label>
-            <input type="password" {...register("newPassword", {
-                required: 'Password is required',
-                pattern: {
-                    value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-                    message: 'Your password not strong enough'
-                },
-                validate: (value) => value !== password || "New password has not to be eqaual to the old one."
-            })}/>
+            <input type="password"
+                disabled={isSubmitting} 
+                {...register("newPassword", {
+                    required: 'Password is required',
+                    pattern: {
+                        value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+                        message: 'Your password not strong enough'
+                    },
+                    validate: (value) => value !== password || "New password has not to be eqaual to the old one."
+                })}
+            />
             {errors.newPassword && <p>{errors.newPassword?.message}</p>}
             <label>Enter new password second time</label>
-            <input type="password" {...register("passwordRepeat", {
-                validate: (value) => value === newPassword || "Passwords aren't equal."
-            })}/>
+            <input 
+                type="password"
+                disabled={isSubmitting} 
+                {...register("passwordRepeat", {
+                    validate: (value) => value === newPassword || "Passwords aren't equal."
+                })}
+            />
             {errors.passwordRepeat && <p>{errors.passwordRepeat?.message}</p>}
             <button 
                 type="button" 
                 className={styles.reset} 
                 onClick={() => {reset()}}
+                disabled={isSubmitting}
             >
                 Reset
             </button>
-            <button type="submit">
-                Submit
+            <button 
+                type="submit"
+                disabled={isSubmitting}
+            >
+                {isSubmitting ? "Saving..." : "Submit"}
             </button>
+
+            {changePasswordMutation.isError && (
+                <p className={styles.error}>Something went wrong. Please try again.</p>
+            )}
         </form>
     </div>
 }
