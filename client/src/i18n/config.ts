@@ -27,17 +27,22 @@ export default i18n
     .use(initReactI18next)
     .use(LanguageDetector)
     .init({
-        lng: "ua",
-        fallbackLng: "en",
+        fallbackLng: "en", 
         supportedLngs: Object.keys(supportedLngs),
         ns: ["translation", "main"],
         defaultNS: "translation",
         debug: true,
+        
+        detection: {
+            order: ['localStorage', 'cookie'], 
+            caches: ['localStorage'],   
+        },
+
         interpolation: {
             escapeValue: false
         },
         resources: {
-            en: { 
+             en: { 
                 translation: en,
                 main: enMain,
                 category: enCategory,
