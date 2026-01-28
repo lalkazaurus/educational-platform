@@ -14,6 +14,8 @@ import SubjectsPage from "./pages/SubjectsPage/SubjectsPage";
 import TeacherPage from "./pages/TeacherPage/TeacherPage";
 import AddStudentProfile from "./pages/AddStudent/AddStudent";
 import ChangePassword from "./pages/ChangePassword/ChangePassword";
+import { AccessGuard } from "./layouts/AuthGuard/AuthGuard";
+import { IsAuthCheckGuard } from "./layouts/IsAuthCheckGuard/IsAuthCheckGuard";
 
 const router = createBrowserRouter([
     {
@@ -22,11 +24,15 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage/>
     }, {
         path: "/login",
-        element: <LoginPage/>,
+        element: <IsAuthCheckGuard>
+            <LoginPage/>
+        </IsAuthCheckGuard>,
         errorElement: <ErrorPage/>
     }, {
         path: "/register",
-        element: <RegisterPage/>,
+        element: <IsAuthCheckGuard>
+            <RegisterPage/>
+        </IsAuthCheckGuard>,
         errorElement: <ErrorPage/>
     }, {
         path: "/contact",
@@ -38,7 +44,9 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage/>
     }, {
         path: "/add-subject",
-        element: <AddSubject/>,
+        element: <AccessGuard roles={["ADMIN"]}>
+                    <AddSubject />
+                 </AccessGuard>,
         errorElement: <ErrorPage/>
     }, {
         path: "/add-teacher",
@@ -46,7 +54,9 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage/>
     }, {
         path: "/profile",
-        element: <Profile/>,
+        element: <AccessGuard>
+                    <Profile />
+                 </AccessGuard>,
         errorElement: <ErrorPage/>
     }, {
         path: "/category/:category/subject/:subject",
@@ -62,7 +72,9 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage/>
     }, {
         path: "/change-password",
-        element: <ChangePassword/>,
+        element: <AccessGuard>
+                    <ChangePassword />
+                 </AccessGuard>,
         errorElement: <ErrorPage/>
     }
 ])
