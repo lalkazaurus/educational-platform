@@ -38,22 +38,24 @@ export class TeacherProfileService {
         return teacher
     }
 
-    async create(teacherInfo: TeacherProfileDto, userId: number) {
-        const existingTeacher = await this.teacherProfileRepository.find({
-            where: {userId}
-        })
+    async create(teacherInfo: TeacherProfileDto, userId: number, imageUrl: string | undefined) {
+        const existingTeacher = await this.teacherProfileRepository.findOne({
+            where: { userId }
+        });
 
-        if (existingTeacher.length > 0) throw new BadRequestException("Teacher Profile for this teacher is already exists")
+        if (existingTeacher) {
+            throw new BadRequestException("Teacher Profile for this teacher already exists");
+        }
 
-        const teacher = await this.teacherProfileRepository.create({
+        const teacher = this.teacherProfileRepository.create({
             ...teacherInfo,
             userId,
-        })
+            imageUrl: imageUrl,
+        });
 
-        await this.userService.addTeacherRole(userId)
+        await this.userService.addTeacherRole(userId);
 
-        await this.teacherProfileRepository.save(teacher)
-        return teacher
+        return await this.teacherProfileRepository.save(teacher);
     }
 
     async update(teacherInfo: TeacherProfileDto, userId: number) {

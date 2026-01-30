@@ -16,6 +16,7 @@ export interface CreateTeacherDto {
     degree: string,
     experience: string,
     pricePerHour: number,
+    image: FileList
 }
 
 export interface AvailableTimeDto {

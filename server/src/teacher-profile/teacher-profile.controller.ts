@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Req, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { TeacherProfileService } from './teacher-profile.service';
 import { JwtAuthGuard } from 'src/common/guards/jwt.guard';
 import { RolesGuard } from 'src/common/guards/role.quard';
@@ -15,6 +15,9 @@ import { TeacherProfileGuard } from './guards/teacher-profile.guard';
 import { FullTeacherProfileDto } from './dto/full-teacher-profile.dto';
 import { plainToInstance } from 'class-transformer';
 import { TeacheProfileInfoDto } from './dto/teacher-profile-indo.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
 
 @Controller('teacher-profile')
 export class TeacherProfileController {
@@ -28,12 +31,28 @@ export class TeacherProfileController {
   @Post("create")
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Role(Roles.USER)
+  @UseInterceptors(FileInterceptor('file', {
+      storage: diskStorage({
+        destination: './uploads', 
+        filename: (req, file, cb) => {
+          const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
+          cb(null, `${randomName}${extname(file.originalname)}`);
+        }
+      })
+  }))
   async create(
-    @Body() teacher: TeacheProfileInfoDto,
-    @Req() req: Request
+      @Body() teacherDto: TeacheProfileInfoDto,
+      @UploadedFile() file: Express.Multer.File, 
+      @Req() req: Request
   ) {
-    const user = req.user as ValidatedPayloadDto;
-    return await this.teacherProfileService.create(teacher, user.id)
+      const user = req.user as ValidatedPayloadDto;
+      
+      let imageUrl: string | undefined;
+      if (file) {
+          imageUrl = `http://localhost:3000/uploads/${file.filename}`;
+      }
+
+      return await this.teacherProfileService.create(teacherDto, user.id, imageUrl);
   }
 
   @Patch("update")

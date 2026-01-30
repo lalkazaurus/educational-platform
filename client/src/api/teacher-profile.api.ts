@@ -7,9 +7,21 @@ export const getAllTeachers = async () => {
 }
 
 export const createTeacherProfile = async (info: CreateTeacherDto) => {
-    const data = await api.post("/teacher-profile/create", info)
-    return data
-}
+    const formData = new FormData();
+
+    formData.append("fullName", info.fullName);
+    formData.append("bio", info.bio);
+    formData.append("degree", info.degree);
+    formData.append("experience", info.experience);
+    formData.append("pricePerHour", info.pricePerHour.toString());
+
+    if (info.image && info.image.length > 0) {
+        formData.append("file", info.image[0]); 
+    }
+    
+    const { data } = await api.post("/teacher-profile/create", formData);
+    return data;
+};
 
 export const updateTeacherProfile = async (info: TeacherProfileDto) => {
     const data = await api.patch("/teacher-profile/update", info)

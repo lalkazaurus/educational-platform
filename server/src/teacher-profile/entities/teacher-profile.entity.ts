@@ -46,4 +46,7 @@ export class TeacherProfile {
 
     @Column({ type: 'json', nullable: true, default: []})
     levels: string[]
+
+    @Column({ type: 'text', nullable: true })
+    imageUrl: string
 }
