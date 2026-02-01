@@ -72,6 +72,7 @@
     padding: 5px 15px;
     border-radius: 5px;
     text-decoration: none;
+    transition: 0.2s all ease;
 }
 
 .passwordChange:hover {

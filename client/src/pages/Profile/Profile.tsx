@@ -3,6 +3,7 @@ import { useAuthStore } from "../../store/useAuthStore";
 import styles from "./Profile.module.css"
 import { formatDate } from "../../format/date.format";
 import { useTranslation } from "react-i18next";
+import AccountLinks from "./components/AccountLinks/AccountLinks";
 
 export default function Profile() {
     const user = useAuthStore( (state) => state.user )
@@ -47,6 +48,7 @@ export default function Profile() {
                 </tr>
             </tbody>
         </table>
+        <AccountLinks roles={user.roles}/>
         <a className={styles.passwordChange} href="/change-password">{t("change-password")}</a>
     </div>
 }
