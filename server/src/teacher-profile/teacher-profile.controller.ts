@@ -135,4 +135,12 @@ export class TeacherProfileController {
       excludeExtraneousValues: true
     })
   }
+
+  @Get("/profile/by-user-id")
+  @UseGuards(JwtAuthGuard, RolesGuard, TeacherProfileGuard)
+  @Role(Roles.TEACHER)
+  async findTeacherByUserId(@Req() req: any) {
+    const user = req.user as ValidatedPayloadDto;
+    return await this.teacherProfileService.findTeacherByUserId(user.id);
+  }
 }

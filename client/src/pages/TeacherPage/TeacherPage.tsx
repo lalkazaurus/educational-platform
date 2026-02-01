@@ -29,8 +29,6 @@ export default function TeacherPage() {
 
     if (isLoading) return <Spinner/>
 
-    console.log(data?.bio)
-
     return <div className={"container"}>
         <table className={styles.info}>
             <thead>

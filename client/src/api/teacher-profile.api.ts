@@ -72,3 +72,8 @@ export const findTeacherById = async (id: number) => {
     const reasponse = await api.get<TeacherProfileDto>(`teacher-profile/id/${id}`)
     return reasponse.data
 }
+
+export const findTeacherByUserId = async () => {
+    const response = await api.get<TeacherProfileDto>(`teacher-profile/profile/by-user-id`)
+    return response.data
+}
