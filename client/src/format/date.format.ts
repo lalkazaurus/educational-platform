@@ -8,3 +8,12 @@ export const formatDate = (dateValue: string | Date) => {
       minute: "2-digit",
     }).format(date);
 };
+
+export const formatDateWithoutTime = (dateValue: string | Date) => {
+    const date = new Date(dateValue);
+    return new Intl.DateTimeFormat("uk-UA", {
+      day: "2-digit",
+      month: "numeric",
+      year: "numeric"
+    }).format(date);
+};

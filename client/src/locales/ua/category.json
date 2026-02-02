@@ -8,5 +8,7 @@
     "pricePerHour": "Ціна за заняття",
     "levels": "Рівні викладання",
     "languages": "Мови викладання",
-    "rating": "Рейтинг"
+    "rating": "Рейтинг",
+    "learning-goal": "Ціль навчання",
+    "date-of-birth": "Дата народження"
 }

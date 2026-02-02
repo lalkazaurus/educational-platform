@@ -8,5 +8,7 @@
     "pricePerHour": "Price per hour",
     "levels": "Levels",
     "languages": "Languages",
-    "rating": "Rating"
+    "rating": "Rating",
+    "learning-goal": "Learning goal",
+    "date-of-birth": "Date of birth"
 }

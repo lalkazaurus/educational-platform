@@ -17,6 +17,7 @@ import ChangePassword from "./pages/ChangePassword/ChangePassword";
 import { AccessGuard } from "./layouts/AuthGuard/AuthGuard";
 import { IsAuthCheckGuard } from "./layouts/IsAuthCheckGuard/IsAuthCheckGuard";
 import TeacherProfile from "./pages/TeacherProfile/TeacherProfile";
+import StudentProfile from "./pages/StudentProfile/StudentProfile";
 
 const router = createBrowserRouter([
     {
@@ -81,6 +82,12 @@ const router = createBrowserRouter([
         path: "/teacher-profile",
         element: <AccessGuard>
             <TeacherProfile/>
+        </AccessGuard>,
+        errorElement: <ErrorPage/>
+    }, {
+        path: "/student-profile",
+        element: <AccessGuard>
+            <StudentProfile/>
         </AccessGuard>,
         errorElement: <ErrorPage/>
     }

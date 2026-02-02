@@ -44,4 +44,12 @@ export class StudentsController {
     const user = req.user as ValidatedPayloadDto
     return await this.studentsService.deleteStudentProfile(user.id)
   }
+
+  @Get("/profile/by-user-id")
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Role(Roles.STUDENT)
+  async findStudentProfileByUserId(@Req() req: any) {
+    const user = req.user as ValidatedPayloadDto;
+    return await this.studentsService.findStudentProfileByUserId(user.id);
+  }
 }

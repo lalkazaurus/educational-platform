@@ -20,3 +20,9 @@ export const deleteStudent = async () => {
     const { data } = await api.delete("/students/delete")
     return data
 }
+
+export const findStudentByUserId = async () => {
+    const response = await api.get<InitialStudentsDto>(`/students/profile/by-user-id`)
+    console.log(response)
+    return response.data
+}
