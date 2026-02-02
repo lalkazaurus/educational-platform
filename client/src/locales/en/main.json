@@ -11,5 +11,7 @@
   "sub_inspiration": "Our hand-picked experts are ready to guide you. Stop learning the ordinary way—start achieving extraordinary results with top specialists today.",
   "join_button": "Join us now!",
   "404-title": "404 Page not found",
-  "404-home-link": "Click here to move to Main Page"
+  "404-home-link": "Click here to move to Main Page",
+  "403-title": "403 Access Denied",
+  "403-home-link": "Click here to move to Main Page"
 }

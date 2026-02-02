@@ -18,6 +18,7 @@ import { AccessGuard } from "./layouts/AuthGuard/AuthGuard";
 import { IsAuthCheckGuard } from "./layouts/IsAuthCheckGuard/IsAuthCheckGuard";
 import TeacherProfile from "./pages/TeacherProfile/TeacherProfile";
 import StudentProfile from "./pages/StudentProfile/StudentProfile";
+import AccessDenied from "./pages/AccessDenied/AccessDenied";
 
 const router = createBrowserRouter([
     {
@@ -86,10 +87,13 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage/>
     }, {
         path: "/student-profile",
-        element: <AccessGuard>
+        element: <AccessGuard roles={["ADMIN"]}>
             <StudentProfile/>
         </AccessGuard>,
         errorElement: <ErrorPage/>
+    }, {
+        path: "/403",
+        element: <AccessDenied/>
     }
 ])
 
