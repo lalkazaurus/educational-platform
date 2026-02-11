@@ -5,8 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createTeacherProfile } from "../../api/teacher-profile.api";
 import { useTranslation } from "react-i18next";
+import { useRef, useState } from "react";
 
 export default function AddTeacherProfile() {
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
+    const [preview, setPreview] = useState<string | null>(null);
+
     const {
         register,
         handleSubmit,
@@ -26,18 +30,33 @@ export default function AddTeacherProfile() {
             queryClient.invalidateQueries({ queryKey: ["teacherProfile"] }); 
             navigate("/");
             reset();
+            setPreview(null);
         },
         onError: (error) => {
             console.error(t("error"), error);
         }
     });
 
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreview(reader.result as string);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
     const onSubmit = (data: CreateTeacherDto) => {
-        console.log(data)
         addTeacherMutation.mutate(data);
     };
 
     const isSubmitting = addTeacherMutation.isPending;
+
+    const { ref: registerRef, onChange: registerOnChange, ...restRegister } = register("image", {
+        required: t("image-required")
+    });
 
     return (
         <div className={"container"}>
@@ -112,32 +131,51 @@ export default function AddTeacherProfile() {
                 {errors.pricePerHour && <p className={styles.errorText}>{errors.pricePerHour.message}</p>}
 
                 <label>{t("icon")}</label>
-                <input
-                    type="file"
-                    accept="image/*" 
-                    disabled={isSubmitting}
-                    {...register("image", {
-                        required: t("image-required")
-                    })}
-                />
-                {errors.image && <p className={styles.errorText}>{errors.image.message}</p>}
-
-                <div className={styles.buttonGroup}>
+                <div className={styles.fileUpload}>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        hidden
+                        disabled={isSubmitting}
+                        {...restRegister}
+                        ref={(e) => {
+                            registerRef(e); 
+                            fileInputRef.current = e; 
+                        }}
+                        onChange={(e) => {
+                            registerOnChange(e); 
+                            handleFileChange(e); 
+                        }}
+                    />
                     <button
                         type="button"
-                        className={styles.reset}
-                        onClick={() => reset()}
+                        className={styles.fileButton}
                         disabled={isSubmitting}
+                        onClick={() => fileInputRef.current?.click()}
                     >
-                        {t("reset")}
+                        {t("choose-file")}
                     </button>
-                    <button
-                        type="submit"
-                        disabled={isSubmitting}
-                    >
-                        {isSubmitting ? t("submitting") : t("submit")}
-                    </button>
+                    {preview && <img src={preview} alt="Preview" />}
                 </div>
+                {errors.image && <p className={styles.errorText}>{errors.image.message}</p>}
+                <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className={styles.submit}
+                >
+                    {isSubmitting ? t("submitting") : t("submit")}
+                </button>
+                <button
+                    type="button"
+                    className={styles.reset}
+                    onClick={() => {
+                        reset();
+                        setPreview(null);
+                    }}
+                    disabled={isSubmitting}
+                >
+                    {t("reset")}
+                </button>
 
                 {addTeacherMutation.isError && (
                     <p className={styles.error}>{t("wrong")}</p>

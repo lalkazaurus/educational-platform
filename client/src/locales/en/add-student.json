@@ -14,5 +14,6 @@
     "reset": "Reset",
     "learning-goal": "Learning goal",
     "learning-goal-required": "Learning goal is required",
-    "learning-goal-size": "Learning goal size has to be longer than 20 symbols"
+    "learning-goal-size": "Learning goal size has to be longer than 20 symbols",
+    "edit-title": "Editing of profile"
 }

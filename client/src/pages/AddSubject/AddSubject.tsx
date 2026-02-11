@@ -6,9 +6,11 @@ import Spinner from "../../layouts/Spinner/Spinner"
 import { useState } from "react"
 import { createSubject } from "../../api/subject.api"
 import styles from "./AddSubject.module.css"
+import { useRef } from "react";
 import { useTranslation } from "react-i18next"
 
 export default function AddSubject() {
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const { 
     data: categories, 
     isLoading: categoriesIsLoading 
@@ -40,6 +42,7 @@ export default function AddSubject() {
   })
 
   async function onSubmit(data: InitialSubjectDto) {
+
     const preparedData = {
       ...data,
       category: data.category,
@@ -133,7 +136,7 @@ export default function AddSubject() {
         <label>{t("icon")}</label>
         <div className={styles.fileUpload}>
           <input
-            id="iconUpload"
+            ref={fileInputRef}
             type="file"
             accept="image/*"
             onChange={handleFileChange}
@@ -141,7 +144,7 @@ export default function AddSubject() {
           />
           <button
             type="button"
-            onClick={() => document.getElementById("iconUpload")?.click()}
+            onClick={() => fileInputRef.current?.click()}
             className={styles.fileButton}
           >
             {t("choose-file")}

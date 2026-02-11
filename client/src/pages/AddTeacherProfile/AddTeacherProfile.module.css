@@ -10,7 +10,7 @@
   background-image: radial-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px);
   background-size: 8px 8px;
   border-radius: 16px;
-  font-family: "Comic Sans MS", "Chalkboard SE", cursive;
+  font-family: "Chalkboard SE", cursive;
   transform: rotate(-1deg);
   transition: transform 0.2s ease;
   margin: 2rem auto;
@@ -140,23 +140,14 @@
   transform: rotate(-1deg);
 }
 
-.form button[type="submit"] {
+.submit {
   background-color: #a5e5a8;
 }
 
-.form button[type="submit"]:hover {
+.submit:hover {
   background-color: #c8f5cb;
   transform: rotate(1deg) scale(1.05);
   box-shadow: 6px 6px 0px #000;
-}
-
-.form button[type="button"] {
-  background-color: #b39ddb;
-}
-
-.form button[type="button"]:hover {
-  background-color: #6a0dad;
-  color: #fff;
 }
 
 .form p {
@@ -167,7 +158,7 @@
 }
 
 .reset {
-  background-color: #ffdb58;
+  background-color: #b39ddb;
   color: #000;
   border: 3px solid #000;
   border-radius: 10px;
@@ -181,6 +172,14 @@
   transition: all 0.25s ease;
   position: relative;
   overflow: hidden;
+}
+
+
+.reset:hover {
+  background-color: #6a0dad;
+  color: white;
+  transform: rotate(1deg) scale(1.07);
+  box-shadow: 6px 6px 0px #000;
 }
 
 .reset::after {
@@ -197,11 +196,4 @@
 
 .reset:hover::after {
   left: 200%;
-}
-
-.reset:hover {
-  background-color: #fff176;
-  transform: rotate(1deg) scale(1.07);
-  box-shadow: 6px 6px 0px #000;
-  color: #000;
 }

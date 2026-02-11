@@ -44,5 +44,6 @@ export default function StudentProfile() {
                 </tr>
             </tbody>
         </table>
+        <a className={styles.editProfile} href="/edit-student-profile">{t("edit-student-profile")}</a>
     </div>
 }

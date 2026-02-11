@@ -32,9 +32,7 @@ export class StudentsController {
   @Role(Roles.STUDENT)
   async update(@Body() data: InitialStudentDto, @Req() req: any) {
     const user = req.user as ValidatedPayloadDto
-    const student = req.student as InitialStudentDto
-
-    return await this.studentsService.updateStudentProfile(student, user.id)
+    return await this.studentsService.updateStudentProfile(data, user.id)
   }
 
   @Delete("delete")

@@ -43,7 +43,6 @@ export class StudentsService {
             {userId}, 
             {...studentInfo}
         )
-
         return {
             message: "Your profile was succesfully updated"
         }
@@ -51,7 +50,6 @@ export class StudentsService {
 
     async deleteStudentProfile(userId: number) {
         await this.studentsRepository.delete({userId})
-
         return {
             message: "Your profile was succesfully deleted"
         }

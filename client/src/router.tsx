@@ -19,6 +19,7 @@ import { IsAuthCheckGuard } from "./layouts/IsAuthCheckGuard/IsAuthCheckGuard";
 import TeacherProfile from "./pages/TeacherProfile/TeacherProfile";
 import StudentProfile from "./pages/StudentProfile/StudentProfile";
 import AccessDenied from "./pages/AccessDenied/AccessDenied";
+import EditStudentProfile from "./pages/EditStudentProfile/EditStudentProfile";
 
 const router = createBrowserRouter([
     {
@@ -47,7 +48,7 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage/>
     }, {
         path: "/add-subject",
-        element: <AccessGuard roles={["ADMIN"]}>
+        element: <AccessGuard roles={["USER"]}>
                     <AddSubject />
                  </AccessGuard>,
         errorElement: <ErrorPage/>
@@ -87,13 +88,17 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage/>
     }, {
         path: "/student-profile",
-        element: <AccessGuard roles={["ADMIN"]}>
+        element: <AccessGuard roles={["STUDENT"]}>
             <StudentProfile/>
         </AccessGuard>,
         errorElement: <ErrorPage/>
     }, {
         path: "/403",
         element: <AccessDenied/>
+    }, {
+        path: "/edit-student-profile",
+        element: <EditStudentProfile/>,
+        errorElement: <ErrorPage/>
     }
 ])
 
