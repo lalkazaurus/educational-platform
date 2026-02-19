@@ -1,5 +1,5 @@
 import api from "."
-import type { AddSubjectDto, AvailableTimeDto, CreateTeacherDto, TeacherProfileDto } from "../types/teacher-profile.dto"
+import type { AddSubjectDto, AvailableTimeDto, CreateTeacherDto, TeacherProfileDto, UpdateTeacherProfileDto } from "../types/teacher-profile.dto"
 
 export const getAllTeachers = async () => {
     const { data } = await api.get("/teacher-profile")
@@ -23,7 +23,7 @@ export const createTeacherProfile = async (info: CreateTeacherDto) => {
     return data;
 };
 
-export const updateTeacherProfile = async (info: TeacherProfileDto) => {
+export const updateTeacherProfile = async (info: UpdateTeacherProfileDto) => {
     const data = await api.patch("/teacher-profile/update", info)
     return data
 }

@@ -18,7 +18,7 @@ export default function EditStudentProfile() {
         isError, 
         error
     } = useQuery<InitialStudentsDto, AxiosError<ApiError>>({
-        queryKey: ["findStudentById"], 
+        queryKey: ["findStudentByUserId"], 
         queryFn: () => findStudentByUserId()
     });
 
@@ -55,7 +55,7 @@ export default function EditStudentProfile() {
     const editStudentMutation = useMutation({
         mutationFn: updateStudent,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['updateSrudent'] });
+            queryClient.invalidateQueries({ queryKey: ['updateStudent'] });
             navigate("/student-profile");
             reset();
         },
@@ -65,7 +65,6 @@ export default function EditStudentProfile() {
     });
 
     const onSubmit = async (formData: InitialStudentsDto) => {
-        console.log(formData)
         editStudentMutation.mutate(formData)
     };
 

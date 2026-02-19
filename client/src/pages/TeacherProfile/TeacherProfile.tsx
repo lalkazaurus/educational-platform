@@ -62,5 +62,6 @@ export default function TeacherProfile() {
                 </tr>
             </tbody>
         </table>
+        <a className={styles.editProfile} href="/edit-teacher-profile">{t("edit-teacher-profile")}</a>
     </div>
 }

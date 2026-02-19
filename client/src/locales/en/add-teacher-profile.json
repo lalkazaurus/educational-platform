@@ -23,5 +23,6 @@
     "wrong": "Something went wrong. Please try again.",
     "reset": "Reset",
     "choose-file": "Choose file",
-    "image-required": "Image is required"
+    "image-required": "Image is required",
+    "edit-title": "Edit teacher profile"
 }

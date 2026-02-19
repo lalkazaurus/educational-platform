@@ -20,6 +20,7 @@ import TeacherProfile from "./pages/TeacherProfile/TeacherProfile";
 import StudentProfile from "./pages/StudentProfile/StudentProfile";
 import AccessDenied from "./pages/AccessDenied/AccessDenied";
 import EditStudentProfile from "./pages/EditStudentProfile/EditStudentProfile";
+import EditTeacherProfile from "./pages/EditTeacherProfile/EditTeacherProfile";
 
 const router = createBrowserRouter([
     {
@@ -97,7 +98,15 @@ const router = createBrowserRouter([
         element: <AccessDenied/>
     }, {
         path: "/edit-student-profile",
-        element: <EditStudentProfile/>,
+        element: <AccessGuard roles={["STUDENT"]}>
+            <EditStudentProfile/>
+        </AccessGuard>,
+        errorElement: <ErrorPage/>
+    }, {
+        path: "/edit-teacher-profile",
+        element: <AccessGuard roles={["TEACHER"]}>
+            <EditTeacherProfile/>
+        </AccessGuard>,
         errorElement: <ErrorPage/>
     }
 ])

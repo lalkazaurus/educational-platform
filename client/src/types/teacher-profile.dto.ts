@@ -31,3 +31,11 @@ export interface AddSubjectDto {
 export interface AddLanguages {
     languages: string[]
 }
+
+export interface UpdateTeacherProfileDto {
+    fullName: string,
+    bio: string,
+    degree: string,
+    experience: string,
+    pricePerHour: number
+}
